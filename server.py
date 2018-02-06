@@ -1,4 +1,8 @@
-from flask import Flask, render_template, session, flash, request, redirect
+from flask import (Flask,
+                   session, flash,
+                   render_template, redirect,
+                   request,
+                   jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
 import jinja2
 # Flask allows app object
@@ -26,7 +30,33 @@ def index():
 
     return render_template("home.html")
 
-# @app.route("")
+
+@app.route("/register", methods=["POST"])
+def register():
+    """Register new user in database"""
+    # redirect to the logged in dashboard page
+    pass
+    # <form action='/signup' method='POST' id='enter-site-form'>
+    #     <input type='text' name='email' placeholder='email address'
+    #            id='email-form-entry' required>
+    #     <input type='password' name='pw' placeholder='password'
+    #            id='pw-form-entry' required>
+
+#href="/login"
+
+
+@app.route("/users/new")
+def check_new_user():
+    email = request.form.get('email')  # get email value from payload
+
+    user_record = User.query.filter(User.email == email).first()
+    # queries user table for first record with that email; returns None if no record
+    if user_record is None:
+        response = {"valid": True}
+    else:
+        response = {"valid": False}
+
+    return jsonify(response)
 
 if __name__ == "__main__":
 

@@ -10,7 +10,7 @@ class serverTests(unittest.TestCase):
     def setUp(self):
         """Code to run before every test."""
 
-        self.client = server.app.test_client()  
+        self.client = server.app.test_client()
             # Use Balloonicorn Flask app lab; replaced "party" with "server"
         server.app.config['TESTING'] = True
 
@@ -24,7 +24,6 @@ class serverTests(unittest.TestCase):
         """????"""
         pass
 
-
     def test_3(self):
         """????"""
 
@@ -34,6 +33,7 @@ class serverTests(unittest.TestCase):
         """????"""
 
         pass
+
 
 class modelTests(unittest.TestCase):
     """Tests for the data ORM in model.py."""

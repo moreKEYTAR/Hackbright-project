@@ -5,13 +5,45 @@
 <h1>Welcome to SamePage</h1>
 
 <div>
-<h4>Want to join SamePage? Please register!</h4>
-<form action='/signup' method='POST' id='enter-site-form'>
-    <input type='text' name='email' placeholder='email address' 
-           id='email-form-entry' required>
-    <input type='password' name='pw' placeholder='password' 
-           id='pw-form-entry' required>
-</form>
+<h4>Want to join SamePage?</h4>
+<p>Sign up with just an email and password</p>
+    <form action='/register' method='POST' id='enter-site-form'>
+        <input type='text' name='email' placeholder='email address' 
+               id='email-form-entry' required>
+        <input type='password' name='pw' placeholder='password' 
+               id='pw-form-entry' required>
+        <input type='submit' id='form-submission' value='Sign Up!'>
+    </form>
 </div>
+<p>Already have an account? <a href="/login">Log In</a></p>
+
+<script>
+
+"use strict";
+
+$('#enter-site-form').on('submit', function (evt){
+    evt.preventDefault();
+    let email = $('#email-form-entry').val();
+    let payload = {"email": email};
+
+    $.get('/users/new', payload, function (results){
+        if (results.valid === true){
+            alert("yay! new user!");
+            let pw = $('#pw-form-entry').val();
+            // SO FAR, NO PASSWORD STRENGTH/VALIDATION IS PRESENT; GOES HERE
+            payload["pw"] = pw;  // update the payload with the password now
+            
+            $.post('/register', payload, function () {
+                //REDIRECT TO DASHBOARD??? CHANGE DISPLAY?????
+            }
+
+        } else {
+            alert("That email has already been used! Do you need help recovering your password?");
+        }
+    })
+});
+
+</script>
+
 
 {% endblock %}
