@@ -1,0 +1,64 @@
+<html>
+<head>
+    <link rel="stylesheet"
+          href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.css"/>
+    <!-- <link el="stylesheet" type="text/css" href="/static/styles.css"> -->
+    <title>SamePage</title>
+</head>
+
+<body>
+
+<!-- DIV FROM SHOPPINGSITE LAB, BASE.HTML NAVBAR -->
+<!--     <div class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+
+            <div class="navbar-header">
+                <img src="/static/img/ubermelon-logo.png">
+                <a class="navbar-brand" href="/">Ubermelon</a>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/cart">
+                            <img class="melon-cart"
+                                 src="/static/img/watermelon.png">
+                            My Melon Cart
+                        </a>
+                    </li>
+                    <li><a href="/login">Log In</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div> -->
+
+    <div class="container">
+        <!-- DIV FROM SHOPPINGSITE LAB, BASE.HTML FLASH JINJA -->
+        <!-- Show flashed messages -->
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+              <div class="alert alert-warning">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+
+
+        {% block content %}
+        
+        <!-- This is where the main content goes. -->
+
+        {% endblock %}
+
+    </div>
+
+<!-- <script
+  src="http://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous">
+    </script> -->
+<!-- The integrity and crossorigin attributes are used for Subresource Integrity (SRI) checking. This allows browsers to ensure that resources hosted on third-party servers have not been tampered with. Use of SRI is recommended as a best-practice, whenever libraries are loaded from a third-party source. Read more at srihash.org -->
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+</body>
+</html>

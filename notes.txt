@@ -1,0 +1,73 @@
+SETUP NOTES///////////////////////////////////////////////////////////////
+
+Feb-5
+Created files: 
+model.py, query.py, server.py, README.rst, /templates, /static, /env, requirements.txt, .gitignore, tests.py, notes.txt
+
+Feb-5
+Installed:
+Flask, flask-sqlalchemy, sqlalchemy, psycopg2, flask debugtoolbar, jinja2
+
+
+
+SERVER.PY NOTES///////////////////////////////////////////////////////////////
+
+Feb-5
+To visit your Flask app, you can open your browser to http://localhost:5000.
+http://127.0.0.1:5000/ ?????
+
+Feb-5
+app.run(debug=True) ??????????
+
+    You could disable debug mode by changing this line in server.py:
+
+    app.run(debug=True)
+    If you were to set debug to False and visit /greet while there’s an error 
+    in that route, the error page you receive would be much less verbose about 
+    the problem.
+
+    While you’re developing an app, a vague error page isn’t very helpful. But 
+    if your app were deployed online, this output would be much better than giving 
+    users access to your debug console!
+
+    When you work on Flask apps at Hackbright, we encourage you to keep the 
+    debugger activated to help you effectively track down pesky bugs.
+
+    If you do turn debug mode off, then when you’re ready turn it back on, you 
+    will have to restart your server for the change to take effect. That’s because 
+    once you turn off debug mode, the server stops automatically updating as you 
+    make changes to files.
+
+
+
+
+TESTS.PY NOTES///////////////////////////////////////////////////////////////
+
+Feb-5
+**unittest** supports test automation, sharing of setup and shutdown code for 
+tests, aggregation of tests into collections, and independence of the tests 
+from the reporting framework. The unittest module provides classes that make 
+it easy to support these qualities for a set of tests.
+
+
+MODEL.PY NOTES///////////////////////////////////////////////////////////////
+
+Feb-5
+http://www.vertabelo.com/blog/technical-articles/how-to-store-authentication-data-in-a-database-part-1
+http://www.rfc-editor.org/errata_search.php?rfc=3696&eid=1690
+
+
+ 
+HTML / CSS design ///////////////////////////////////////////////////////////
+
+Feb-6
+home.html
+- h4
+
+
+
+Accessibility ///////////////////////////////////////////////////////////////
+
+Feb-6
+PENDING
+

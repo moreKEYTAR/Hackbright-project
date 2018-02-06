@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Welcome to SamePage</h1>
+
+<div>
+<h4>Want to join SamePage? Please register!</h4>
+<form action='/signup' method='POST' id='enter-site-form'>
+    <input type='text' name='email' placeholder='email address' 
+           id='email-form-entry' required>
+    <input type='password' name='pw' placeholder='password' 
+           id='pw-form-entry' required>
+</form>
+</div>
+
+{% endblock %}
