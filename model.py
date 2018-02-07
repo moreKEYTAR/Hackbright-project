@@ -175,25 +175,54 @@ class Board(db.Model):
 
 ###################################################################
 
-def connect_to_db(app):
+def connect_to_db(app, db_uri='postgresql:///project'):
     """Connect the database, project, to our Flask app."""
 
-    # Configure to use our database.
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres:///project'
-    app.config['SQLALCHEMY_ECHO'] = False  # What does this do????
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.app = app
     db.init_app(app)
 
+
+def test_data():
+    """Creates data for testing."""
+
+    User.query.delete()
+    # Team.query.delete()
+    # UserTeam.query.delete()
+    # Board.query.delete()
+
+    dany = User(email='dragonvengeance@gmail.com',
+                password='Dragonz4life',
+                displayname='Dany')
+    arya = User(email='ilikewolves@gmail.com',
+                password='imissS@ns@',
+                displayname='Horseface')
+    jon = User(email='broodingallday@hotmail.com',
+               password='iknownoth1ng',
+               displayname='Jon')
+    cersei = User(email='differentinbooks@kingslanding.com',
+                  password='JaimeJaime4ev3r',
+                  displayname='Queen Cersei')
+
+    # t1 = Team(name='Winterfell', desc='Planning with the Starks')
+    # t2 = Team(name="King's Landing", desc='That Lannister Life')
+    # t3 = Team(name="Targaryen Queen", desc='Ruling from Essos to Westeros')
+    # No userteam relationships yet
+    # No boards made yet
+
+    db.session.add_all([dany, arya, jon, cersei])
+    db.session.commit()
+
+
 if __name__ == "__main__":
     # As a convenience, if we run this module interactively, it will leave
     # you in a state of being able to work with the database directly.
 
-    # So that we can use Flask-SQLAlchemy, we'll make a Flask app.
-    from flask import Flask
-
-    app = Flask(__name__)
-
+    from server import app
     connect_to_db(app)
+
+    db.create_all()
+    test_data()
     print "Connected to DB."

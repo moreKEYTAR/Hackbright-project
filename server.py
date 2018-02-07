@@ -21,7 +21,7 @@ app.jinja_env.undefined = jinja2.StrictUndefined
 # Jinja silently ignores this. This makes debugging difficult, so we'll
 # set an attribute of the Jinja environment that says to make this an
 # error.
-model.connect_to_db(app)  # Why isn't this in the dunder name equals main?
+model.connect_to_db(app)  ############### Why isn't this in the dunder name equals main?
 # model file houses all ORM, so importing that funciton to connect to db
 
 @app.route("/")
@@ -57,6 +57,13 @@ def check_new_user():
         response = {"valid": False}
 
     return jsonify(response)
+
+
+@app.route("/user/me/dashboard")
+def dashboard():
+
+    return render_template('dashboard.html')
+
 
 if __name__ == "__main__":
 

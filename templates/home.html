@@ -32,11 +32,13 @@ $('#enter-site-form').on('submit', function (evt){
         if (results.valid === true){
             alert("yay! new user!");
             let pw = $('#pw-form-entry').val();
+
             // SO FAR, NO PASSWORD STRENGTH/VALIDATION IS PRESENT; GOES HERE
-            payload["pw"] = pw;  // update the payload with the password now
-            
+
+            payload["pw"] = pw;  // update the payload 
+ 
             $.post('/register', payload, function () {
-                //REDIRECT TO DASHBOARD??? CHANGE DISPLAY?????
+                window.location = '/'
             }
 
         } else {
