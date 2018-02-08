@@ -136,9 +136,6 @@ def add_team():
     user_id = session.get("user_id")
     user = User.query.get(user_id)
 
-
-
-    # is_valid = is_valid_team_name(name, user)
     new_team = Team(name=name, desc=desc)
     db.session.add(new_team)
     db.session.commit()
@@ -148,8 +145,7 @@ def add_team():
     db.session.commit()
     flash("yaaaaaay")
     return redirect("/users/me/dashboard")
-# def is_valid_team_name(team_name, user_object):
-#     try:
+
 
 @app.route("/users/me/logout", methods=["POST"])
 def logout_user():
