@@ -51,12 +51,15 @@
             {% endfor %}
         {% endwith %}
 
+        <!-- Displays on each page while I am working important session info -->
         {% if session.get('user_id') %} 
             <div>Logged in</div>
         {% else %}
             <div>NOT logged in</div>
         {% endif %}
-        <div>{{ session}}</div>
+        <div>{{ session }}</div> <!-- all session info saved -->
+        
+
         {% block content %}
         
         <!-- This is where the main content goes. -->

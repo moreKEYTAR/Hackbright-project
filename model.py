@@ -1,6 +1,7 @@
 """Models and database functions for database called project."""
 
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func  # added to use func.max for fixing serial increment
 from datetime import datetime
 # import query  # Added this to access query functions. Needed???
 
@@ -20,7 +21,7 @@ class User(db.Model):
     password = db.Column(db.String(200), nullable=False, unique=True)
     # password_salt = db.Column(db.String(50), nullable=False)
     # password_hash_algorithm = db.Column(db.String(50), nullable=False)
-    
+
 
     # Can you have nullable=False, if you want to add it after registration????
 
@@ -221,6 +222,15 @@ def test_data():
     db.session.commit()
 
 
+# def set_user_id_value_after_seed():
+#     """After test_data seeds, determines the user id start for
+#        serial increment (for dynamic user adds)."""
+
+#     max_u_id = db.session.query(func.max(User.u_id)).one()
+#         # returns a single value tuple >>> (int,)
+#     max_u_id
+
+
 if __name__ == "__main__":
     # As a convenience, if we run this module interactively, it will leave
     # you in a state of being able to work with the database directly.
@@ -229,5 +239,6 @@ if __name__ == "__main__":
     connect_to_db(app)
 
     db.create_all()
-    test_data()
+    # test_data()   ##### UNCOMMENT WHEN YOU WANT TO RESEED
+    # set_user_id_value_after_seed()
     print "Connected to DB."
