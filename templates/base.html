@@ -44,13 +44,19 @@
     <div class="container">
         <!-- DIV FROM SHOPPINGSITE LAB, BASE.HTML FLASH JINJA -->
         <!-- Show flashed messages -->
+
         {% with messages = get_flashed_messages() %}
             {% for message in messages %}
               <div class="alert alert-warning">{{ message }}</div>
             {% endfor %}
         {% endwith %}
 
-
+        {% if session.get('user_id') %} 
+            <div>Logged in</div>
+        {% else %}
+            <div>NOT logged in</div>
+        {% endif %}
+        <div>{{ session}}</div>
         {% block content %}
         
         <!-- This is where the main content goes. -->

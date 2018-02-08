@@ -73,6 +73,32 @@ home.html
     <input type='submit' id='form-submission'...
 
 
+javascript & AJAX ///////////////////////////////////////////////////////////
+
+Feb-6: Changed from ajax route for validating/registering, to a normal full route
+// $('#enter-site-form').on('submit', function (evt){
+//     evt.preventDefault();
+//     let email = $('#email-form-entry').val();
+//     let payload = {"email": email};
+
+//     $.get('/users/new', payload, function (results){
+//         if (results.valid === true){
+//             alert("yay! new user!");
+//             let pw = $('#pw-form-entry').val();
+
+//             // SO FAR, NO PASSWORD STRENGTH/VALIDATION IS PRESENT; GOES HERE
+
+//             payload["pw"] = pw;  // update the payload 
+ 
+//             $.post('/register', payload, function () {
+//                 window.location = '/asjdflkasf'
+//             }
+
+//         } else {
+//             alert("That email has already been used! Do you need help recovering your password?");
+//         }
+//     })
+// });
 
 
 Accessibility ///////////////////////////////////////////////////////////////

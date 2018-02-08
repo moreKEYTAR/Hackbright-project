@@ -20,7 +20,12 @@ class User(db.Model):
     password = db.Column(db.String(200), nullable=False, unique=True)
     # password_salt = db.Column(db.String(50), nullable=False)
     # password_hash_algorithm = db.Column(db.String(50), nullable=False)
-    displayname = db.Column(db.String(30), nullable=False, unique=False)
+    
+
+    # Can you have nullable=False, if you want to add it after registration????
+
+
+    displayname = db.Column(db.String(30), nullable=True, unique=False)
     # fname = db.Column(db.String(30), nullable=True, unique=False)  # MAY NEED TO RECONSIDER
     # lname = db.Column(db.String(50), nullable=True, unique=False)  # MAY NEED TO RECONSIDER
     userteam = db.relationship("UserTeam")
@@ -124,9 +129,9 @@ class Board(db.Model):
 #                          nullable=False)
 #     name = db.Column(db.String(100), nullable=False, unique=False)
 #     notes = db.Column(db.String(1000), nullable=True, unique=False)
-#     author_id = db.Column(db.String(30),
-#                           db.ForeignKey('user_accounts.u_id'),
-#                           nullable=False, unique=False)
+#     # author_id = db.Column(db.String(30),
+#                           # db.ForeignKey('user_accounts.u_id'),
+#                           # nullable=False, unique=False)
 #     claimer_id = db.Column(db.String(30),
 #                            db.ForeignKey('user_accounts.u_id'),
 #                            nullable=True, unique=False, default=None)
@@ -135,18 +140,18 @@ class Board(db.Model):
 #         # Copied this default expression from flask sqlalchemy docs...
 #         # needs more understanding
 
-    # ###### project - board relationship needs work ###################
-    # # board = db.relationship("Board")  # Backref is "project"
+#     ###### project - board relationship needs work ###################
+#     # board = db.relationship("Board")  # Backref is "project"
 
-    # ###### User - projects relationship needs work ###################
-    # # author = db.relationship("User")  # Backref is "authored_project"  # This refers to the author...can it be called author????
-    # # claimer = db.relationship("User")  # Backref is "claimed_project"  # This can't work...how can the relationship be unique?
+#     ###### User - projects relationship needs work ###################
+#     # author = db.relationship("User")  # Backref is "authored_project"  # This refers to the author...can it be called author????
+#     # claimer = db.relationship("User")  # Backref is "claimed_project"  # This can't work...how can the relationship be unique?
 
 
-    # def __repr__(self):
-    #     """Provide useful output when printing."""
-    #     pass
-    #     # return "<Employee id=%d name=%s>" % (self.id, self.name)
+#     def __repr__(self):
+#         """Provide useful output when printing."""
+#         pass
+#         # return "<Employee id=%d name=%s>" % (self.id, self.name)
 
 
 # class Phase(db.Model):
@@ -193,16 +198,16 @@ def test_data():
     # UserTeam.query.delete()
     # Board.query.delete()
 
-    dany = User(email='dragonvengeance@gmail.com',
+    dany = User(u_id=1, email='dragonvengeance@gmail.com',
                 password='Dragonz4life',
                 displayname='Dany')
-    arya = User(email='ilikewolves@gmail.com',
+    arya = User(u_id=2, email='ilikewolves@gmail.com',
                 password='imissS@ns@',
                 displayname='Horseface')
-    jon = User(email='broodingallday@hotmail.com',
+    jon = User(u_id=3, email='broodingallday@hotmail.com',
                password='iknownoth1ng',
                displayname='Jon')
-    cersei = User(email='differentinbooks@kingslanding.com',
+    cersei = User(u_id=4, email='differentinbooks@kingslanding.com',
                   password='JaimeJaime4ev3r',
                   displayname='Queen Cersei')
 

@@ -20,8 +20,8 @@ class serverTests(unittest.TestCase):
         result = self.client.get("/")
         self.assertIn("Welcome", result.data)
 
-    def test_2(self):
-        """????"""
+    def test_login(self):
+        """Can """
         pass
 
     def test_3(self):

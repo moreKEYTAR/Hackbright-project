@@ -6,46 +6,36 @@
 
 <div>
 <h4>Want to join SamePage?</h4>
-<p>Sign up with just an email and password</p>
-    <form action='/register' method='POST' id='enter-site-form'>
+<p class="reg-page">Sign up with just an email and password</p>
+    <form action='/users/new' method='POST' id='enter-site-form'>
         <input type='text' name='email' placeholder='email address' 
                id='email-form-entry' required>
         <input type='password' name='pw' placeholder='password' 
                id='pw-form-entry' required>
         <div id='submit-input'>
         <input type='submit' id='form-submission' value='Sign Up!'>
+        <p>It would be nice to validate the email or re-enter it, and 
+            same with password. <br>But we can't have nice things.</p>
         </div>
     </form>
 </div>
-<p>Already have an account? <a href="/login">Log In</a></p>
-
+<p class="reg-page">Already have an account? 
+                   <a href="/users/login" method='GET'>Log In</a></p>
+                   <!-- Would prefer login to just be in header -->
 <script>
 
-"use strict";
+// "use strict";
 
-$('#enter-site-form').on('submit', function (evt){
-    evt.preventDefault();
-    let email = $('#email-form-entry').val();
-    let payload = {"email": email};
-
-    $.get('/users/new', payload, function (results){
-        if (results.valid === true){
-            alert("yay! new user!");
-            let pw = $('#pw-form-entry').val();
-
-            // SO FAR, NO PASSWORD STRENGTH/VALIDATION IS PRESENT; GOES HERE
-
-            payload["pw"] = pw;  // update the payload 
- 
-            $.post('/register', payload, function () {
-                window.location = '/'
-            }
-
-        } else {
-            alert("That email has already been used! Do you need help recovering your password?");
-        }
-    })
-});
+// $('#login-link').on('click', function (evt){
+//     evt.preventDefault();
+//     let elements = document.querySelectorAll(".reg-page")
+//     for (let element of elements) {
+//         element.style.visibility = "hidden";
+//     }
+//     $("h4").html("Log In to SamePage");
+//     document.getElementById('enter-site-form').action = '/users/login';
+//     // How do you change the url so that it looks different, but stay on same page?
+// })
 
 </script>
 
