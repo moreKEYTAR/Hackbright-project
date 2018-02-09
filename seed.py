@@ -64,6 +64,7 @@ if __name__ == "__main__":
     import os
     os.system('dropdb project')
     os.system('createdb project')
+    
     from server import app
     connect_to_db(app)
     db.create_all()

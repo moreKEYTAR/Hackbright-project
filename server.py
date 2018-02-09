@@ -120,9 +120,10 @@ def dashboard():
     if session.get("new_user"):
         flash("New user! Tutorial time!")
     if session.get("login") is True:
-        user_data_link_eager()
-        user = get_user_object()
+        # user_data_link_eager()
+        userteams = get_user_object()
         # user_data = get_user_data(user)
+        # userteams = 
         return render_template('dashboard.html')
     else:
         return redirect("/")

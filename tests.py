@@ -4,8 +4,6 @@ from model import db, connect_to_db, User, Team, UserTeam, Board
 from flask import session
 import seed
 import os
-# import model
-# import query  # no class yet
 
 
 class FlaskBasicTests(unittest.TestCase):
@@ -24,41 +22,18 @@ class FlaskBasicTests(unittest.TestCase):
         result = self.client.get("/")
         self.assertIn("Welcome", result.data)
 
-    def test_login(self):
-        """Can """
-        pass
 
-    def test_3(self):
-        """????"""
+class FlaskMakeUser(unittest.TestCase):
+    """Test log in and log out."""
 
-        pass
+    def setUp(self):
+        """Code to run before every test."""
 
-    def test_4(self):
-        """????"""
+        app.config['TESTING'] = True
+        # app.config['SECRET_KEY'] = app.secret_key
+        self.client = app.test_client()
 
-        pass
 
-# class FlaskLoginLogoutTests(TestCase):
-#     """Test log in and log out."""
-
-#     def setUp(self):
-#         """Before every test"""
-
-#         app.config['TESTING'] = True
-#         app.config['SECRET_KEY']
-#         self.client = app.test_client()
-
-#     def test_make_new_user(self):
-#         """Test making new user."""
-
-#         with self.client as c:
-#             result = c.post("/users/new", data={"email": "testing@gmail.com",
-#                                                 "password": "123abc"},
-#                             follow_redirects=True)
-
-#             self.assertIn("Dashboard", result.data)
-#             self.assertEqual(session["new_user"], True)
-#             self.assertEqual(session["login"], True)
 
 
 class DatabaseSeedTests(unittest.TestCase):
@@ -71,8 +46,8 @@ class DatabaseSeedTests(unittest.TestCase):
             # Use Balloonicorn Flask app lab; replaced "party" with "server"
         app.config['TESTING'] = True
 
-        os.system('dropdb testdb')
-        os.system('createdb testdb')
+        # os.system('dropdb testdb')
+        # os.system('createdb testdb')
         connect_to_db(app, "postgresql:///testdb")
         db.create_all()
         seed.load_users()
@@ -85,6 +60,7 @@ class DatabaseSeedTests(unittest.TestCase):
 
         db.session.close()
         db.drop_all()
+        # os.system('dropdb testdb')
 
     def test_login(self):
         """Test login route with testdb user data."""
@@ -94,6 +70,35 @@ class DatabaseSeedTests(unittest.TestCase):
                                         "pw": "wolfdreams"},
                                   follow_redirects=True)
         self.assertIn("Dashboard", result.data)
+
+    def test_make_new_user(self):
+        """Test making new user."""
+
+        with self.client as c:  # required for using session
+            result = c.post("/users/new", data={"email": "testing@gmail.com",
+                                                "pw": "123abc"},
+                            follow_redirects=True)
+
+            self.assertIn("Dashboard", result.data)
+            self.assertEqual(session["new_user"], True)
+            self.assertEqual(session["login"], True)
+
+    # def make_user(self):
+    #     """Test making new user."""
+
+    #     with self.client as c:  # required for using session
+    #         result = c.post("/users/new", data={"email": "testing@gmail.com",
+    #                                             "password": "123abc"},
+    #                         follow_redirects=True)
+
+    #         self.assertIn("Dashboard", result.data)
+    #         self.assertEqual(session["new_user"], True)
+    #         self.assertEqual(session["login"], True)
+
+    #         user_record = User.query.filter(User.email == "testing@gmail.com"
+    #                                         ).first()
+
+    #         self.assertEqual(user_record.password == "123abc")
 
 
 class modelTests(unittest.TestCase):
