@@ -23,17 +23,15 @@ class FlaskBasicTests(unittest.TestCase):
         self.assertIn("Welcome", result.data)
 
 
-class FlaskMakeUser(unittest.TestCase):
-    """Test log in and log out."""
+# class FlaskMakeUser(unittest.TestCase):
+#     """Test log in and log out."""
 
-    def setUp(self):
-        """Code to run before every test."""
+#     def setUp(self):
+#         """Code to run before every test."""
 
-        app.config['TESTING'] = True
-        # app.config['SECRET_KEY'] = app.secret_key
-        self.client = app.test_client()
-
-
+#         app.config['TESTING'] = True
+#         # app.config['SECRET_KEY'] = app.secret_key
+#         self.client = app.test_client()
 
 
 class DatabaseSeedTests(unittest.TestCase):
@@ -83,22 +81,11 @@ class DatabaseSeedTests(unittest.TestCase):
             self.assertEqual(session["new_user"], True)
             self.assertEqual(session["login"], True)
 
-    # def make_user(self):
-    #     """Test making new user."""
+    def query_for_created_user(self):
+        """Test for finding user just created."""
 
-    #     with self.client as c:  # required for using session
-    #         result = c.post("/users/new", data={"email": "testing@gmail.com",
-    #                                             "password": "123abc"},
-    #                         follow_redirects=True)
-
-    #         self.assertIn("Dashboard", result.data)
-    #         self.assertEqual(session["new_user"], True)
-    #         self.assertEqual(session["login"], True)
-
-    #         user_record = User.query.filter(User.email == "testing@gmail.com"
-    #                                         ).first()
-
-    #         self.assertEqual(user_record.password == "123abc")
+        user_record = User.query.filter(User.email == "testing@gmail.com").first()
+        self.assertEqual(user_record.password == "123abc")
 
 
 class modelTests(unittest.TestCase):
