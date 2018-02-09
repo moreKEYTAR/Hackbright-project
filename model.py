@@ -1,7 +1,6 @@
 """Models and database functions for database called project."""
 
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import func  # added to use func.max for fixing serial increment
 from datetime import datetime
 # import query  # Added this to access query functions. Needed???
 
@@ -18,7 +17,7 @@ class User(db.Model):
     u_id = db.Column(db.Integer, primary_key=True, autoincrement=True,
                      nullable=False, unique=True)
     email = db.Column(db.String(254), nullable=False, unique=True)
-    password = db.Column(db.String(200), nullable=False, unique=True)
+    password = db.Column(db.String(200), nullable=False, unique=False)
     # password_salt = db.Column(db.String(50), nullable=False)
     # password_hash_algorithm = db.Column(db.String(50), nullable=False)
 
@@ -191,54 +190,12 @@ def connect_to_db(app, db_uri='postgresql:///project'):
     db.init_app(app)
 
 
-def test_data():
-    """Creates data for testing."""
 
-    User.query.delete()
-    # Team.query.delete()
-    # UserTeam.query.delete()
-    # Board.query.delete()
-
-    dany = User(u_id=1, email='dragonvengeance@gmail.com',
-                password='Dragonz4life',
-                displayname='Dany')
-    arya = User(u_id=2, email='ilikewolves@gmail.com',
-                password='imissS@ns@',
-                displayname='Horseface')
-    jon = User(u_id=3, email='broodingallday@hotmail.com',
-               password='iknownoth1ng',
-               displayname='Jon')
-    cersei = User(u_id=4, email='differentinbooks@kingslanding.com',
-                  password='JaimeJaime4ev3r',
-                  displayname='Queen Cersei')
-
-    # t1 = Team(name='Winterfell', desc='Planning with the Starks')
-    # t2 = Team(name="King's Landing", desc='That Lannister Life')
-    # t3 = Team(name="Targaryen Queen", desc='Ruling from Essos to Westeros')
-    # No userteam relationships yet
-    # No boards made yet
-
-    db.session.add_all([dany, arya, jon, cersei])
-    db.session.commit()
-
-
-# def set_user_id_value_after_seed():
-#     """After test_data seeds, determines the user id start for
-#        serial increment (for dynamic user adds)."""
-
-#     max_u_id = db.session.query(func.max(User.u_id)).one()
-#         # returns a single value tuple >>> (int,)
-#     max_u_id
 
 
 if __name__ == "__main__":
     # As a convenience, if we run this module interactively, it will leave
     # you in a state of being able to work with the database directly.
-
     from server import app
     connect_to_db(app)
-
-    db.create_all()
-    # test_data()   ##### UNCOMMENT WHEN YOU WANT TO RESEED
-    # set_user_id_value_after_seed()
     print "Connected to DB."
