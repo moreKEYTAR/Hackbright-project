@@ -21,9 +21,7 @@ class User(db.Model):
     # password_salt = db.Column(db.String(50), nullable=False)
     # password_hash_algorithm = db.Column(db.String(50), nullable=False)
 
-
     # Can you have nullable=False, if you want to add it after registration????
-
 
     displayname = db.Column(db.String(30), nullable=True, unique=False)
     # fname = db.Column(db.String(30), nullable=True, unique=False)  # MAY NEED TO RECONSIDER
@@ -188,9 +186,6 @@ def connect_to_db(app, db_uri='postgresql:///project'):
 
     db.app = app
     db.init_app(app)
-
-
-
 
 
 if __name__ == "__main__":
