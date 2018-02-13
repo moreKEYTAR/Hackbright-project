@@ -7,7 +7,7 @@
 <p>Let's make a new team. You can have different boards in your team, so don't worry about those yet. Just pick a team name based on whether this is for your work, or perhaps for your own "home team." </p>
 
 <div>
-    <form action="/users/me/add-team" method="POST">
+    <form action="/users/{{ session['user_id'] }}/add-team" method="POST">
         <h5>Team Name</h5>
         <input type="text" name="name" placeholder="random placeholder!!!!" required>
         <h5>Description</h5>

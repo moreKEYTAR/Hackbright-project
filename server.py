@@ -7,15 +7,19 @@ from flask_debugtoolbar import DebugToolbarExtension
 import jinja2
 from model import db, connect_to_db, User, Team, UserTeam, Board
     # Added to connect to data model classes
-    # Previous version: from model import *
+        # Previous version: from model import *
 
 app = Flask(__name__)  # makes app object
 app.secret_key = "It's great to stay up late"  # allows session use 'under the hood'
 app.jinja_env.undefined = jinja2.StrictUndefined
     # Normally, if you refer to an undefined variable in a Jinja template,
-    # Jinja silently ignores this. This makes debugging difficult, so we'll
-    # set an attribute of the Jinja environment that says to make this an
-    # error.
+        # Jinja silently ignores this. This makes debugging difficult, so we'll
+        # set an attribute of the Jinja environment that says to make this an
+        # error.
+app.jinja_env.auto_reload = True
+    # Suggested in Slack #boooooo channel, to fix an error that will sometimes happen
+        # where some versions of Flask bug so that you have to re-start your server
+        # with every change on your template.
 
 # import pdb; pdb.set_trace()
 
@@ -47,7 +51,7 @@ def make_new_user():
         user = User.query.filter(User.email == email).first()
         session["user_id"] = user.u_id
         flash("Account created. Awesome!")
-        return redirect("/users/me/dashboard")
+        return redirect("/users/{}/dashboard".format(user.u_id))
 
     else:
         flash("Oops...that email has already been used!")
@@ -105,7 +109,8 @@ def log_in_returning_user():
             session["user_id"] = user.u_id
             session["login_count"] = 0
             flash("Welcome back to SamePage")
-            return redirect("/users/me/dashboard")  # Successful login
+            return redirect("/users/{}/dashboard".format(user.u_id))
+                # Successful login redirects to dashboard with customized url
 
 
 @app.route("/users/login/password-recovery")
@@ -115,25 +120,32 @@ def password_recovery():
     return "OOOOOOOPS"
 
 
-@app.route("/users/me/dashboard")
-def dashboard():
+@app.route("/users/<int:user_id>/dashboard")
+def dashboard(user_id):
+    """Renders dashboard view, grabbing existing teams for display"""
     if session.get("new_user"):
         flash("New user! Tutorial time!")
     if session.get("login") is True:
         # user_data_link_eager()
-        userteams = get_user_object()
-        # user_data = get_user_data(user)
-        # userteams = 
+        # user = get_user_object()
+        print "True!"
         return render_template('dashboard.html')
     else:
         return redirect("/")
+        # Prevents viewing if not logged in
 
 
-def get_user_object():
-    """Queries db to return user object, using u_id saved in session"""
-    user_id = session.get("user_id")
-    user_object = User.query.get(user_id)
-    return user_object
+# def get_user_object():
+#     """Queries db to return user object, using u_id saved in session"""
+#     user_id = session.get("user_id")
+#     user_object = User.query.options(db.joinedload('UserTeam')
+#                                      .joinedload('Team')
+#                                      ).get(user_id)
+#     #
+#     #
+#     # WORKING ON DOUBLE EAGER JOIN
+#     ####
+#     return user_object
 
 
 def user_data_link_eager():
@@ -143,14 +155,15 @@ def user_data_link_eager():
     # STILL WORKING
 
 
-@app.route("/users/me/new-team")
-def new_team():
+@app.route("/users/<int:user_id>/new-team")
+def new_team(user_id):
     """Temporary page that forces name choice"""
     return render_template("make-new-team.html")
 
 
-@app.route("/users/me/add-team", methods=["POST"])
-def add_team():
+@app.route("/users/<int:user_id>/add-team", methods=["POST"])
+def add_team(user_id):
+    """"""
     name = request.form.get("name")
     desc = request.form.get("description", None)
     user = get_user_object()
@@ -163,16 +176,27 @@ def add_team():
     db.session.add(new_userteam)
     db.session.commit()
     flash("yaaaaaay")
-    return redirect("/users/me/dashboard")
+    return redirect("/users/{}/dashboard".format(user.u_id))
 
 
-@app.route("/users/me/logout", methods=["POST"])
-def logout_user():
+@app.route("/users/<int:user_id>/logout", methods=["POST"])
+def logout_user(user_id):
     session.clear()
 
     flash("You have been logged out.")
     return redirect("/")
 
+###############################FROM RATINGS ###############################
+# @app.route("/movies/<int:movie_id>", methods=['POST'])
+# def movie_detail_process(movie_id):
+#     """Add/edit a rating."""
+
+#     # Get form variables
+#     score = int(request.form["score"])
+
+#     user_id = session.get("user_id")
+#     if not user_id:
+#         raise Exception("No user logged in.")  #### WHAT IS THIS ####
 
 if __name__ == "__main__":
 

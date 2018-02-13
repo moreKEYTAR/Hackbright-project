@@ -1,9 +1,12 @@
 from model import db, connect_to_db, User, Team, UserTeam, Board
 from sqlalchemy import func  # added to use func.max for fixing serial increment
+# import pdb; pdb.set_trace()
 
 
 def load_users():
     """Import and add user data from users.txt into db"""
+    # All data in users.txt should have a u_id already, and may or may not
+        # have a displayname
     for row in open("seed-data/users.txt"):
         row = row.strip()
         user_data = row.split("|")
@@ -11,15 +14,18 @@ def load_users():
             u_id, email, password, displayname = user_data
             user = User(u_id=u_id, email=email, password=password,
                         displayname=displayname)
-        else:
-            u_id, email, pw = user_data
+        else:  # Assuming the only other case for test data is missing a displayname
+            u_id, email, password = user_data
             user = User(u_id=u_id, email=email, password=password)
         db.session.add(user)
         db.session.commit()
+    set_user_id_value_after_seed()
 
 
 def load_teams():
     """Import and add team data from teams.txt into db"""
+    # All data in teams.txt SHOULD have a description, but that data is
+        # optional for user creating a table.
     for row in open("seed-data/teams.txt"):
         row = row.strip()
         name, desc = row.split("|")
@@ -32,12 +38,13 @@ def load_userteams():
     """Import and add userteam data from userteams.txt into db"""
     for row in open("seed-data/userteams.txt"):
         row = row.strip()
-        user_id, team_id, joined = row.split("|")
-        if joined == "t":
-            joined = True
+        user_id, team_id, is_member = row.split("|")
+        if is_member == "t":
+            is_member = True
         else:
-            joined = False
-        userteam = UserTeam(user_id=user_id, team_id=team_id, joined=joined)
+            is_member = False
+        userteam = UserTeam(user_id=user_id, team_id=team_id,
+                            is_member=is_member)
         db.session.add(userteam)
         db.session.commit()
 
@@ -61,14 +68,14 @@ def set_user_id_value_after_seed():
 
 
 if __name__ == "__main__":
-    import os
-    os.system('dropdb project')
-    os.system('createdb project')
-    
+    # import os
+    # os.system('dropdb project')
+    # os.system('createdb project')
+
     from server import app
     connect_to_db(app)
+    # db.drop_all()
     db.create_all()
-    load_users()
+    load_users()  # Runs set_user_id_value_after_seed() as well
     load_teams()
     load_userteams()
-    set_user_id_value_after_seed()

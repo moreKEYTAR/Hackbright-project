@@ -53,6 +53,7 @@
 
         <!-- Displays on each page while I am working important session info -->
         {% if session.get('user_id') %} 
+            <a href="http://localhost:5000/users/{{ session['user_id'] }}/dashboard">/users/{u_id}/dashboard</a>
             <div>Logged in</div>
         {% else %}
             <div>NOT logged in</div>
@@ -60,7 +61,7 @@
         <div>{{ session }}</div> <!-- all session info saved -->
         
         <div>
-        <a href="http://localhost:5000/users/me/dashboard">/users/me/dashboard</a>
+        
         </div>
 
         {% block content %}

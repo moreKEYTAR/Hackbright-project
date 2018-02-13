@@ -3,7 +3,6 @@ from server import app
 from model import db, connect_to_db, User, Team, UserTeam, Board
 from flask import session
 import seed
-import os
 
 
 class FlaskBasicTests(unittest.TestCase):
@@ -51,7 +50,7 @@ class DatabaseSeedTests(unittest.TestCase):
         seed.load_users()
         seed.load_teams()
         seed.load_userteams()
-        seed.set_user_id_value_after_seed()
+
 
     def tearDown(self):
         """Do at end of every test."""

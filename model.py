@@ -2,9 +2,9 @@
 
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-# import query  # Added this to access query functions. Needed???
+# import query  # Added this to access query functions...implementation TBD.
 
-db = SQLAlchemy()  # Creates db object; already ran createdb project in bash
+db = SQLAlchemy()
 
 ###################################################################
 
@@ -17,24 +17,16 @@ class User(db.Model):
     u_id = db.Column(db.Integer, primary_key=True, autoincrement=True,
                      nullable=False, unique=True)
     email = db.Column(db.String(254), nullable=False, unique=True)
-    password = db.Column(db.String(200), nullable=False, unique=False)
+    password = db.Column(db.String(30), nullable=False, unique=False)
     # password_salt = db.Column(db.String(50), nullable=False)
     # password_hash_algorithm = db.Column(db.String(50), nullable=False)
-
-    # Can you have nullable=False, if you want to add it after registration????
-
     displayname = db.Column(db.String(30), nullable=True, unique=False)
-    # fname = db.Column(db.String(30), nullable=True, unique=False)  # MAY NEED TO RECONSIDER
-    # lname = db.Column(db.String(50), nullable=True, unique=False)  # MAY NEED TO RECONSIDER
-    userteam = db.relationship("UserTeam")
 
-    ###### User - projects relationship needs work ###################
-    # authored_project = db.relationship("Project")  # Backref is "author"
-    # claimed_project = db.relationship("Project")  # Backref is "claimer"
+    # SEE UserTeam FOR RELATIONSHIP
+    # SEE Project FOR RELATIONSHIP
 
     def __repr__(self):
         """Provide useful output when printing: User."""
-
         return "<{email}  U_ID: {u_id}  Displayname: {display}>".format(
             email=self.email, u_id=self.u_id, display=self.displayname)
 
@@ -46,27 +38,19 @@ class Team(db.Model):
 
     t_id = db.Column(db.Integer, primary_key=True, autoincrement=True,
                      nullable=False, unique=True)
-    # email = db.Column(db.String(254), nullable=False, unique=True)
-    # password = db.Column(db.String(200), nullable=False, unique=True)
-    # password_salt = db.Column(db.String(50), nullable=False)
-    # password_hash_algorithm = db.Column(db.String(50), nullable=False)
-    # displayname = db.Column(db.String(20), nullable=False, unique=False)
     name = db.Column(db.String(100), nullable=False, unique=False)  # MAY NEED TO RECONSIDER
     desc = db.Column(db.String(255), nullable=True, unique=False)  # MAY NEED TO RECONSIDER
-    userteam = db.relationship("UserTeam")  # backref is "team"
 
-    ############ Board - team relationship needs work ##############
-    board = db.relationship("Board")  # Backref is "team"
-        # Many boards to one team; returns MANY things
+    # SEE UserTeam FOR RELATIONSHIP
+    # SEE Board FOR RELATIONSHIP
 
     def __repr__(self):
         """Provide useful output when printing: Team."""
-
         return "<{name}  T_ID: {t_id}>".format(name=self.name, t_id=self.t_id)
 
 
 class UserTeam(db.Model):
-    """UserTeam model, with joined status"""
+    """UserTeam model, with is_member status"""
 
     __tablename__ = "users_teams"
 
@@ -76,15 +60,14 @@ class UserTeam(db.Model):
                         nullable=False)
     team_id = db.Column(db.Integer, db.ForeignKey('team_accounts.t_id'),
                         nullable=False)
-    joined = db.Column(db.Boolean, nullable=False, default=False)
-        # joined is whether the user has accepted to be one a team
+    is_member = db.Column(db.Boolean, nullable=False, default=False)
+        # whether the user has accepted to be on a team
 
-    user = db.relationship("User")  # Backref is "userteam"
-    team = db.relationship("Team")  # Backref is "userteam"
+    user = db.relationship("User", backref="userteam")
+    team = db.relationship("Team", backref="userteam")
 
     def __repr__(self):
         """Provide useful output when printing."""
-
         return "<UT_ID: {ut_id}  User: {user_id}  Team: {team_id}>".format(
             ut_id=self.ut_id, user=self.user_id, team=self.team_id)
 
@@ -101,79 +84,66 @@ class Board(db.Model):
     name = db.Column(db.String(100), nullable=False, unique=False)
     desc = db.Column(db.String(255), nullable=True, unique=False)
     updated = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-        # What does defaul=datetime.utcnow do?
 
-    team = db.relationship("Team")  # Backref is "board"  # Returns ONE thing
-    #  num projects? This can be calculated....
-
-    ############ Board - project relationship needs work ##############
-    # project = db.relationship("Project")  # Backref is "board"
+    team = db.relationship("Team", backref="board")
+    # SEE Project FOR RELATIONSHIP
 
     def __repr__(self):
         """Provide useful output when printing."""
-
-        return "<B_ID: {b_id}  Name: {name}  Team: {team_id}>".format(
+        return "<B_ID: {b_id}  Name: {name}  Team: {team}>".format(
             b_id=self.b_id, name=self.name, team=self.team_id)
 
-# class Project(db.Model):
-#     """Project model"""
 
-#     __tablename__ = "projects"
+class Project(db.Model):
+    """Project model"""
 
-#     p_id = db.Column(db.Integer, primary_key=True, autoincrement=True,
-#                      nullable=False, unique=True)
-#     board_id = db.Column(db.Integer,
-#                          db.ForeignKey('boards.b_id'),
-#                          nullable=False)
-#     name = db.Column(db.String(100), nullable=False, unique=False)
-#     notes = db.Column(db.String(1000), nullable=True, unique=False)
-#     # author_id = db.Column(db.String(30),
-#                           # db.ForeignKey('user_accounts.u_id'),
-#                           # nullable=False, unique=False)
-#     claimer_id = db.Column(db.String(30),
-#                            db.ForeignKey('user_accounts.u_id'),
-#                            nullable=True, unique=False, default=None)
-#     upvotes = db.Column(db.Integer, nullable=False, default=0)
-#     updated = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-#         # Copied this default expression from flask sqlalchemy docs...
-#         # needs more understanding
+    __tablename__ = "projects"
 
-#     ###### project - board relationship needs work ###################
-#     # board = db.relationship("Board")  # Backref is "project"
+    p_id = db.Column(db.Integer, primary_key=True, autoincrement=True,
+                     nullable=False, unique=True)
+    board_id = db.Column(db.Integer,
+                         db.ForeignKey('boards.b_id'),
+                         nullable=False)
+    user_id = db.Column(db.Integer,
+                        db.ForeignKey('user_accounts.u_id'),
+                        nullable=True, unique=False, default=None)
+    phase_code = db.Column(db.String(10),
+                           db.ForeignKey('phases.ph_code'),
+                           nullable=False, unique=False)
+    title = db.Column(db.String(100), nullable=False, unique=False)
+    notes = db.Column(db.String(2000), nullable=True, unique=False)
+    updated = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+        # needs more study
+    upvotes = db.Column(db.Integer, nullable=False, default=0)
 
-#     ###### User - projects relationship needs work ###################
-#     # author = db.relationship("User")  # Backref is "authored_project"  # This refers to the author...can it be called author????
-#     # claimer = db.relationship("User")  # Backref is "claimed_project"  # This can't work...how can the relationship be unique?
+    board = db.relationship("Board", backref="project")
+    user = db.relationship("User", backref="project")
+    phase = db.relationship("Phase", backref="project")
+
+    def __repr__(self):
+        """Provide useful output when printing."""
+        return """<{p_id}  Title: {title}  Type: {phase} 
+        Claimed by: {user} Board: {board}>""".format(
+            p_id=self.p_id,
+            title=self.title,
+            phase=self.phase_code,
+            user=self.user_id,
+            board=self.board_id)
 
 
-#     def __repr__(self):
-#         """Provide useful output when printing."""
-#         pass
-#         # return "<Employee id=%d name=%s>" % (self.id, self.name)
+class Phase(db.Model):
+    """Phase model"""
 
+    __tablename__ = "phases"
 
-# class Phase(db.Model):
-#     """Phase model"""
+    ph_code = db.Column(db.String(10), primary_key=True,
+                        nullable=False, unique=True)
 
-#     __tablename__ = "phases"
+    # SEE Project FOR RELATIONSHIP
 
-#     phase_id = db.Column(db.Integer, primary_key=True, autoincrement=True,
-#                          nullable=False, unique=True)
-#     phase_code = db.Column(db.String(10), nullable=False, unique=False)
-#     project_id = db.Column(db.Integer, db.ForeignKey('projects.p_id'),
-#                            nullable=False)
-#     name = db.Column(db.String(100), nullable=False, unique=False)
-#     notes = db.Column(db.String(1000), nullable=True, unique=False)
-#     updated = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-#         # Copied this default expression from flask sqlalchemy docs...
-#         # needs more understanding
-
-#     board = db.relationship("Board", backref="project")
-
-#     def __repr__(self):
-#         """Provide useful output when printing."""
-#         pass
-#         # return "<Employee id=%d name=%s>" % (self.id, self.name)
+    def __repr__(self):
+        """Provide useful output when printing."""
+        return "<{}>".format(self.ph_code)
 
 
 ###################################################################
@@ -189,8 +159,9 @@ def connect_to_db(app, db_uri='postgresql:///project'):
 
 
 if __name__ == "__main__":
-    # As a convenience, if we run this module interactively, it will leave
-    # you in a state of being able to work with the database directly.
+
     from server import app
+    # As a convenience, if we run this module interactively, it will leave
+        # you in a state of being able to work with the database directly.
     connect_to_db(app)
     print "Connected to DB."
