@@ -24,18 +24,19 @@
 <div>
     {% if teams_list %}
     <div>
-        
-        <p>{{ teams_list }}</p>
+
         <h3>Your Teams</h3>
     <!-- for i in range(len(teams_list)) -->
     <!-- if team[i]["is_member"] == 't' -->
     <!-- how do I account for no teams??? -->
         {% for team in teams_list %}
+            <p>{{ team.team_id }}</p>
             {% if team.is_member %}
           
             <div> 
-                <h4>{{ team.name }}</h4>
-                <p>{{ team.desc }}</p>
+                <a href="/users/{{ session['user_id'] }}/{{ team.team_id }}">
+                    <h4>{{ team.name }}</h4></a>
+                <p class="desc">{{ team.desc }}</p>
             </div>
             {% endif %}
            
@@ -48,11 +49,11 @@
             
             <div> 
                 <h4>{{ team.name }}</h4>
-                <p>{{ team.desc }}</p>
+                <p class="desc">{{ team.desc }}</p>
             </div>
             {% endif %}
         {% endfor %}
-        <p>How do I make it so it can check for any values that are false, and if None, then return none pending? Or hide this whole div?</p>
+
     </div>
     {% endif %}
 </div>

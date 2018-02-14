@@ -49,6 +49,22 @@ def load_userteams():
         db.session.commit()
 
 
+def load_boards():
+    """Import and add boards data from boards.txt into db"""
+    for row in open("seed-data/boards.txt"):
+        row = row.strip()
+        board_data = row.split("|")
+        if len(board_data) == 3:
+            team_id, name, desc = board_data
+            new_board = Board(team_id=team_id, name=name, desc=desc)
+        elif len(board_data) == 2:
+            team_id, name = board_data
+            new_board = Board(team_id=team_id, name=name)
+
+        db.session.add(new_board)
+        db.session.commit()
+
+
 def set_user_id_value_after_seed():
     """After test_data seeds, determines the user id start for
        serial increment (for dynamic user adds)."""
@@ -77,3 +93,4 @@ if __name__ == "__main__":
     load_users()  # Runs set_user_id_value_after_seed() as well
     load_teams()
     load_userteams()
+    load_boards()

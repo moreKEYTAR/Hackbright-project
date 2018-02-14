@@ -131,19 +131,40 @@ def dashboard(user_id):
         user_object = User.query.get(user_id)
         ut_objects = user_object.userteams  # makes a list of objects
         for userteam in ut_objects:
-            team_dict = {"name": userteam.team.name,
+            team_dict = {"team_id": userteam.team_id,
+                         "name": userteam.team.name,
                          "desc": userteam.team.desc,
                          "is_member": userteam.is_member}
             teams_list.append(team_dict)
         return render_template('dashboard.html', teams_list=teams_list)
     else:
-        return redirect("/")
-        # Prevents viewing if not logged in
+        return redirect("/")  # Prevents view if not logged in
 
-# def get_user_object(user_id):
-#     """Queries db to return user object, using u_id saved in session"""
-    
-#     return user_object
+
+@app.route("/users/<int:user_id>/<int:team_id>")
+def view_team(user_id, team_id):
+    """Renders view of team page, with board"""
+    if session.get("user_id") == user_id:  # validates for current logged in user
+        boards_dict = {}
+        boards = Board.query.filter_by(team_id=team_id).all()  # BaseQuery object
+
+        return "UAAAAAAA YIPPPEEEEE"
+
+    # if session.get("login") is True:
+    #     teams_list = []
+    #     user_id = session.get("user_id")
+    #     user_object = User.query.get(user_id)
+    #     ut_objects = user_object.userteams  # makes a list of objects
+    #     for userteam in ut_objects:
+    #         team_dict = {"team_id": userteam.team_id,
+    #                      "name": userteam.team.name,
+    #                      "desc": userteam.team.desc,
+    #                      "is_member": userteam.is_member}
+    #         teams_list.append(team_dict)
+    #     return render_template('dashboard.html', teams_list=teams_list)
+    else:
+        return "ooooh noooooo"  # Prevents view if not logged in
+
 
 
 @app.route("/users/<int:user_id>/new-team")
