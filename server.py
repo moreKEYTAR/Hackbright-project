@@ -42,19 +42,18 @@ def make_new_user():
     # queries user table for first record with that email; returns None if no record
     if user_record is None:
 
-        new_user = User(email=email, password=pw)
-        db.session.add(new_user)
-        db.session.commit()
+        new_user = make_user(email, pw)
+        update_db(new_user)
 
-        session["login"] = True
-        session["new_user"] = True  # I want to use this for a tutorial or something later. How? How do we validate if the login is true on each page?
-        user = User.query.filter(User.email == email).first()
-        session["user_id"] = user.u_id
+        user = get_user_by_email(email)
+        update_session_for_good_login(user.u_id)
+
+        session["new_user"] = True  # Pending: Tutorial
         flash("Account created. Awesome!")
         return redirect("/users/{}/dashboard".format(user.u_id))
 
     else:
-        flash("Oops...that email has already been used!")
+        flash("Oops...that email has already been registered!")
         return redirect("/")
 
 
@@ -70,47 +69,30 @@ def log_in_returning_user():
     """Validate login entry."""
 
     # update login count to calculate attempts and remaining
-    if session.get("login_count") is None:
-        session["login_count"] = 1
-    else:
-        session["login_count"] += 1
-    attempts = session["login_count"]
-    max_attempts = 4
-    remaining = max_attempts - attempts
+    num_attempts = get_login_attempts()  # in helper.py
+    remaining = calc_attempts_remaining(num_attempts)
 
-    # grab login form data
+    # getting data from user input in login.html form
     email = request.form.get('email')
     pw = request.form.get('pw')
 
-    # pull user record for that email
-    user_record = User.query.filter(User.email == email).first()
+    user_record = get_user_by_email(email)  # in query.py
 
     if user_record is None:
-        flash("No SamePage account found with that email. Time to register!")
-    else:
-        if user_record.password != pw:
-            session["login"] = False
-            if remaining <= 0:
-                flash("Not really sure how pw security works. You could just clear your cache and I would never know. And what if you want to try a different address? This is complicated.")
-                return render_template("password-recovery.html")
-            elif remaining == 1:
-                stringy_remaining = str(remaining)
-                flash("You have " + stringy_remaining + " attempt remaining before account is locked.")
-                flash("Not really sure how pw security works. You could just clear your cache and I would never know. And what if you want to try a different address? This is complicated.")
-            else:
-                stringy_remaining = str(remaining)
-                flash("You have " + stringy_remaining + " attempts remaining before account is locked.")
-                flash("Not really sure how pw security works. You could just clear your cache and I would never know. And what if you want to try a different address? This is complicated.")
-            return redirect("/users/login")
+        flash("No account found with that email. Would you like to register?")
 
+    else:  # the email is valid
+
+        # validate password, handle accordingly
+        if user_record.password != pw:
+            path = handle_bad_attempts(remaining)  # in helper.py
+            return render_template(path)
+
+        # is valid password, handle accordingly
         else:
-            session["login"] = True
-            user = User.query.filter(User.email == email).first()
-            session["user_id"] = user.u_id
-            session["login_count"] = 0
+            update_session_for_good_login(user_record.u_id)
             flash("Welcome back to SamePage")
-            return redirect("/users/{}/dashboard".format(user.u_id))
-                # Successful login redirects to dashboard with customized url
+            return redirect("/users/{}/dashboard".format(user_record.u_id))
 
 
 @app.route("/users/login/password-recovery")
@@ -137,6 +119,7 @@ def dashboard(user_id):
                          "is_member": userteam.is_member}
             teams_list.append(team_dict)
         return render_template('dashboard.html', teams_list=teams_list)
+
     else:
         return redirect("/")  # Prevents view if not logged in
 
@@ -152,12 +135,16 @@ def add_team(user_id):
     """"""
     name = request.form.get("name")
     desc = request.form.get("description", None)
+
     user = get_user_object(user_id)  # in query.py
 
-    new_team = Team(name=name, desc=desc)
-    update_db(new_team)  # in query.py
+    #  Should the following 4 lines be one function??
+    new_team = make_team(name, desc)
+    # team should not be made without also making a userteam (see below);
+        # userteam requires team id
+    update_db(new_team)
 
-    new_userteam = UserTeam(user_id=user.u_id, team_id=new_team.t_id)
+    new_userteam = make_userteam(user.u_id, new_team.t_id)
     update_db(new_userteam)
 
     flash("yaaaaaay")
