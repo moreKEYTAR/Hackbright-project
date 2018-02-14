@@ -63,12 +63,12 @@ class UserTeam(db.Model):
     is_member = db.Column(db.Boolean, nullable=False, default=False)
         # whether the user has accepted to be on a team
 
-    user = db.relationship("User", backref="userteam")
-    team = db.relationship("Team", backref="userteam")
+    user = db.relationship("User", backref="userteams")
+    team = db.relationship("Team", backref="userteams")
 
     def __repr__(self):
         """Provide useful output when printing."""
-        return "<UT_ID: {ut_id}  User: {user_id}  Team: {team_id}>".format(
+        return "<UT_ID: {ut_id}  User: {user}  Team: {team}>".format(
             ut_id=self.ut_id, user=self.user_id, team=self.team_id)
 
 

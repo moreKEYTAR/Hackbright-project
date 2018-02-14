@@ -52,17 +52,15 @@ def load_userteams():
 def set_user_id_value_after_seed():
     """After test_data seeds, determines the user id start for
        serial increment (for dynamic user adds)."""
-
     max_u_id_tuple = db.session.query(func.max(User.u_id)).one()
         # returns a single value tuple >>> (int,)
     max_u_id = int(max_u_id_tuple[0])  # file may load with string, so this is a good idea
-
     query = "SELECT setval('user_accounts_u_id_seq', :start_id)"
         # uses setval() with arguments of the user_accounts table sequencer and a value for it (defined next)
             # setval() is a Sequence Manipulation Function, using a regclass and bigint input
             # https://www.postgresql.org/docs/8.1/static/functions-sequence.html
             # find the table sequencers with /ds in psql
-    db.session.execute(query, {'start_id': (max_u_id + 1)})
+    db.session.execute(query, {'start_id': max_u_id})
         # runs query on db; dictionary required to pass the expression as the int for setval()
     db.session.commit()
 

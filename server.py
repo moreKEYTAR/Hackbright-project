@@ -126,33 +126,24 @@ def dashboard(user_id):
     if session.get("new_user"):
         flash("New user! Tutorial time!")
     if session.get("login") is True:
-        # user_data_link_eager()
-        # user = get_user_object()
-        print "True!"
-        return render_template('dashboard.html')
+        teams_list = []
+        user_id = session.get("user_id")
+        user_object = User.query.get(user_id)
+        ut_objects = user_object.userteams  # makes a list of objects
+        for userteam in ut_objects:
+            team_dict = {"name": userteam.team.name,
+                         "desc": userteam.team.desc,
+                         "is_member": userteam.is_member}
+            teams_list.append(team_dict)
+        return render_template('dashboard.html', teams_list=teams_list)
     else:
         return redirect("/")
         # Prevents viewing if not logged in
 
-
-# def get_user_object():
+# def get_user_object(user_id):
 #     """Queries db to return user object, using u_id saved in session"""
-#     user_id = session.get("user_id")
-#     user_object = User.query.options(db.joinedload('UserTeam')
-#                                      .joinedload('Team')
-#                                      ).get(user_id)
-#     #
-#     #
-#     # WORKING ON DOUBLE EAGER JOIN
-#     ####
+    
 #     return user_object
-
-
-def user_data_link_eager():
-    """Queries db to return user data by user object, front loading relationships"""
-    users = User.query.options(db.joinedload("userteam")).all()
-    return users
-    # STILL WORKING
 
 
 @app.route("/users/<int:user_id>/new-team")
