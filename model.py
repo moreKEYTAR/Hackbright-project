@@ -38,8 +38,8 @@ class Team(db.Model):
 
     t_id = db.Column(db.Integer, primary_key=True, autoincrement=True,
                      nullable=False, unique=True)
-    name = db.Column(db.String(100), nullable=False, unique=False)  # MAY NEED TO RECONSIDER
-    desc = db.Column(db.String(255), nullable=True, unique=False)  # MAY NEED TO RECONSIDER
+    name = db.Column(db.String(100), nullable=False, unique=False)
+    desc = db.Column(db.String(255), nullable=True, unique=False)
 
     # SEE UserTeam FOR RELATIONSHIP
     # SEE Board FOR RELATIONSHIP

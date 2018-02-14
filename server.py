@@ -1,13 +1,13 @@
 from flask import (Flask,  # Flask allows app object
                    session, flash,  # session allows use of session storage for login
-                   render_template, redirect,  # render_template allows html render funcitonality
+                   render_template, redirect,  # render_template allows html render functionality
                    request,  # request allows use of forms in html templates
                    jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
 import jinja2
 from model import db, connect_to_db, User, Team, UserTeam, Board
-    # Added to connect to data model classes
-        # Previous version: from model import *
+from query import *
+from helper import *
 
 app = Flask(__name__)  # makes app object
 app.secret_key = "It's great to stay up late"  # allows session use 'under the hood'
@@ -152,15 +152,14 @@ def add_team(user_id):
     """"""
     name = request.form.get("name")
     desc = request.form.get("description", None)
-    user = get_user_object()
+    user = get_user_object(user_id)  # in query.py
 
     new_team = Team(name=name, desc=desc)
-    db.session.add(new_team)
-    db.session.commit()
+    update_db(new_team)  # in query.py
 
     new_userteam = UserTeam(user_id=user.u_id, team_id=new_team.t_id)
-    db.session.add(new_userteam)
-    db.session.commit()
+    update_db(new_userteam)
+
     flash("yaaaaaay")
     return redirect("/users/{}/dashboard".format(user.u_id))
 
