@@ -141,32 +141,6 @@ def dashboard(user_id):
         return redirect("/")  # Prevents view if not logged in
 
 
-@app.route("/users/<int:user_id>/<int:team_id>")
-def view_team(user_id, team_id):
-    """Renders view of team page, with board"""
-    if session.get("user_id") == user_id:  # validates for current logged in user
-        boards_dict = {}
-        boards = Board.query.filter_by(team_id=team_id).all()  # BaseQuery object
-
-        return "UAAAAAAA YIPPPEEEEE"
-
-    # if session.get("login") is True:
-    #     teams_list = []
-    #     user_id = session.get("user_id")
-    #     user_object = User.query.get(user_id)
-    #     ut_objects = user_object.userteams  # makes a list of objects
-    #     for userteam in ut_objects:
-    #         team_dict = {"team_id": userteam.team_id,
-    #                      "name": userteam.team.name,
-    #                      "desc": userteam.team.desc,
-    #                      "is_member": userteam.is_member}
-    #         teams_list.append(team_dict)
-    #     return render_template('dashboard.html', teams_list=teams_list)
-    else:
-        return "ooooh noooooo"  # Prevents view if not logged in
-
-
-
 @app.route("/users/<int:user_id>/new-team")
 def new_team(user_id):
     """Temporary page that forces name choice"""
@@ -191,6 +165,36 @@ def add_team(user_id):
     return redirect("/users/{}/dashboard".format(user.u_id))
 
 
+@app.route("/users/<int:user_id>/<int:team_id>")
+def view_team(user_id, team_id):
+    """Renders view of team page, with board"""
+    if session.get("user_id") == user_id:
+        team_object = Team.query.filter_by(t_id=team_id).first()
+        boards_list = []
+        if team_object:
+            # checking for the team being a valid team (in case it is manually forced into url)
+            team_dict = {"t_id": team_id,
+                         "name": team_object.name,
+                         "desc": team_object.desc}  # new dictionary
+            boards = Board.query.filter_by(team_id=team_id).all()  # list of objects
+            if boards:  # checks for whether any board object in the list
+                for board in boards:
+                    boards_list.append({"b_id": board.b_id,
+                                        "name": board.name,
+                                        "desc": board.desc,
+                                        "updated": board.updated})
+            return render_template('team-main.html',
+                                   boards=boards_list,
+                                   team=team_dict)
+        else:
+            return "No team found with that information."
+
+    else:  # Prevents view if not logged in
+        flash("You do not have permission to view that page.")
+        user_id = session["user_id"]
+        return redirect("/users/{}/dashboard".format(user_id))
+
+
 @app.route("/users/<int:user_id>/logout", methods=["POST"])
 def logout_user(user_id):
     session.clear()
@@ -198,6 +202,12 @@ def logout_user(user_id):
     flash("You have been logged out.")
     return redirect("/")
 
+
+@app.route("/users/temp/logout", methods=["POST"])
+def temp_logout():
+    session.clear()
+    flash("You have been logged out from temp logout route.")
+    return redirect("/")
 ###############################FROM RATINGS ###############################
 # @app.route("/movies/<int:movie_id>", methods=['POST'])
 # def movie_detail_process(movie_id):

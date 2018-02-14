@@ -38,6 +38,49 @@ app.run(debug=True) ??????????
     once you turn off debug mode, the server stops automatically updating as you 
     make changes to files.
 
+Feb-13
+For later, from Ratings P1:
+DateTime
+In the u.item file, the dates are given as strings like “31-Oct-2015”. We need to store this in the database as an actual date object, not as a string that just looks like a date. To do this, you’ll need to research the Python datetime library to find the function that can parse a string into a datetime object.
+        if released_str:
+            released_at = datetime.datetime.strptime(released_str, "%d-%b-%Y")
+        else:
+            released_at = None
+
+Sequencers
+We are adjusting the users_user_id_seq, using the Postgres function setval. You can read more about Postgres functions on sequences here.
+>>> # Get a single rating
+>>> r = Rating.query.get(1)
+
+>>> # Here's the user_id, which is an actual field in the ratings
+>>> # table
+>>> print r.user_id
+196
+
+>>> # Use our new relationship reference to get the actual User
+>>> # object
+>>> u = r.user
+
+>>> # We can look at attributes on this
+>>> print u.age
+49
+>>> print u.zipcode
+55105
+
+>>> # We can look at the all the ratings made by this user
+>>> all_ratings = u.ratings
+
+>>> all_ratings
+[<Rating ...>, <Rating ...>, ....]
+
+>>> # These are actual ratings objects, so we can look at their
+>>> # attributes
+>>> print u.ratings[0].rating_id
+1
+>>> print u.ratings[0].user_id
+196
+>>> print u.ratings[0].movie_id
+242
 
 
 

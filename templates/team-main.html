@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h1>Team {{ team.name }}</h1>
+<h5>{{ team.desc }}</h5>
+{{ boards }}
+
+{% for board in boards %}
+    <div class="board">
+        <h3>{{ board.name }}</h3>
+        <h5>{{ board.desc }}</h5>
+    </div>
+
+
+{% endfor %}
+
+{% endblock %}
