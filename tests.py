@@ -1,8 +1,11 @@
 import unittest
 from server import app
 from model import db, connect_to_db, User, Team, UserTeam, Board
-from flask import session
 import seed
+import query  # no tests yet
+import helper  # no tests yet
+from flask import session
+
 
 
 class FlaskBasicTests(unittest.TestCase):

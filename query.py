@@ -23,7 +23,7 @@ def make_team(t_name, t_desc):
 def make_userteam(u_id, t_id):
     """Takes in integer parameters, makes a UserTeam object, returns it."""
 
-    new_userteam = UserTeam(user_id=u_id, team_id=t_id)
+    new_userteam = UserTeam(user_id=u_id, team_id=t_id, is_member=True)
     return new_userteam
 
 

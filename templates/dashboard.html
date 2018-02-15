@@ -18,7 +18,7 @@
 
 <div>
     <form action="/users/{{ session['user_id'] }}/logout" method="POST">
-    <input type='submit' id='form-submission' value='Log Out'>
+    <input type='submit' id='logout-submission' value='Log Out'>
     </form>
 </div>
 <div>
@@ -26,13 +26,9 @@
     <div>
 
         <h3>Your Teams</h3>
-    <!-- for i in range(len(teams_list)) -->
-    <!-- if team[i]["is_member"] == 't' -->
-    <!-- how do I account for no teams??? -->
+
         {% for team in teams_list %}
-            <p>{{ team.team_id }}</p>
             {% if team.is_member %}
-          
             <div> 
                 <a href="/users/{{ session['user_id'] }}/{{ team.team_id }}">
                     <h4>{{ team.name }}</h4></a>
@@ -42,6 +38,7 @@
            
         {% endfor %}
     </div>
+
     <div>
         <h3>Team Invitations</h3>
         {% for team in teams_list %}
@@ -50,6 +47,14 @@
             <div> 
                 <h4>{{ team.name }}</h4>
                 <p class="desc">{{ team.desc }}</p>
+                <form action="/users/{{ session['user_id'] }}/join-team-{{ team.team_id }}" 
+                      method="POST">
+                <input type='submit' id='join-team' value='Accept Team Invite'>
+                </form>
+                <form action="/users/{{ session['user_id'] }}/ignore-invite-{{ team.team_id }}" 
+                      method="POST">
+                <input type='submit' id='ignore-team' value='Ignore Invite'>
+                </form>
             </div>
             {% endif %}
         {% endfor %}

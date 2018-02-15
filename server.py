@@ -24,12 +24,19 @@ app.jinja_env.auto_reload = True
 # import pdb; pdb.set_trace()
 
 
+###########################################################################
+# INDEX ###################################################################
+
 @app.route("/")
 def index():
     """Return index (homepage)."""
-    # How do I check for logged in status before rendering? People want to go back to the homepage
+    # How do I check for logged in status before rendering?
+    # What do I want to show for people who are logged in?
     return render_template("home.html")
 
+
+###########################################################################
+# REGISTRATION ############################################################
 
 @app.route("/users/new", methods=["POST"])
 def make_new_user():
@@ -39,7 +46,7 @@ def make_new_user():
     pw = request.form.get('pw')
 
     user_record = User.query.filter(User.email == email).first()
-    # queries user table for first record with that email; returns None if no record
+    # queries user table for first record for email; returns None if no record
     if user_record is None:
 
         new_user = make_user(email, pw)
@@ -56,6 +63,8 @@ def make_new_user():
         flash("Oops...that email has already been registered!")
         return redirect("/")
 
+###########################################################################
+# LOG IN ##################################################################
 
 @app.route("/users/login", methods=["GET"])
 def display_login():
@@ -80,13 +89,14 @@ def log_in_returning_user():
 
     if user_record is None:
         flash("No account found with that email. Would you like to register?")
+        return redirect("/users/login")
 
     else:  # the email is valid
 
         # validate password, handle accordingly
         if user_record.password != pw:
-            path = handle_bad_attempts(remaining)  # in helper.py
-            return render_template(path)
+            template = handle_bad_attempts(remaining)  # in helper.py
+            return render_template(template)
 
         # is valid password, handle accordingly
         else:
@@ -95,6 +105,8 @@ def log_in_returning_user():
             return redirect("/users/{}/dashboard".format(user_record.u_id))
 
 
+ # LOGIN: PASSWORD HANDLING ##############################################
+
 @app.route("/users/login/password-recovery")
 def password_recovery():
     """SOMETHING SOMETHING DARK SIDE"""
@@ -102,15 +114,21 @@ def password_recovery():
     return "OOOOOOOPS"
 
 
+###########################################################################
+# DASHBOARD ###############################################################
+
 @app.route("/users/<int:user_id>/dashboard")
 def dashboard(user_id):
     """Renders dashboard view, grabbing existing teams for display"""
+
     if session.get("new_user"):
         flash("New user! Tutorial time!")
+
     if session.get("login") is True:
         teams_list = []
         user_id = session.get("user_id")
-        user_object = User.query.get(user_id)
+        user_object = get_user_object(user_id)
+
         ut_objects = user_object.userteams  # makes a list of objects
         for userteam in ut_objects:
             team_dict = {"team_id": userteam.team_id,
@@ -127,6 +145,7 @@ def dashboard(user_id):
 @app.route("/users/<int:user_id>/new-team")
 def new_team(user_id):
     """Temporary page that forces name choice"""
+
     return render_template("make-new-team.html")
 
 
@@ -151,14 +170,19 @@ def add_team(user_id):
     return redirect("/users/{}/dashboard".format(user.u_id))
 
 
+###########################################################################
+# TEAM VIEW ###############################################################
+
 @app.route("/users/<int:user_id>/<int:team_id>")
 def view_team(user_id, team_id):
     """Renders view of team page, with board"""
+
     if session.get("user_id") == user_id:
         team_object = Team.query.filter_by(t_id=team_id).first()
         boards_list = []
         if team_object:
-            # checking for the team being a valid team (in case it is manually forced into url)
+            # checking for the team being a valid team 
+                # (in case it is manually forced into url)
             team_dict = {"t_id": team_id,
                          "name": team_object.name,
                          "desc": team_object.desc}  # new dictionary
@@ -181,6 +205,9 @@ def view_team(user_id, team_id):
         return redirect("/users/{}/dashboard".format(user_id))
 
 
+###########################################################################
+# LOG OUT #################################################################
+
 @app.route("/users/<int:user_id>/logout", methods=["POST"])
 def logout_user(user_id):
     session.clear()
@@ -194,29 +221,17 @@ def temp_logout():
     session.clear()
     flash("You have been logged out from temp logout route.")
     return redirect("/")
-###############################FROM RATINGS ###############################
-# @app.route("/movies/<int:movie_id>", methods=['POST'])
-# def movie_detail_process(movie_id):
-#     """Add/edit a rating."""
 
-#     # Get form variables
-#     score = int(request.form["score"])
 
-#     user_id = session.get("user_id")
-#     if not user_id:
-#         raise Exception("No user logged in.")  #### WHAT IS THIS ####
+###########################################################################
+# DIRECT FILE CALL ########################################################
 
 if __name__ == "__main__":
 
-    # make sure templates, etc. are not cached in debug mode
     app.debug = True
-    app.jinja_env.auto_reload = app.debug  # prevents server side caching
+    # prevents server side caching while in debug mode?
+    app.jinja_env.auto_reload = app.debug  
 
-    connect_to_db(app)  # model file houses all ORM, so importing that funciton to connect to db
-
-    # Use the DebugToolbar
-    DebugToolbarExtension(app)
-
-    app.run(host='0.0.0.0')  # DO NOT FORGET TO CHANGE THIS IF RELEASING WEB APP
-    # Is this the same as app.debug = True?????
-    # Does order matter???
+    connect_to_db(app)  # model file houses all ORM
+    DebugToolbarExtension(app)  # Use the DebugToolbar
+    app.run(host='0.0.0.0')  # DO NOT FORGET TO CHANGE THIS FOR RELEASE
