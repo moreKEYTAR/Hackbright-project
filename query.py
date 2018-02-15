@@ -29,13 +29,22 @@ def make_userteam(u_id, t_id):
 
 # UPDATE DATABASE #######################################################
 
-def update_db(baseobject):
+def add_to_db(baseobject):
     """Takes in any Model object and adds it to the database,
     committing the update."""
 
     db.session.add(baseobject)
     db.session.commit()
-    print "Added to db."
+    print "Added to db; db update committed."
+
+
+def update_userteam_accepted(u_id, t_id):
+    """Uses id strings to update UserTeam object"""
+
+    userteam = get_userteam_object(u_id, t_id)
+    userteam.is_member = True
+    db.session.commit()
+    print "Membership on team is updated in db."
 
 
 # OBJECT QUERIES #########################################################
@@ -46,6 +55,15 @@ def get_user_object(u_id):
 
     user = User.query.get(u_id)
     return user
+
+
+def get_userteam_object(u_id, t_id):
+    """Takes in an integer and queries the user_accounts table for that
+    user object."""
+
+    userteam = UserTeam.query.filter(UserTeam.user_id == u_id,
+                                     UserTeam.team_id == t_id).first()
+    return userteam
 
 
 # FETCH INSTANCE QUERIES (WITH FIRST) ####################################

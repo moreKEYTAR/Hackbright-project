@@ -50,7 +50,7 @@ def make_new_user():
     if user_record is None:
 
         new_user = make_user(email, pw)
-        update_db(new_user)
+        add_to_db(new_user)
 
         user = get_user_by_email(email)
         update_session_for_good_login(user.u_id)
@@ -146,12 +146,13 @@ def dashboard(user_id):
 def new_team(user_id):
     """Temporary page that forces name choice"""
 
-    return render_template("make-new-team.html")
+    return render_template("temp-new-team.html")
 
 
 @app.route("/users/<int:user_id>/add-team", methods=["POST"])
 def add_team(user_id):
-    """"""
+    """Create Team model and UserTeam model, updating database each time."""
+
     name = request.form.get("name")
     desc = request.form.get("description", None)
 
@@ -161,13 +162,37 @@ def add_team(user_id):
     new_team = make_team(name, desc)
     # team should not be made without also making a userteam (see below);
         # userteam requires team id
-    update_db(new_team)
+    add_to_db(new_team)
 
     new_userteam = make_userteam(user.u_id, new_team.t_id)
-    update_db(new_userteam)
+    add_to_db(new_userteam)
 
     flash("yaaaaaay")
     return redirect("/users/{}/dashboard".format(user.u_id))
+
+
+@app.route("/users/<int:user_id>/join-team-<int:team_id>", methods=["POST"])
+def join_team(user_id, team_id):
+    """Update UserTeam to accept membership; redirect to temporary page to
+    simulate pop up redirect."""
+
+    is_valid = is_valid_url(user_id, team_id)
+
+    if is_valid:
+        update_userteam_accepted(user_id, team_id)
+        return render_template("temp-join-team.html",
+                               user_id=user_id, team_id=team_id)
+    else:
+        flash("Invalid user and team combo; no invites found!")
+        return redirect("/users/{}/dashboard".format(user_id))
+
+
+@app.route("/users/<int:user_id>/ignore-invite-<int:team_id>",
+           methods=["POST"])
+def ignore_team(user_id, team_id):
+    """Update UserTeam to ???????????????????????????????????????????"""
+
+    return ("WELL yOU Can'T IGnORe it")
 
 
 ###########################################################################
@@ -181,7 +206,7 @@ def view_team(user_id, team_id):
         team_object = Team.query.filter_by(t_id=team_id).first()
         boards_list = []
         if team_object:
-            # checking for the team being a valid team 
+            # checking for the team being a valid team
                 # (in case it is manually forced into url)
             team_dict = {"t_id": team_id,
                          "name": team_object.name,

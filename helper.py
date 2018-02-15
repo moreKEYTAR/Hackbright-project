@@ -4,7 +4,7 @@ from flask import (Flask,  # Flask allows app object
                    request,  # request allows use of forms in html templates
                    jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
-
+import query
 # don't need to import app, right?
 
 
@@ -92,15 +92,27 @@ def handle_bad_attempts(remaining):
 
 # AUTHORIZED FOR VIEW BY URL #############################################
 
-def is_valid_user_in_url(url_user_id):
-    """Checks user id in url against the user id in the session"""
+def is_valid_url(url_user_id, url_team_id=None):
+    """Checks for a valid url:
+        - checks user id in url against the user id in the session
+        - then, if needed, checks for a userteam relationship between the
+          user in the session and the given team id from the url
+    """
 
     logged_in = is_logged_in()  # checks logged in
 
     if logged_in:
         u_id = get_user_id_from_session()
 
-        if u_id == url_user_id:
+        # checks the user id is valid for when we are not given a team id:
+        if u_id == url_user_id and not url_team_id:
             return True
+
+        # continues if user id is valid and there is a team id:
+        elif u_id == url_user_id:
+            # It is the right user so far
+            userteam = query.get_userteam_object(u_id, url_team_id)
+            if userteam:
+                return True
 
     return False
