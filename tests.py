@@ -7,6 +7,8 @@ import helper  # no tests yet
 from flask import session
 
 
+###########################################################################
+# INDEX ###################################################################
 
 class FlaskBasicTests(unittest.TestCase):
     """Tests for the site routes loading, content in server.py."""
@@ -15,7 +17,6 @@ class FlaskBasicTests(unittest.TestCase):
         """Code to run before every test."""
 
         self.client = app.test_client()
-            # Use Balloonicorn Flask app lab; replaced "party" with "server"
         app.config['TESTING'] = True
 
     def test_index(self):
@@ -23,6 +24,28 @@ class FlaskBasicTests(unittest.TestCase):
 
         result = self.client.get("/")
         self.assertIn("Welcome", result.data)
+
+
+###########################################################################
+# REGISTRATION ############################################################
+
+
+###########################################################################
+# LOG IN ##################################################################
+
+
+###########################################################################
+# DASHBOARD ###############################################################
+
+
+###########################################################################
+# TEAM VIEW ###############################################################
+
+
+###########################################################################
+# LOG OUT #################################################################
+
+
 
 
 # class FlaskMakeUser(unittest.TestCase):
@@ -53,7 +76,6 @@ class DatabaseSeedTests(unittest.TestCase):
         seed.load_users()
         seed.load_teams()
         seed.load_userteams()
-
 
     def tearDown(self):
         """Do at end of every test."""
@@ -86,7 +108,8 @@ class DatabaseSeedTests(unittest.TestCase):
     def query_for_created_user(self):
         """Test for finding user just created."""
 
-        user_record = User.query.filter(User.email == "testing@gmail.com").first()
+        user_record = User.query.filter(User.email == "testing@gmail.com"
+                                        ).first()
         self.assertEqual(user_record.password == "123abc")
 
 
@@ -99,6 +122,10 @@ class modelTests(unittest.TestCase):
     #     self.client = model.app.test_client()
 
     #     model.app.config['TESTING'] = True
+
+
+###########################################################################
+# DIRECT FILE CALL ########################################################
 
 if __name__ == "__main__":
 

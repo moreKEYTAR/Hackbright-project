@@ -63,6 +63,7 @@ def make_new_user():
         flash("Oops...that email has already been registered!")
         return redirect("/")
 
+
 ###########################################################################
 # LOG IN ##################################################################
 
@@ -170,7 +171,7 @@ def add_team(user_id):
     flash("yaaaaaay")
     return redirect("/users/{}/dashboard".format(user.u_id))
 
-
+                                                    ###### HEEEEEERRRREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE#
 @app.route("/users/<int:user_id>/join-team-<int:team_id>", methods=["POST"])
 def join_team(user_id, team_id):
     """Update UserTeam to accept membership; redirect to temporary page to

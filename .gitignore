@@ -2,3 +2,5 @@ secrets.sh
 *.pyc
 env
 .DS_Store
+git-log.txt
+

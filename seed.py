@@ -14,7 +14,8 @@ def load_users():
             u_id, email, password, displayname = user_data
             user = User(u_id=u_id, email=email, password=password,
                         displayname=displayname)
-        else:  # Assuming the only other case for test data is missing a displayname
+        else:  # Assuming the only other case for test data to be
+                    # missing a displayname
             u_id, email, password = user_data
             user = User(u_id=u_id, email=email, password=password)
         db.session.add(user)
