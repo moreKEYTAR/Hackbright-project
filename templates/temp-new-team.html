@@ -2,21 +2,25 @@
 
 {% block content %}
 
-<!-- how do we validate for login before the page loads? how do we make the url change to display the unique user, not users/login...the last route used...? -->
 <h1>Temporary page</h1>
-<p>Let's make a new team. You can have different boards in your team, so don't worry about those yet. Just pick a team name based on whether this is for your work, or perhaps for your own "home team." </p>
+<p>Let's make a new team. You can have different boards in your team, so 
+  don't worry about those yet. Just pick a team name based on whether this 
+  is for your work, or perhaps for your own "home team." </p>
 
 <div>
-    <form action="/users/{{ session['user_id'] }}/add-team" method="POST">
-        <h5>Team Name</h5>
-        <input type="text" name="name" placeholder="random placeholder!!!!" required>
-        <h5>Description</h5>
-        <div>
-            <textarea name="description">Write and optional description here.</textarea>
+  <form action="/new-team" method="POST">
+    
+    <h5>Team Name</h5>
+    <input type="text" name="name" placeholder="Name your team" required>
+    
+    <h5>Description</h5>
+    <div>
+      <textarea name="description" placeholder="Optional"></textarea>
+    </div>
 
-        </div>
     <input type='submit' id='form-submission' value='Make a new team'>
-    </form>
+
+  </form>
 </div>
 
 {% endblock %}

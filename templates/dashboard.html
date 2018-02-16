@@ -7,59 +7,65 @@
 <p>This is the dashboard</p>
 
 
-
 <div>
-    <p>Make a new team to start a board and add projects!</p>
-    <form action="/users/{{ session['user_id'] }}/new-team" method="GET">
-    <input type='submit' id='form-submission' value='Make a new team'>
-    </form>
+  <form action="/logout" method="POST">
+  <input type='submit' id='logout-submission' value='Log Out'>
+  </form>
 </div>
 
 
-<div>
-    <form action="/users/{{ session['user_id'] }}/logout" method="POST">
-    <input type='submit' id='logout-submission' value='Log Out'>
-    </form>
-</div>
-<div>
-    {% if teams_list %}
-    <div>
 
-        <h3>Your Teams</h3>
+<div>
+  {% if teams_list %}
 
-        {% for team in teams_list %}
-            {% if team.is_member %}
-            <div> 
-                <a href="/users/{{ session['user_id'] }}/{{ team.team_id }}">
-                    <h4>{{ team.name }}</h4></a>
-                <p class="desc">{{ team.desc }}</p>
-            </div>
-            {% endif %}
-           
-        {% endfor %}
+    <h3>Your Teams</h3>
+    <div id="joined-teams">
+    {% for team in teams_list %}
+      <div> 
+        <form action="/view-team" method="GET">
+          <input type="hidden" name="team" value="{{ team.team_id }}">
+          <input type="submit" value="{{ team.name }}">
+          <p class="desc"><i>{{ team.desc }}</i></p>
+        </form>
+      </div>   
+    {% endfor %}
     </div>
 
-    <div>
-        <h3>Team Invitations</h3>
-        {% for team in teams_list %}
-            {% if not team.is_member %}
-            
-            <div> 
-                <h4>{{ team.name }}</h4>
-                <p class="desc">{{ team.desc }}</p>
-                <form action="/users/{{ session['user_id'] }}/join-team-{{ team.team_id }}" 
-                      method="POST">
-                <input type='submit' id='join-team' value='Accept Team Invite'>
-                </form>
-                <form action="/users/{{ session['user_id'] }}/ignore-invite-{{ team.team_id }}" 
-                      method="POST">
-                <input type='submit' id='ignore-team' value='Ignore Invite'>
-                </form>
-            </div>
-            {% endif %}
-        {% endfor %}
-
-    </div>
-    {% endif %}
+  {% endif %}
 </div>
+<div>
+  {% if invites_list %}
+  
+    <h3>Team Invitations</h3>
+      {% for invite in invites_list %}
+        <div> 
+          <h4>{{ invite.name }}</h4>
+          <p class="desc"><i>{{ invite.desc }}</i></p>
+          <form action="/join-team" method="POST">
+            <input type='hidden' name="team" value="{{ invite.team_id }}">
+            <input type='submit' id='join-team' value='Accept Team Invite'>
+          </form>
+          <form action="/ignore-team-invite" method="POST">
+            <input type='hidden' name="team" value="{{ invite.team_id }}">
+            <input type='submit' id='ignore-team' value='Ignore Invite'>
+          </form>
+        </div>
+      {% endfor %}
+  {% endif %}
+</div>
+
+<div>
+  <p>Make a new team to start a board and add projects!</p>
+  <p>THIS MESSAGE SHOULD BE CONDITIONAL, ON WHETHER THEY HAVE ANY TEAMS</p>
+  <!-- <form action="/new-team" method="GET">
+    <input type='submit' value='Make a new team'>
+  </form> -->
+  New team name: <input id="new-team-name" type="text">
+  Description: <input id="new-team-desc" type="text">
+  <input id="make-team" type='button' value='Make a new team'>
+
+</div>
+
+<script src="/static/dashboard.js"></script>
+
 {% endblock %}

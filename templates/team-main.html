@@ -2,18 +2,45 @@
 
 {% block content %}
 
-<h6>Team Home</h6>
-<h1>{{ team.name }}</h1>
-<h5>{{ team.desc }}</h5>
+<!-- boards
+  A list.
+  Each item in the list is a dictionary, with these keys:
+    b_id, name, desc, updated -->
+
+<!-- team
+  A dictionary.
+  Each key in this dictionary is a different field name; they are:
+    t_id, name, desc-->
+
+<!-- TEMPORARY -->
 {{ boards }}
+<!-- TEMPORARY END -->
 
-{% for board in boards %}
+
+<h1>Team home: {{ team.name }}</h1>
+<h5>{{ team.desc }}</h5>
+
+
+{% if boards %}
+
+  <h3>Your Boards</h3>
+
+  {% for board in boards %}
     <div class="board">
-        <h3>{{ board.name }}</h3>
-        <h5>{{ board.desc }}</h5>
+      <a href="/view-board"><h4>{{ board.name }}</h4></a>
+      <h5>{{ board.desc }}</h5>
     </div>
+  {% endfor %}
 
+{% endif %}
 
-{% endfor %}
+<div>
+  <h4>Make a new board that has a helpful theme, and start adding 
+      projects!</h4>
+  <form action="/new-board" method="GET">
+    <input type='hidden' name="team" value="{{ team.t_id }}">
+    <input type='submit' value='Make a new board'>
+  </form>
+</div>
 
 {% endblock %}

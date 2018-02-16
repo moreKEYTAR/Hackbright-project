@@ -4,18 +4,18 @@
 <h4>Log In to SamePage</h4>
 
 <div>
-<form action='/users/login' method='POST' id='enter-site-form'>
-    <input type='text' name='email' placeholder='email address' 
-           id='email-form-entry' required>
-    <input type='password' name='pw' placeholder='password' 
-           id='pw-form-entry' required>
-    <div id='submit-input'>
-    <input type='submit' id='form-submission' value='Log In'>
-    </div>
+<form action='/login' method='POST' id='enter-site-form'>
+  <input type='text' name='email' placeholder='email address' 
+         id='email-form-entry' required>
+  <input type='password' name='pw' placeholder='password' 
+         id='pw-form-entry' required>
+  <div id='submit-input'>
+  <input type='submit' id='form-submission' value='Log In'>
+  </div>
 </form>
 
 </div>
-<h6><a href="/users/login/password-recovery">Forgot your password?</a></h6>
+<h6><a href="/login/password-recovery">Forgot your password?</a></h6>
 
 
 {% endblock %}

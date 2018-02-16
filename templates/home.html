@@ -7,20 +7,20 @@
 <div>
 <h4>Want to join SamePage?</h4>
 <p class="reg-page">Sign up with just an email and password</p>
-    <form action='/users/new' method='POST' id='enter-site-form'>
-        <input type='text' name='email' placeholder='email address' 
-               id='email-form-entry' required>
-        <input type='password' name='pw' placeholder='password' 
-               id='pw-form-entry' required>
-        <div id='submit-input'>
-        <input type='submit' id='form-submission' value='Sign Up!'>
-        <p>It would be nice to validate the email or re-enter it, and 
-            same with password. <br>But we can't have nice things.</p>
-        </div>
-    </form>
+  <form action='/register' method='POST' id='enter-site-form'>
+    <input type='text' name='email' placeholder='email address' 
+           id='email-form-entry' required>
+    <input type='password' name='pw' placeholder='password' 
+           id='pw-form-entry' required>
+    <div id='submit-input'>
+    <input type='submit' id='form-submission' value='Sign Up!'>
+    <p>It would be nice to validate the email or re-enter it, and 
+        same with password. <br>But we can't have nice things.</p>
+    </div>
+  </form>
 </div>
 <h4 class="reg-page">Already have an account? 
-                   <a href="/users/login" method='GET'>Log In</a></h4>
+                   <a href="/login" method='GET'>Log In</a></h4>
                    <!-- Would prefer login to just be in header -->
 <script>
 

@@ -38,7 +38,7 @@ def index():
 ###########################################################################
 # REGISTRATION ############################################################
 
-@app.route("/users/new", methods=["POST"])
+@app.route("/register", methods=["POST"])
 def make_new_user():
     """Validate new user form entry, register user if valid."""
 
@@ -67,14 +67,14 @@ def make_new_user():
 ###########################################################################
 # LOG IN ##################################################################
 
-@app.route("/users/login", methods=["GET"])
+@app.route("/login", methods=["GET"])
 def display_login():
     """Load login form."""
 
     return render_template("login.html")
 
 
-@app.route("/users/login", methods=["POST"])
+@app.route("/login", methods=["POST"])
 def log_in_returning_user():
     """Validate login entry."""
 
@@ -90,7 +90,7 @@ def log_in_returning_user():
 
     if user_record is None:
         flash("No account found with that email. Would you like to register?")
-        return redirect("/users/login")
+        return redirect("/login")
 
     else:  # the email is valid
 
@@ -103,14 +103,14 @@ def log_in_returning_user():
         else:
             update_session_for_good_login(user_record.u_id)
             flash("Welcome back to SamePage")
-            return redirect("/users/{}/dashboard".format(user_record.u_id))
+            return redirect("/dashboard")
 
 
  # LOGIN: PASSWORD HANDLING ##############################################
 
-@app.route("/users/login/password-recovery")
+@app.route("/login/password-recovery")
 def password_recovery():
-    """SOMETHING SOMETHING DARK SIDE"""
+    """Displays form to send email to user for password recovery"""
 
     return "OOOOOOOPS"
 
@@ -118,80 +118,89 @@ def password_recovery():
 ###########################################################################
 # DASHBOARD ###############################################################
 
-@app.route("/users/<int:user_id>/dashboard")
-def dashboard(user_id):
+@app.route("/dashboard")
+def dashboard():
     """Renders dashboard view, grabbing existing teams for display"""
 
     if session.get("new_user"):
-        flash("New user! Tutorial time!")
+        flash("New user! Tutorial time! NEED TO MAKE POP UP")
 
     if session.get("login") is True:
+        # Fossil from validation version; does not hurt to keep
         teams_list = []
+        invites_list = []
         user_id = session.get("user_id")
         user_object = get_user_object(user_id)
 
         ut_objects = user_object.userteams  # makes a list of objects
         for userteam in ut_objects:
-            team_dict = {"team_id": userteam.team_id,
-                         "name": userteam.team.name,
-                         "desc": userteam.team.desc,
-                         "is_member": userteam.is_member}
-            teams_list.append(team_dict)
-        return render_template('dashboard.html', teams_list=teams_list)
+            if userteam.is_member:
+                team_dict = {"team_id": userteam.team_id,
+                             "name": userteam.team.name,
+                             "desc": userteam.team.desc}
+                teams_list.append(team_dict)
+            else:
+                invite_dict = {"team_id": userteam.team_id,
+                               "name": userteam.team.name,
+                               "desc": userteam.team.desc}
+                invites_list.append(invite_dict)
+
+        return render_template('dashboard.html', teams_list=teams_list,
+                               invites_list=invites_list)
 
     else:
-        return redirect("/")  # Prevents view if not logged in
+        return redirect("/")
+            # Prevents view if not logged in
+            # Fossil from validation version; does not hurt to keep
 
 
-@app.route("/users/<int:user_id>/new-team")
-def new_team(user_id):
+@app.route("/new-team")
+def display_new_team_form():
     """Temporary page that forces name choice"""
 
     return render_template("temp-new-team.html")
 
 
-@app.route("/users/<int:user_id>/add-team", methods=["POST"])
-def add_team(user_id):
+@app.route("/new-team", methods=["POST"])
+def add_team():
     """Create Team model and UserTeam model, updating database each time."""
 
     name = request.form.get("name")
     desc = request.form.get("description", None)
 
-    user = get_user_object(user_id)  # in query.py
+    user_id = session.get("user_id")
 
     #  Should the following 4 lines be one function??
+        # Team should not be made without also making a userteam (see below)
+        # but requires getting the new team's team id first
     new_team = make_team(name, desc)
-    # team should not be made without also making a userteam (see below);
-        # userteam requires team id
     add_to_db(new_team)
 
-    new_userteam = make_userteam(user.u_id, new_team.t_id)
+    new_userteam = make_userteam(user_id, new_team.t_id)  # in query.py
     add_to_db(new_userteam)
 
-    flash("yaaaaaay")
-    return redirect("/users/{}/dashboard".format(user.u_id))
+    flash("Team created! MAKE POPUP TO ASK To GO STRAIGHT TO THE TEAM PAGE")
+    return redirect("/dashboard")
 
-                                                    ###### HEEEEEERRRREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE#
-@app.route("/users/<int:user_id>/join-team-<int:team_id>", methods=["POST"])
-def join_team(user_id, team_id):
+
+@app.route("/join-team", methods=["POST"])
+def join_team():
     """Update UserTeam to accept membership; redirect to temporary page to
     simulate pop up redirect."""
 
-    is_valid = is_valid_url(user_id, team_id)
-
-    if is_valid:
-        update_userteam_accepted(user_id, team_id)
-        return render_template("temp-join-team.html",
-                               user_id=user_id, team_id=team_id)
-    else:
-        flash("Invalid user and team combo; no invites found!")
-        return redirect("/users/{}/dashboard".format(user_id))
+    user_id = get_user_id_from_session()
+    team_id = request.form.get("team")
+    update_userteam_accepted(user_id, team_id)
+    return render_template("temp-join-team.html",
+                           user_id=user_id, team_id=team_id)
 
 
-@app.route("/users/<int:user_id>/ignore-invite-<int:team_id>",
-           methods=["POST"])
-def ignore_team(user_id, team_id):
+@app.route("/ignore-team-invite", methods=["POST"])
+def ignore_team():
     """Update UserTeam to ???????????????????????????????????????????"""
+
+    user_id = get_user_id_from_session()
+    team_id = request.form.get("team")
 
     return ("WELL yOU Can'T IGnORe it")
 
@@ -199,53 +208,78 @@ def ignore_team(user_id, team_id):
 ###########################################################################
 # TEAM VIEW ###############################################################
 
-@app.route("/users/<int:user_id>/<int:team_id>")
-def view_team(user_id, team_id):
+@app.route("/view-team")
+def view_team():
     """Renders view of team page, with board"""
 
-    if session.get("user_id") == user_id:
-        team_object = Team.query.filter_by(t_id=team_id).first()
-        boards_list = []
-        if team_object:
-            # checking for the team being a valid team
-                # (in case it is manually forced into url)
-            team_dict = {"t_id": team_id,
-                         "name": team_object.name,
-                         "desc": team_object.desc}  # new dictionary
-            boards = Board.query.filter_by(team_id=team_id).all()  # list of objects
-            if boards:  # checks for whether any board object in the list
-                for board in boards:
-                    boards_list.append({"b_id": board.b_id,
-                                        "name": board.name,
-                                        "desc": board.desc,
-                                        "updated": board.updated})
-            return render_template('team-main.html',
-                                   boards=boards_list,
-                                   team=team_dict)
-        else:
-            return "No team found with that information."
+    team_id = request.args.get("team")
+    team_object = Team.query.filter_by(t_id=team_id).first()  # REFACTOR THIS
 
-    else:  # Prevents view if not logged in
-        flash("You do not have permission to view that page.")
-        user_id = session["user_id"]
-        return redirect("/users/{}/dashboard".format(user_id))
+    boards_list = []
+
+    # new dictionary
+    team_dict = {"t_id": team_id,
+                 "name": team_object.name,
+                 "desc": team_object.desc}
+
+    boards_array = Board.query.filter_by(team_id=team_id).all()  # list of objects
+
+    if boards_array:  # checks for whether any board object in the list
+        for board in boards_array:
+            # Add a dictionary with the keys b_id, name, desc, and updated
+                # as an item in the list boards_list
+            boards_list.append({"b_id": board.b_id,
+                                "name": board.name,
+                                "desc": board.desc,
+                                "updated": board.updated})
+    return render_template('team-main.html',
+                           boards=boards_list,
+                           team=team_dict)
+
+
+###########################################################################
+# BOARD VIEW ##############################################################
+
+@app.route("/view-board")
+def view_board():
+    """Renders view of a board's page, with projects"""
+                                                    ### NEED TO MAKE A ROUTE TO GO TO THE BOARD's PAGE########
+    pass
+
+
+@app.route("/new-board", methods=["GET"])
+def display_new_board_form():
+    """Temporary page that forces name choice"""
+
+    team_id = request.args.get("team")
+    return render_template("temp-new-board.html", team_id=team_id)
+
+
+@app.route("/new-board", methods=["POST"])
+def create_new_board():
+    """xxxxxxxxxxxxxxxxxxxxxx"""
+
+    return render_template("")
 
 
 ###########################################################################
 # LOG OUT #################################################################
 
-@app.route("/users/<int:user_id>/logout", methods=["POST"])
-def logout_user(user_id):
-    session.clear()
+@app.route("/logout", methods=["POST"])
+def logout_user():
 
+    session.clear()
     flash("You have been logged out.")
+
     return redirect("/")
 
 
 @app.route("/users/temp/logout", methods=["POST"])
 def temp_logout():
+
     session.clear()
     flash("You have been logged out from temp logout route.")
+
     return redirect("/")
 
 
