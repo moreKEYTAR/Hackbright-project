@@ -34,12 +34,14 @@
   {% endif %}
 </div>
 <div>
-  {% if invites_list %}
-  
-    <h3>Team Invitations</h3>
+  <h4>Team Invitations</h4>
+    {% if not invites_list%}
+    <p>No pending team invites.</P>
+      <p>See your list of<a href="/ignored-teams"> ignored team invites.</p></a>
+    {% else %}
       {% for invite in invites_list %}
         <div> 
-          <h4>{{ invite.name }}</h4>
+          <h5>{{ invite.name }}</h5>
           <p class="desc">{{ invite.desc }}</p>
           <form action="/join-team" method="POST">
             <input type='hidden' name="team" value="{{ invite.team_id }}">
@@ -51,15 +53,14 @@
           </form>
         </div>
       {% endfor %}
-  {% endif %}
+    {% endif %}
 </div>
 
 <div>
-  <p>Make a new team to start a board and add projects!</p>
-  <p>THIS MESSAGE SHOULD BE CONDITIONAL, ON WHETHER THEY HAVE ANY TEAMS</p>
-  <!-- <form action="/new-team" method="GET">
-    <input type='submit' value='Make a new team'>
-  </form> -->
+  <h4>Make a new team</h4>
+  <p>make helper info like a mouseover or flash to encourage people to do 
+    this and explain it is how they make boardsssssssssssssss</p>
+  <br>
   New team name: <input id="new-team-name" type="text">
   Description: <input id="new-team-desc" type="text">
   <input id="make-team" type='button' value='Make a new team'>

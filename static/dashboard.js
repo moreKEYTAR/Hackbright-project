@@ -8,7 +8,7 @@ $('#make-team').on('click', function (evt) {
         function (results) {
         // results = {teamId: xxxxxx}
             // Should I put these into a separate function?
-            let div = $("<div>");
+             
             let form = $("<form>");  // makes a form element, still unattached
                 form.attr({"action": "/view-team", "method": "GET"});
             let inputTeamId = $("<input>");
