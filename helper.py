@@ -18,12 +18,12 @@ def is_logged_in():
         return False
 
 
-def get_user_id_from_session():
-    """Queries session dictionary for user id (integer)
-        - should be called only if is_logged_in() returns True
-    """
-    user_id = session.get("login")
-    return user_id
+# def get_user_id_from_session():
+#     """Queries session dictionary for user id (integer)
+#         - should be called only if is_logged_in() returns True
+#     """
+#     user_id = session.get("login")
+#     return user_id
 
 
 def get_login_attempts():

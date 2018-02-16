@@ -40,7 +40,7 @@
       {% for invite in invites_list %}
         <div> 
           <h4>{{ invite.name }}</h4>
-          <p class="desc">{ invite.desc }}</p>
+          <p class="desc">{{ invite.desc }}</p>
           <form action="/join-team" method="POST">
             <input type='hidden' name="team" value="{{ invite.team_id }}">
             <input type='submit' id='join-team' value='Accept Team Invite'>

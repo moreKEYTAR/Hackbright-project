@@ -165,7 +165,7 @@ def display_new_team_form():
 def add_team():
     """Create Team model and UserTeam model, updating database each time."""
 
-    name = request.form.get("name")
+    name = request.form.get("name", "Untitled")
     desc = request.form.get("description", None)
 
     user_id = session.get("user_id")
@@ -179,8 +179,8 @@ def add_team():
     new_userteam = make_userteam(user_id, new_team.t_id)  # in query.py
     add_to_db(new_userteam)
 
-    flash("Team created! MAKE POPUP TO ASK To GO STRAIGHT TO THE TEAM PAGE")
-    return redirect("/dashboard")
+    # flash("Team created! MAKE POPUP TO ASK To GO STRAIGHT TO THE TEAM PAGE")
+    return jsonify({"teamId": new_team.t_id})
 
 
 @app.route("/join-team", methods=["POST"])
@@ -188,8 +188,10 @@ def join_team():
     """Update UserTeam to accept membership; redirect to temporary page to
     simulate pop up redirect."""
 
-    user_id = get_user_id_from_session()
-    team_id = request.form.get("team")
+    user_id = session["user_id"]
+    print user_id
+    team_id = request.form.get("team")  # is tTHIIIIIS THE ISSUE
+    print team_id
     update_userteam_accepted(user_id, team_id)
     return render_template("temp-join-team.html",
                            user_id=user_id, team_id=team_id)
@@ -199,7 +201,7 @@ def join_team():
 def ignore_team():
     """Update UserTeam to ???????????????????????????????????????????"""
 
-    user_id = get_user_id_from_session()
+    user_id = session["user_id"]
     team_id = request.form.get("team")
 
     return ("WELL yOU Can'T IGnORe it")

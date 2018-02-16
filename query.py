@@ -73,4 +73,3 @@ def get_user_by_email(email):
 
     user = User.query.filter(User.email == email).first()
     return user
-
