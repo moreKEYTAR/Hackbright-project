@@ -25,7 +25,7 @@
         <form action="/view-team" method="GET">
           <input type="hidden" name="team" value="{{ team.team_id }}">
           <input type="submit" value="{{ team.name }}">
-          <p class="desc"><i>{{ team.desc }}</i></p>
+          <p class="desc">{{ team.desc }}</p>
         </form>
       </div>   
     {% endfor %}
@@ -40,7 +40,7 @@
       {% for invite in invites_list %}
         <div> 
           <h4>{{ invite.name }}</h4>
-          <p class="desc"><i>{{ invite.desc }}</i></p>
+          <p class="desc">{ invite.desc }}</p>
           <form action="/join-team" method="POST">
             <input type='hidden' name="team" value="{{ invite.team_id }}">
             <input type='submit' id='join-team' value='Accept Team Invite'>
