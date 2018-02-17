@@ -2,7 +2,9 @@
 
 {% block content %}
 
-<!-- how do we validate for login before the page loads? how do we make the url change to display the unique user, not users/login...the last route used...? -->
+<!-- how do we validate for login before the page loads? how do we make the 
+  url change to display the unique user, not users/login...
+  the last route used...? -->
 <h1>Dashboard</h1>
 <p>This is the dashboard</p>
 
@@ -60,13 +62,23 @@
   <h4>Make a new team</h4>
   <p>make helper info like a mouseover or flash to encourage people to do 
     this and explain it is how they make boardsssssssssssssss</p>
+      <p>PENDING: THIS FORM SHOULD BE HIDDEN UNTIL A BUTTON IS PUSHED, THEN 
+        THE FORM SHOULD BE IN A FLOATING POP UP, AND NOT SUBMIT UNTIL AT 
+        LEAST THE NAME IS TYPED</p>
+        <p>Let's make a new team. You can have different boards in your team, 
+          so don't worry about those yet. Just pick a team name based on 
+          whether this is for your work, or perhaps for your own "home team." </p>
   <br>
-  New team name: <input id="new-team-name" type="text">
-  Description: <input id="new-team-desc" type="text">
+  <div id="new-team">
+  New team name: <input id="new-team-name" type="text" 
+                  placeholder='type name here'>
+  Description: <textarea id="new-team-desc" name="description" 
+                placeholder="optional"></textarea>
   <input id="make-team" type='button' value='Make a new team'>
-
+</div>
 </div>
 
+<!-- link to js below here -->
 <script src="/static/dashboard.js"></script>
 
 {% endblock %}

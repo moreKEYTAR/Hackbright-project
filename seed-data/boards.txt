@@ -1,7 +1,7 @@
 1|Smallfolk Concerns|Matters of lordship and justice
 1|Winterfell Stores|Maintaining supplies, men, and food
 1|Warden of the North|Relations with all realms within Westeros and the Crown
-2|Main Plan|Maneuvers to fight, allies, and defense of the realms
+2|Main Plan|Maneuvers to fight, allies, and defense of the Seven Kingdoms
 3|Some Name|Some description
 4|Supporting the Crown
 5|Greenseer Training

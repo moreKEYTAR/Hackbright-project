@@ -1,0 +1,9 @@
+[{'updated': datetime.datetime(2018, 2, 17, 0, 36, 15, 442563), 'name': u'Main Plan', 'b_id': 4, 'desc': u'Maneuvers to fight,
+
+4|3|item|Organize Northern Arms|Wildling army and train Northern smallfolk||
+4|1|item|
+4||idea|
+4||idea|
+4||item
+4||item
+

@@ -193,8 +193,7 @@ def join_team():
     team_id = request.form.get("team")  # is tTHIIIIIS THE ISSUE
     print team_id
     update_userteam_accepted(user_id, team_id)
-    return render_template("temp-join-team.html",
-                           user_id=user_id, team_id=team_id)
+    return redirect("/dashboard")
 
 
 @app.route("/ignore-team-invite", methods=["POST"])
