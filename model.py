@@ -123,7 +123,7 @@ class Project(db.Model):
 
     def __repr__(self):
         """Provide useful output when printing."""
-        return """<{p_id}  Title: {title}  Type: {phase} 
+        return """<{p_id}  Title: {title}  Type: {phase}
         Claimed by: {user} Board: {board}>""".format(
             p_id=self.p_id,
             title=self.title,

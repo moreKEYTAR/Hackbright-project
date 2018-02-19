@@ -1,5 +1,9 @@
 "use strict";
 
+// div with id new-team starts with 'hidden' toggled on
+$('#show-make-team').on('click', function (evt) {
+    $('#new-team').toggleClass('hidden');
+});
 
 $('#make-team').on('click', function (evt) {
     let newTeamName = $("#new-team-name").val();
@@ -27,24 +31,33 @@ $('#make-team').on('click', function (evt) {
             form.append(descPara);
             div.append(form);
             $('#joined-teams').append(div);
+            // $('#new-team').toggleClass('hidden');
+            //
+            //
+            //
 
-        // add hidden field and update when new team is made
-        }); // close function & ajax
+
+
+        }); // closes function & ajax
+
 // reset form fields
-    //fourth attempt
-    // $('input:text').focus(
-    //     function() {
-    //         $(this).val('');
-    //     })
-        // third attempt
+//fifth attempt
+    //$("#new-team-name").reset();
+    //$("#new-team-desc").reset();
+        //fourth attempt
+        // $('input:text').focus(
+        //     function() {
+        //         $(this).val('');
+        //     })
+            // third attempt
             // $('#new-team').each(function () {
             //     $(this).val('');
             // }
 
                 // second attempt
-                    // document.getElementById("new-team-name").reset();
-                    // document.getElementById("new-team-desc").reset();
-                // original attempt:
+                // document.getElementById("new-team-name").reset();
+                // document.getElementById("new-team-desc").reset();
+                    // original attempt:
                     // $('input[type="text"]').val('');
-                // $('textarea').val('');
+                    // $('textarea').val('');
     }); // close function & event listener

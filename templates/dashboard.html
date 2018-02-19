@@ -68,14 +68,19 @@
         <p>Let's make a new team. You can have different boards in your team, 
           so don't worry about those yet. Just pick a team name based on 
           whether this is for your work, or perhaps for your own "home team." </p>
+  <div id="show-new-team">
+    <input id="show-make-team" type='button' value='Make a new team'>
+  </div>
+
   <br>
-  <div id="new-team">
-  New team name: <input id="new-team-name" type="text" 
-                  placeholder='type name here'>
-  Description: <textarea id="new-team-desc" name="description" 
-                placeholder="optional"></textarea>
-  <input id="make-team" type='button' value='Make a new team'>
-</div>
+
+  <div id="new-team" class="hidden">
+    New team name: <input id="new-team-name" type="text" 
+                    placeholder='type name here'>
+    Description: <textarea id="new-team-desc" name="description" 
+                  placeholder="optional"></textarea>
+    <input id="make-team" type='button' value='Create this team'>
+  </div>
 </div>
 
 <!-- link to js below here -->
