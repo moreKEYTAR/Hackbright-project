@@ -31,33 +31,12 @@ $('#make-team').on('click', function (evt) {
             form.append(descPara);
             div.append(form);
             $('#joined-teams').append(div);
-            // $('#new-team').toggleClass('hidden');
-            //
-            //
-            //SHOULD I WORRY ABOUT PLACEHOLDERS???
 
-
-
+            $("#new-team-name").val('');
+            $("#new-team-desc").val('');
+            
         }); // closes function & ajax
 
-// reset form fields
-//fifth attempt
-    //$("#new-team-name").reset();
-    //$("#new-team-desc").reset();
-        //fourth attempt
-        // $('input:text').focus(
-        //     function() {
-        //         $(this).val('');
-        //     })
-            // third attempt
-            // $('#new-team').each(function () {
-            //     $(this).val('');
-            // }
+    $('#new-team').toggleClass('hidden');
 
-                // second attempt
-                // document.getElementById("new-team-name").reset();
-                // document.getElementById("new-team-desc").reset();
-                    // original attempt:
-                    // $('input[type="text"]').val('');
-                    // $('textarea').val('');
     }); // close function & event listener
