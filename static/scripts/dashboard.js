@@ -34,7 +34,7 @@ $('#make-team').on('click', function (evt) {
             // $('#new-team').toggleClass('hidden');
             //
             //
-            //
+            //SHOULD I WORRY ABOUT PLACEHOLDERS???
 
 
 
