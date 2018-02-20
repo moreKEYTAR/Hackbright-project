@@ -27,6 +27,13 @@ def make_userteam(u_id, t_id):
     return new_userteam
 
 
+def make_board(b_name, b_desc, t_id):
+    """Takes in two strings and an integer, makes a Board object, returns it."""
+
+    new_board = Board(team_id=t_id, name=b_name, desc=b_desc)
+    return new_board
+
+
 # UPDATE DATABASE #######################################################
 
 def add_to_db(baseobject):

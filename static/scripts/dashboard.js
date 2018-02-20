@@ -5,7 +5,7 @@ $('#show-make-team').on('click', function (evt) {
     $('#new-team').toggleClass('hidden');
 });
 
-$('#make-team').on('click', function (evt) {
+$('#trigger-make-team').on('click', function (evt) {
     let newTeamName = $("#new-team-name").val();
     let newTeamDesc = $("#new-team-desc").val();
 

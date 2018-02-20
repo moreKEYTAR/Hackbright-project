@@ -1,63 +1,46 @@
 "use strict";
 
 // div with id new-team starts with 'hidden' toggled on
-$('#show-make-team').on('click', function (evt) {
-    $('#new-team').toggleClass('hidden');
+$('#show-make-board').on('click', function (evt) {
+    $('#new-board').toggleClass('hidden');
 });
 
-// $('#make-team').on('click', function (evt) {
-//     let newTeamName = $("#new-team-name").val();
-//     let newTeamDesc = $("#new-team-desc").val();
+$('#trigger-make-board').on('click', function (evt) {
+    let newBoardName = $("#new-board-name").val();
+    let newBoardDesc = $("#new-board-desc").val();
+    let teamIdInfo = $("#team-id-info").val();
 
-//     $.post("/new-team", {"name": newTeamName, "description": newTeamDesc}, 
-//         function (results) {
-//         // results = {teamId: xxxxxx}
-//             // Should I put these into a separate function?
-//             let div = $("<div>");
-//             let form = $("<form>");  // makes a form element, still unattached
-//                 form.attr({"action": "/view-team", "method": "GET"});
-//             let inputHidden = $("<input>");
-//                 inputHidden.attr({"type": "hidden", "name": "team", 
-//                                   "value": results.teamId});
-//             let inputSubmit = $("<input>");
-//                 inputSubmit.attr({"type": "submit", "value": newTeamName});
-//             let descPara = $("<p>");
-//                 descPara.attr({"class": "desc"});
-//                 descPara.html(newTeamDesc);
+    $.post("/new-board", {"name": newBoardName, 
+                          "description": newBoardDesc, 
+                          "team-id-info": teamIdInfo},
+            function (results) {
+            // results need to give back Board's Id; we have team Id, name 
+                //and description.... {boardId: integer}
+            let div = $('<div>');
+                div.attr({"class": "board"});
+            let navLink = $('<a>');
+                navLink.attr({"href": "/view-board"});
+            let navButton = $('<button>');
+                navButton.attr({"type": "button", "id": `${results.boardId}`});
+                navButton.html(newBoardName);
+            let boardDesc = $('h5');
+                boardDesc.html(newBoardDesc);
+            let inputHidden = $('input');
+                inputHidden.attr({"type": "hidden", "name": "team", 
+                                 "value": `${teamIdInfo}`});
 
-//             // Connecting our elements to each other and dashboard.html tree
-//             form.append(inputHidden);
-//             form.append(inputSubmit);
-//             form.append(descPara);
-//             div.append(form);
-//             $('#joined-teams').append(div);
-//             // $('#new-team').toggleClass('hidden');
-//             //
-//             //
-//             //SHOULD I WORRY ABOUT PLACEHOLDERS???
+            // Link elements from inner to outer
+            navLink.append(navButton);  //navButton is a child of navLink
+
+            // appending the div with each element in order
+            div.append(navLink);  
+            div.append(boardDesc);
+            div.append(inputHidden);
+
+            $('#all-team-boards').append(div);
+            });
+    $('#new-board').toggleClass('hidden');
+});
 
 
 
-//         }); // closes function & ajax
-
-// // reset form fields
-// //fifth attempt
-//     //$("#new-team-name").reset();
-//     //$("#new-team-desc").reset();
-//         //fourth attempt
-//         // $('input:text').focus(
-//         //     function() {
-//         //         $(this).val('');
-//         //     })
-//             // third attempt
-//             // $('#new-team').each(function () {
-//             //     $(this).val('');
-//             // }
-
-//                 // second attempt
-//                 // document.getElementById("new-team-name").reset();
-//                 // document.getElementById("new-team-desc").reset();
-//                     // original attempt:
-//                     // $('input[type="text"]').val('');
-//                     // $('textarea').val('');
-//     }); // close function & event listener

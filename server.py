@@ -154,15 +154,8 @@ def dashboard():
             # Fossil from validation version; does not hurt to keep
 
 
-@app.route("/new-team")
-def display_new_team_form():
-    """Temporary page that forces name choice"""
-
-    return render_template("temp-new-team.html")
-
-
 @app.route("/new-team", methods=["POST"])
-def add_team():
+def create_team():
     """Create Team model and UserTeam model, updating database each time."""
 
     name = request.form.get("name", "Untitled")
@@ -170,12 +163,10 @@ def add_team():
 
     user_id = session.get("user_id")
 
-    #  Should the following 4 lines be one function??
-        # Team should not be made without also making a userteam (see below)
-        # but requires getting the new team's team id first
     new_team = make_team(name, desc)
     add_to_db(new_team)
 
+    # We now have the team id, so we can make the UserTeam relationship
     new_userteam = make_userteam(user_id, new_team.t_id)  # in query.py
     add_to_db(new_userteam)
 
@@ -185,12 +176,14 @@ def add_team():
 
 @app.route("/join-team", methods=["POST"])
 def join_team():
-    """Update UserTeam to accept membership; redirect to temporary page to
-    simulate pop up redirect."""
+    """Update UserTeam membership field's value to true;
+    update Dashboard with a redirect."""
 
+    # This route is currently in contrast to the style of making a new team,
+        # which is an ajax request.
     user_id = session["user_id"]
     print user_id
-    team_id = request.form.get("team")  # is tTHIIIIIS THE ISSUE
+    team_id = request.form.get("team")
     print team_id
     update_userteam_accepted(user_id, team_id)
     return redirect("/dashboard")
@@ -207,7 +200,7 @@ def ignore_team():
 
 
 ###########################################################################
-# TEAM VIEW ###############################################################
+# TEAM MAIN AND BOARDS ####################################################
 
 @app.route("/view-team")
 def view_team():
@@ -238,29 +231,31 @@ def view_team():
                            team=team_dict)
 
 
-###########################################################################
-# BOARD VIEW ##############################################################
+@app.route("/new-board", methods=["POST"])
+def create_board():
+    """Make a new board and update page without refresh; ajax."""
+
+    ##### VALIDATION HERE PLEASE ######
+    user_id = session.get("user_id")
+
+    name = request.form.get("name", "Untitled")  # board's name input
+        # Is this a good way to handle not requiring the team or board name
+            # in the form, but in the data fields?
+    desc = request.form.get("description", None)  # board's desc input
+    team_id = request.form.get("team-id-info")
+
+    new_board = make_board(name, desc, team_id)
+    add_to_db(new_board)
+
+    # flash("Team created! MAKE POPUP TO ASK To GO STRAIGHT TO THE TEAM PAGE")
+    return jsonify({"boardId": new_board.b_id})
+
 
 @app.route("/view-board")
 def view_board():
     """Renders view of a board's page, with projects"""
                                                     ### NEED TO MAKE A ROUTE TO GO TO THE BOARD's PAGE########
     pass
-
-
-@app.route("/new-board", methods=["GET"])
-def display_new_board_form():
-    """Temporary page that forces name choice"""
-
-    team_id = request.args.get("team")
-    return render_template("temp-new-board.html", team_id=team_id)
-
-
-@app.route("/new-board", methods=["POST"])
-def create_new_board():
-    """xxxxxxxxxxxxxxxxxxxxxx"""
-
-    return render_template("")
 
 
 ###########################################################################

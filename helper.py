@@ -17,13 +17,7 @@ def is_logged_in():
     else:
         return False
 
-
-# def get_user_id_from_session():
-#     """Queries session dictionary for user id (integer)
-#         - should be called only if is_logged_in() returns True
-#     """
-#     user_id = session.get("login")
-#     return user_id
+      ### is this even necessary???????????
 
 
 def get_login_attempts():
