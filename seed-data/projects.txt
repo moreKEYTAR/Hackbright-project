@@ -1,9 +1,49 @@
 [{'updated': datetime.datetime(2018, 2, 17, 0, 36, 15, 442563), 'name': u'Main Plan', 'b_id': 4, 'desc': u'Maneuvers to fight,
 
-4|3|item|Organize Northern Arms|Wildling army and train Northern smallfolk||
-4|1|item|
-4||idea|
-4||idea|
-4||item
-4||item
+4||idea|Reassemble Riverlands armies under Sansa||2|
+4||idea|Consult Melisandra about Lord of Light||1|
+4||idea|Use the magic of Direwolves||2|
+4||item|Train smallfolk to fight|||
+4||item|Scout Lannister movement||3|
+4||item|Prepare the Gift for wight warfare|||
+4|1|item|Armor or train Drogon and Rhaegal||2|
+4|3|item|Arm Vale and Northern armies with Dragonglass|Current amount mined: 30 tonnes||
+4|1|item|Find supplies to support Dorthraki and imaginary Dragonstone peoples|Funny how I brought all these people from Essos and they live on a rock but no one has seen them or talked about them. Weird.||
+
+
+Main plan unclaimed idea
+main plan unclaimed idea
+main plan unclaimed item
+main plan unclaimed item
+main plan unclaimed item
+main plan dany item
+main plan jon item
+main plan dany item
+
+
+team_id 2 has main plan, which is board 4
+team_id 1 (winterfell) has boards 1, 2, 3, 
+board_id
+
+
+
+
+
+
+p_id = db.Column(db.Integer, primary_key=True, autoincrement=True,
+                     nullable=False, unique=True)
+    board_id = db.Column(db.Integer,
+                         db.ForeignKey('boards.b_id'),
+                         nullable=False)
+    user_id = db.Column(db.Integer,
+                        db.ForeignKey('user_accounts.u_id'),
+                        nullable=True, unique=False, default=None)
+    phase_code = db.Column(db.String(10),
+                           db.ForeignKey('phases.ph_code'),
+                           nullable=False, unique=False)
+    title = db.Column(db.String(100), nullable=False, unique=False)
+    notes = db.Column(db.String(2000), nullable=True, unique=False)
+    updated = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+        # needs more study
+    upvotes = db.Column(db.Integer, nullable=False, default=0)
 

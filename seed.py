@@ -39,13 +39,18 @@ def load_userteams():
     """Import and add userteam data from userteams.txt into db"""
     for row in open("seed-data/userteams.txt"):
         row = row.strip()
-        user_id, team_id, is_member = row.split("|")
-        if is_member == "t":
-            is_member = True
-        else:
-            is_member = False
-        userteam = UserTeam(user_id=user_id, team_id=team_id,
-                            is_member=is_member)
+        userteam_data = row.split("|")
+        if len(userteam_data) == 3:
+            user_id, team_id, is_member = userteam_data
+            if is_member == "t":
+                is_member = True
+            else:
+                is_member = False
+            userteam = UserTeam(user_id=user_id, team_id=team_id,
+                                is_member=is_member)
+        elif len(userteam_data) == 2:
+            user_id, team_id = userteam_data
+            userteam = UserTeam(user_id=user_id, team_id=team_id)
         db.session.add(userteam)
         db.session.commit()
 

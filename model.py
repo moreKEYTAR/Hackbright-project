@@ -61,7 +61,8 @@ class UserTeam(db.Model):
                         nullable=False)
     team_id = db.Column(db.Integer, db.ForeignKey('team_accounts.t_id'),
                         nullable=False)
-    is_member = db.Column(db.Boolean, nullable=False, default=False)
+    is_member = db.Column(db.Boolean, nullable=True)
+        # need to check to make sure this doesn't break my seed.py
         # whether the user has accepted to be on a team
 
     user = db.relationship("User", backref="userteams")
@@ -86,7 +87,7 @@ class Board(db.Model):
     desc = db.Column(db.String(255), nullable=True, unique=False)
     updated = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
-    team = db.relationship("Team", backref="board")
+    team = db.relationship("Team", backref="boards")
     # SEE Project FOR RELATIONSHIP
 
     def __repr__(self):
@@ -111,15 +112,15 @@ class Project(db.Model):
     phase_code = db.Column(db.String(10),
                            db.ForeignKey('phases.ph_code'),
                            nullable=False, unique=False)
-    title = db.Column(db.String(100), nullable=False, unique=False)
+    title = db.Column(db.String(300), nullable=False, unique=False)
     notes = db.Column(db.String(2000), nullable=True, unique=False)
+    upvotes = db.Column(db.Integer, nullable=False, default=0)
     updated = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
         # needs more study
-    upvotes = db.Column(db.Integer, nullable=False, default=0)
 
-    board = db.relationship("Board", backref="project")
-    user = db.relationship("User", backref="project")
-    phase = db.relationship("Phase", backref="project")
+    board = db.relationship("Board", backref="projects")
+    user = db.relationship("User", backref="projects")
+    phase = db.relationship("Phase", backref="projects")
 
     def __repr__(self):
         """Provide useful output when printing."""
@@ -139,7 +140,6 @@ class Phase(db.Model):
 
     ph_code = db.Column(db.String(10), primary_key=True,
                         nullable=False, unique=True)
-
     # SEE Project FOR RELATIONSHIP
 
     def __repr__(self):
