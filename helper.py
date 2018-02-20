@@ -10,14 +10,14 @@ import query
 
 # LOGIN HELPERS ##########################################################
 
-def is_logged_in():
-    """Check session for login status"""
-    if session.get("login") is True:
-        return True
-    else:
-        return False
+# def is_logged_in():
+#     """Check session for login status"""
+#     if session.get("login") is True:
+#         return True
+#     else:
+#         return False
 
-      ### is this even necessary???????????
+#       ### is this even necessary???????????
 
 
 def get_login_attempts():

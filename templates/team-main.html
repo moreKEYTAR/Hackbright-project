@@ -25,6 +25,7 @@
   
   <h3>Your Boards</h3>
   <div id="all-team-boards">
+    <div id="boards-loop">
     {% for board in boards %}
       <div class="board">
         <a href="/view-board">
@@ -36,6 +37,7 @@
       </div>
     {% endfor %}
   </div>
+</div>
 {% endif %}
 
 <br>

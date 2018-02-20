@@ -6,8 +6,8 @@ from flask import (Flask,  # Flask allows app object
 from flask_debugtoolbar import DebugToolbarExtension
 import jinja2
 from model import db, connect_to_db, User, Team, UserTeam, Board
-from query import *
-from helper import *
+import query as q
+import helper as h
 
 app = Flask(__name__)  # makes app object
 app.secret_key = "It's great to stay up late"  # allows session use 'under the hood'
@@ -49,11 +49,11 @@ def make_new_user():
     # queries user table for first record for email; returns None if no record
     if user_record is None:
 
-        new_user = make_user(email, pw)
-        add_to_db(new_user)
+        new_user = q.make_user(email, pw)
+        q.add_to_db(new_user)
 
-        user = get_user_by_email(email)
-        update_session_for_good_login(user.u_id)
+        user = q.get_user_by_email(email)
+        h.update_session_for_good_login(user.u_id)
 
         session["new_user"] = True  # Pending: Tutorial
         flash("Account created. Awesome!")
@@ -79,14 +79,14 @@ def log_in_returning_user():
     """Validate login entry."""
 
     # update login count to calculate attempts and remaining
-    num_attempts = get_login_attempts()  # in helper.py
-    remaining = calc_attempts_remaining(num_attempts)
+    num_attempts = h.get_login_attempts()
+    remaining = h.calc_attempts_remaining(num_attempts)
 
     # getting data from user input in login.html form
     email = request.form.get('email')
     pw = request.form.get('pw')
 
-    user_record = get_user_by_email(email)  # in query.py
+    user_record = q.get_user_by_email(email)
 
     if user_record is None:
         flash("No account found with that email. Would you like to register?")
@@ -96,12 +96,12 @@ def log_in_returning_user():
 
         # validate password, handle accordingly
         if user_record.password != pw:
-            template = handle_bad_attempts(remaining)  # in helper.py
+            template = h.handle_bad_attempts(remaining)
             return render_template(template)
 
         # is valid password, handle accordingly
         else:
-            update_session_for_good_login(user_record.u_id)
+            h.update_session_for_good_login(user_record.u_id)
             flash("Welcome back to SamePage")
             return redirect("/dashboard")
 
@@ -130,7 +130,7 @@ def dashboard():
         teams_list = []
         invites_list = []
         user_id = session.get("user_id")
-        user_object = get_user_object(user_id)
+        user_object = q.get_user_object(user_id)
 
         ut_objects = user_object.userteams  # makes a list of objects
         for userteam in ut_objects:
@@ -163,12 +163,12 @@ def create_team():
 
     user_id = session.get("user_id")
 
-    new_team = make_team(name, desc)
-    add_to_db(new_team)
+    new_team = q.make_team(name, desc)
+    q.add_to_db(new_team)
 
     # We now have the team id, so we can make the UserTeam relationship
-    new_userteam = make_userteam(user_id, new_team.t_id)  # in query.py
-    add_to_db(new_userteam)
+    new_userteam = q.make_userteam(user_id, new_team.t_id)
+    q.add_to_db(new_userteam)
 
     # flash("Team created! MAKE POPUP TO ASK To GO STRAIGHT TO THE TEAM PAGE")
     return jsonify({"teamId": new_team.t_id})
@@ -185,7 +185,7 @@ def join_team():
     print user_id
     team_id = request.form.get("team")
     print team_id
-    update_userteam_accepted(user_id, team_id)
+    q.update_userteam_accepted(user_id, team_id)
     return redirect("/dashboard")
 
 
@@ -244,8 +244,8 @@ def create_board():
     desc = request.form.get("description", None)  # board's desc input
     team_id = request.form.get("team-id-info")
 
-    new_board = make_board(name, desc, team_id)
-    add_to_db(new_board)
+    new_board = q.make_board(name, desc, team_id)
+    q.add_to_db(new_board)
 
     # flash("Team created! MAKE POPUP TO ASK To GO STRAIGHT TO THE TEAM PAGE")
     return jsonify({"boardId": new_board.b_id})
