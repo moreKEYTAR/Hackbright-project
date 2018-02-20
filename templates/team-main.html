@@ -29,11 +29,13 @@
     {% for board in boards %}
       <div class="board">
         <a href="/view-board">
-          <button type="button" id="{{ board.b_id }}">
+          <button type="button" id="{{ board.b_id }}">  
+            <!-- ID IS ON THE BUTTON -->
             {{ board.name }}</button>
         </a>
         <h5>{{ board.desc }}</h5>
         <input type="hidden" name="team" value="{{ team.t_id }}">
+          <!-- IS THIS THE RIGHT WAY TO DO THIS? -->
       </div>
     {% endfor %}
   </div>

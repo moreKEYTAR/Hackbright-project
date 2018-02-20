@@ -16,31 +16,35 @@ $('#trigger-make-board').on('click', function (evt) {
             function (results) {
             // results need to give back Board's Id; we have team Id, name 
                 //and description.... {boardId: integer}
-            let div = $('<div>');
-                div.attr({"class": "board"});
-            let navLink = $('<a>');
-                navLink.attr({"href": "/view-board"});
-            let navButton = $('<button>');
-                navButton.attr({"type": "button", "id": `${results.boardId}`});
-                navButton.html(newBoardName);
-            let boardDesc = $('h5');
-                boardDesc.html(newBoardDesc);
-            let inputHidden = $('input');
-                inputHidden.attr({"type": "hidden", "name": "team", 
-                                 "value": `${teamIdInfo}`});
+                let div = $('<div>');
+                    div.attr({"class": "board"});
+                let navLink = $('<a>');
+                    navLink.attr({"href": "/view-board"});
+                let navButton = $('<button>');
+                    navButton.attr({"type": "button", 
+                                    "id": `${results.boardId}`});
+                    navButton.html(newBoardName);
+                let boardDesc = $('<h5>');
+                    boardDesc.html(newBoardDesc);
+                let inputHidden = $('<input>');
+                    inputHidden.attr({"type": "hidden", "name": "team", 
+                                     "value": `${teamIdInfo}`});
+                // Link elements from inner to outer
+                navLink.append(navButton);  //navButton is a child of navLink
 
-            // Link elements from inner to outer
-            navLink.append(navButton);  //navButton is a child of navLink
+                // appending the div with each element in order
+                div.append(navLink);  
+                div.append(boardDesc);
+                div.append(inputHidden);
+                $('#all-team-boards').append(div);
 
-            // appending the div with each element in order
-            div.append(navLink);  
-            div.append(boardDesc);
-            div.append(inputHidden);
+                $("#new-board-name").val('');
+                $("#new-board-desc").val('');
 
-            $('#all-team-boards').append(div);
-            });
+            });  // closes function, then closes ajax post request
     $('#new-board').toggleClass('hidden');
 });
+
 
 
 
