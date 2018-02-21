@@ -217,6 +217,7 @@ def display_ignored_teams():
     """PENDING PENDING PENDING"""
     return "Pending my good lady"
 
+
 ###########################################################################
 # TEAM MAIN AND BOARDS ####################################################
 
@@ -227,26 +228,28 @@ def view_team():
     team_id = request.args.get("team")
     team_object = Team.query.filter_by(t_id=team_id).first()  # REFACTOR THIS
 
-    boards_list = []
+    # boards_list = []
 
-    # new dictionary
-    team_dict = {"t_id": team_id,
-                 "name": team_object.name,
-                 "desc": team_object.desc}
+    # # new dictionary
+    # team_dict = {"t_id": team_id,
+    #              "name": team_object.name,
+    #              "desc": team_object.desc}
 
-    boards_array = Board.query.filter_by(team_id=team_id).all()  # list of objects
+    # boards_array = Board.query.filter_by(team_id=team_id).all()  # list of objects
 
-    if boards_array:  # checks for whether any board object in the list
-        for board in boards_array:
-            # Add a dictionary with the keys b_id, name, desc, and updated
-                # as an item in the list boards_list
-            boards_list.append({"b_id": board.b_id,
-                                "name": board.name,
-                                "desc": board.desc,
-                                "updated": board.updated})
-    return render_template('team-main.html',
-                           boards=boards_list,
-                           team=team_dict)
+    # if boards_array:  # checks for whether any board object in the list
+    #     for board in boards_array:
+    #         # Add a dictionary with the keys b_id, name, desc, and updated
+    #             # as an item in the list boards_list
+    #         boards_list.append({"b_id": board.b_id,
+    #                             "name": board.name,
+    #                             "desc": board.desc,
+    #                             "updated": board.updated})
+    # return render_template('team-main.html',
+    #                        boards=boards_list,
+    #                        team=team_dict)
+
+    return render_template("team-main-2.html", team=team_object)
 
 
 @app.route("/new-board", methods=["POST"])
