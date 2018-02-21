@@ -5,7 +5,8 @@ from flask import (Flask,  # Flask allows app object
                    jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
 import jinja2
-from model import db, connect_to_db, User, Team, UserTeam, Board
+from model import (db, connect_to_db,
+                   User, Team, UserTeam, Board, Project, Phase)
 import query as q
 import helper as h
 
@@ -139,7 +140,8 @@ def dashboard():
                              "name": userteam.team.name,
                              "desc": userteam.team.desc}
                 teams_list.append(team_dict)
-            else:
+            elif userteam.is_member is None:
+            # null value means invite decision pending
                 invite_dict = {"team_id": userteam.team_id,
                                "name": userteam.team.name,
                                "desc": userteam.team.desc}
@@ -174,30 +176,46 @@ def create_team():
     return jsonify({"teamId": new_team.t_id})
 
 
-@app.route("/join-team", methods=["POST"])
-def join_team():
+@app.route("/team-invitation", methods=["POST"])
+def update_team_membership():
     """Update UserTeam membership field's value to true;
     update Dashboard with a redirect."""
 
     # This route is currently in contrast to the style of making a new team,
         # which is an ajax request.
     user_id = session["user_id"]
-    print user_id
     team_id = request.form.get("team")
-    print team_id
-    q.update_userteam_accepted(user_id, team_id)
+    user_choice = request.form.get("is_joining")
+        # in dashboard.html hidden value; True or False
+
+    # Cleanse data from html as soon as possible
+    if user_choice == "True":
+        user_choice = True  # this line doesn't work
+    else:
+        user_choice = False
+
+    q.update_userteam_relationship(user_id, team_id, user_choice)
+
+    flash("Your team invites have been updated!")
+
     return redirect("/dashboard")
 
 
-@app.route("/ignore-team-invite", methods=["POST"])
-def ignore_team():
-    """Update UserTeam to ???????????????????????????????????????????"""
+# @app.route("/ignore-team-invite", methods=["POST"])
+# def show_ignored_teams():
+#     """Update UserTeam to ???????????????????????????????????????????"""
 
-    user_id = session["user_id"]
-    team_id = request.form.get("team")
+#     user_id = session["user_id"]
+#     team_id = request.form.get("team")
+#     get userteam info for all those that have false listed
 
-    return ("WELL yOU Can'T IGnORe it")
+#     pass
 
+
+@app.route("/ignored-teams", methods=["GET"])
+def display_ignored_teams():
+    """PENDING PENDING PENDING"""
+    return "Pending my good lady"
 
 ###########################################################################
 # TEAM MAIN AND BOARDS ####################################################

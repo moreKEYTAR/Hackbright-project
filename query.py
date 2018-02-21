@@ -1,7 +1,8 @@
 
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from model import db, connect_to_db, User, Team, UserTeam, Board
+from model import (db, connect_to_db,
+                   User, Team, UserTeam, Board, Project, Phase)
 
 
 # MAKE NEW OBJECT #######################################################
@@ -45,11 +46,11 @@ def add_to_db(baseobject):
     print "Added to db; db update committed."
 
 
-def update_userteam_accepted(u_id, t_id):
-    """Uses id strings to update UserTeam object"""
+def update_userteam_relationship(u_id, t_id, u_choice):
+    """Uses id strings and boolean to update UserTeam object"""
 
     userteam = get_userteam_object(u_id, t_id)
-    userteam.is_member = True
+    userteam.is_member = u_choice
     db.session.commit()
     print "Membership on team is updated in db."
 

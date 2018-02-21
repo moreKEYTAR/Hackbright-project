@@ -37,25 +37,36 @@
 </div>
 <div>
   <h4>Team Invitations</h4>
+
     {% if not invites_list%}
+
     <p>No pending team invites.</P>
       <p>See your list of<a href="/ignored-teams"> ignored team invites.</p></a>
     {% else %}
+      
       {% for invite in invites_list %}
+        
         <div> 
+
           <h5>{{ invite.name }}</h5>
           <p class="desc">{{ invite.desc }}</p>
-          <form action="/join-team" method="POST">
+          <form action="/team-invitation" method="POST">
             <input type='hidden' name="team" value="{{ invite.team_id }}">
+            <input type='hidden' name="is_joining" value="True">
             <input type='submit' id='join-team' value='Accept Team Invite'>
           </form>
-          <form action="/ignore-team-invite" method="POST">
+          
+          <form action="/team-invitation" method="POST">
             <input type='hidden' name="team" value="{{ invite.team_id }}">
+            <input type='hidden' name="is_joining" value="False">
             <input type='submit' id='ignore-team' value='Ignore Invite'>
           </form>
+
         </div>
       {% endfor %}
+
     {% endif %}
+
 </div>
 
 <div>
