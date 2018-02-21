@@ -249,7 +249,7 @@ def view_team():
     #                        boards=boards_list,
     #                        team=team_dict)
 
-    return render_template("team-main-2.html", team=team_object)
+    return render_template("team-main.html", team=team_object)
 
 
 @app.route("/new-board", methods=["POST"])
@@ -307,7 +307,7 @@ if __name__ == "__main__":
 
     app.debug = True
     # prevents server side caching while in debug mode?
-    app.jinja_env.auto_reload = app.debug  
+    app.jinja_env.auto_reload = app.debug
 
     connect_to_db(app)  # model file houses all ORM
     DebugToolbarExtension(app)  # Use the DebugToolbar

@@ -1,74 +1,133 @@
 {% extends 'base.html' %}
-
+{% block title %}My SamePage Teams{% endblock %}
 {% block content %}
+<style type="text/css">
+   .board > button {
+    background-color:#30bdc0;
+    }
 
-<!-- boards
-  A list.
-  Each item in the list is a dictionary, with these keys:
-    b_id, name, desc, updated -->
+    .board {
+    display:inline-block;
+    float:left; 
+    /* I had to add the float to get them to be inline at all*/
+    vertical-align: top;
+    background-color: yellow;
+    width:30%;
+    }
+    #all-team-boards {
+      width:90%;
+      background-color: pink;
+    }
 
-<!-- team
-  A dictionary.
+</style>
+<!-- team     A dictionary.
   Each key in this dictionary is a different field name; they are:
     t_id, name, desc-->
 
-<!-- TEMPORARY -->
-{{ boards }}
-<!-- TEMPORARY END -->
+<!-- boards   A list. 
+  Each item in the list is a dictionary/object.
+    Each dictionary has these keys:
+      b_id, name, desc, updated -->
 
+<!-- projects  A dictionary/object.
+  Each key in the dictionary/object is a p_id.
+    The value for this key will be a dictionary/object, with the following
+    keys pertaining to the project:
+      b_id, user_id, phase_code, title, notes, updated-->
+
+<p>{{ team.t_id }}</P>
 
 <h1>Team home: {{ team.name }}</h1>
+{% if team.desc %}
 <h5>{{ team.desc }}</h5>
-
-
-{% if boards %}
-  
-  <h3>Your Boards</h3>
-  <div id="all-team-boards">
-    <div id="boards-loop">
-    {% for board in boards %}
-      <div class="board">
-        <a href="/view-board">
-          <button type="button" id="{{ board.b_id }}">  
-            <!-- ID IS ON THE BUTTON -->
-            {{ board.name }}</button>
-        </a>
-        <h5>{{ board.desc }}</h5>
-        <input type="hidden" name="team" value="{{ team.t_id }}">
-          <!-- IS THIS THE RIGHT WAY TO DO THIS? -->
-      </div>
-    {% endfor %}
-  </div>
-</div>
 {% endif %}
 
 <br>
+<h3>Your Boards</h3>
+{% if team.boards %}
+
+
+  <div id="all-team-boards">
+    {% for board in team.boards %}
+      <br>
+      <br>
+      
+
+      <div class="board" id="{{ board.b_id }}">
+        <button type="button" class="board-button" 
+                data-board-id="{{ board.b_id }}">
+                {{ board.name }}</button>
+        <p class="description">{{ board.desc }}</p>
+            
+            <!-- Board button above is always visible; projects are
+                 visible based on clicking that board button. Then all other 
+                 show projects divs hid, and this one shows for the 
+                 event.target / project button that was clicked. -->
+
+            <div id="show-projects-{{board.b_id}}" class="show-projects" hidden>
+              
+              {% if board.projects %}
+                <div class="if-board-has-projects">
+                  
+                    {% for project in board.projects %}
+                      <br>
+                      <div class="project" 
+                           id="{{ project.p_id }}" 
+                           data-parent="{{board.b_id}}" 
+                           data-phase="{{ project.phase_code }}"
+                           data-claiming-user="{{ project.user_id }}"
+                           data-updated="{{ project.updated }}">
+                        <button type="button">{{ project.title }}</button>
+                        <input type="hidden" name="notes" value="{{ project.notes }}">
+                        {% if project.upvotes %}
+                          <h5>+ {{ project.upvotes}}</h5>
+                        {% endif %}
+                        {% if project.user_id %}
+                          <h5>{{ project.user.displayname }}</h5>
+                        {% endif %}
+                      </div> <!-- closes project div -->
+
+                    {% endfor %}
+
+                </div> <!-- closes if-board-has-projects div -->
+              
+              {% else %}
+
+                <p>No projects yet!</p>
+
+              {% endif %}
+
+            </div> <!-- closes show-projects div -->
+        
+        <div id="make-new-project-{{board.b_id}}" class="make-new-project" hidden>
+          <br>
+          <p>MAKE PROJECT GOES HERE!!!!!!!</p>
+          <p>But it shouldn't be visible until you are "in" the board</p>
+          <br>
+        </div> <!-- closes new project div -->
+      
+      </div> <!-- closes board div -->
+    
+    {% endfor %}
+  
+  </div> <!-- closes all-team-boards div...is this a container of some kind?-->
+{% else %}
+
+<p>No boards yet! Click below to make one!</p>
+<p>IT SHOULD BE AUTO TO MAKE A FIRST BOARD WHEN YOU MAKE A NEW TEAM</p>
+
+{% endif %}
+<br><br>
+
 
 <div id="show-new-board">
   <input id="show-make-board" type='button' value='Make a new board'>
+  <p> CLICKING THIS SHOULD OPEN A MODAL TO MAKE A NEW BOARD </p>
 </div>
 
-
-
- <br>
-
-<div id="new-board" class="hidden">
-
-  <p>Call your board something to create a theme, such as "DIY Projects" or "Administration Tasks." 
-  If you start to have a lot of boards, it might be a good idea to make a new team ;)</p>
-
-  <br>
-  <input id="team-id-info" type='hidden' name="team-id" value="{{ team.t_id }}">
-  Board Name: <input id="new-board-name" type="text" 
-                  placeholder='type name here'>
-  Description: <textarea id="new-board-desc" name="description" 
-                placeholder="optional"></textarea>
-  <input id="trigger-make-board" type='button' value='Create this board!'>
-</div>
-
-
+<br>
+<br>
 <!-- link to js below here -->
 <script src="/static/scripts/team-main.js"></script>
-
 
 {% endblock %}

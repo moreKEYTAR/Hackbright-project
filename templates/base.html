@@ -1,20 +1,33 @@
+<!doctype html>
 <html>
 <head>
     <link rel="stylesheet"
           href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.css"/>
     <!-- <link el="stylesheet" type="text/css" href="/static/styles.css"> -->
-    <title>SamePage</title>
+    <title>{% block title %}{% endblock %}</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            }
+    </style>
 </head>
 
 <body>
-<!-- <script
-  src="http://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"> 
-    </script> -->
-<!-- The integrity and crossorigin attributes are used for Subresource Integrity (SRI) checking. This allows browsers to ensure that resources hosted on third-party servers have not been tampered with. Use of SRI is recommended as a best-practice, whenever libraries are loaded from a third-party source. Read more at srihash.org -->
+<div class="temp-navbar">
+    <ul>
+        <li>SEARCH FIELD HERE</li>
+        <li><a href="http://localhost:5000/dashboard">
+            <button type="button">Dashboard</button></a></li>
+        <li><a href="http://localhost:5000/my-action-board">
+            <button type="button">Your Board</button></a></li>
+        <li><a href="http://localhost:5000/logout">
+            <button type="button">Logout</button></a></li>    
+    <ul>
 
+</div>
 
 
 <!-- DIV FROM SHOPPINGSITE LAB, BASE.HTML NAVBAR -->
@@ -43,8 +56,10 @@
     </div> -->
 
     <div class="container">
-        <!-- DIV FROM SHOPPINGSITE LAB, BASE.HTML FLASH JINJA -->
-        <!-- Show flashed messages -->
+        <!-- Show flashed messages stuff...from shopping site lab-->
+
+        <!--what does with mean here??????-->   
+
 
         {% with messages = get_flashed_messages() %}
             {% for message in messages %}
