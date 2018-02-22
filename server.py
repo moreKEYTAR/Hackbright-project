@@ -1,7 +1,14 @@
-from flask import (Flask,  # Flask allows app object
-                   session, flash,  # session allows use of session storage for login
-                   render_template, redirect,  # render_template allows html render functionality
-                   request,  # request allows use of forms in html templates
+###########################################################################
+# IMPORTS - GEN ###########################################################
+
+from flask import (Flask,
+                   # Flask allows app object
+                   session, flash,
+                   # session allows use of session storage for login
+                   render_template, redirect,
+                   # render_template allows html render functionality
+                   request,
+                   # request allows use of forms in html templates
                    jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
 import jinja2
@@ -10,19 +17,34 @@ from model import (db, connect_to_db,
 import query as q
 import helper as h
 
+# import pdb; pdb.set_trace()
+
+
+###########################################################################
+# FLASK APP SETUP #########################################################
+
 app = Flask(__name__)  # makes app object
-app.secret_key = "It's great to stay up late"  # allows session use 'under the hood'
+app.secret_key = "It's great to stay up late"
+    # allows session use 'under the hood'
+
 app.jinja_env.undefined = jinja2.StrictUndefined
     # Normally, if you refer to an undefined variable in a Jinja template,
-        # Jinja silently ignores this. This makes debugging difficult, so we'll
-        # set an attribute of the Jinja environment that says to make this an
-        # error.
+        # Jinja silently ignores this. "This makes debugging difficult, so
+        # we'll set an attribute of the Jinja environment that says to make
+        # this an error.""
 app.jinja_env.auto_reload = True
-    # Suggested in Slack #boooooo channel, to fix an error that will sometimes happen
-        # where some versions of Flask bug so that you have to re-start your server
-        # with every change on your template.
+    # Fixes error that will sometimes happen where (in some versions of Flask)
+        # you have to re-start your server with every change on your template.
 
-# import pdb; pdb.set_trace()
+
+###########################################################################
+# SESSION STORAGE #########################################################
+
+# Keys:
+    # "login" (bool)
+    # "user_id" (int)
+    # "team_id" (int)
+    # "new_user" (bool)
 
 
 ###########################################################################
@@ -262,13 +284,6 @@ def make_new_board():
 
     flash("Board created! MAKE THAT BOARD SHOW AS DEFAULT!!!!")
     return redirect("/view-team")
-
-
-# @app.route("/view-board")
-# def view_board():
-#     """Renders view of a board's page, with projects"""
-#                                                     ### NEED TO MAKE A ROUTE TO GO TO THE BOARD's PAGE########
-#     pass
 
 
 ###########################################################################
