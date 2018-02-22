@@ -123,6 +123,10 @@ def password_recovery():
 def dashboard():
     """Renders dashboard view, grabbing existing teams for display"""
 
+    session["team_id"] = None
+        # Creates a session key for team_id, which is needed in the new board
+        # route, and therefore must be reset.
+
     if session.get("new_user"):
         flash("New user! Tutorial time! NEED TO MAKE POP UP")
 
@@ -225,58 +229,46 @@ def display_ignored_teams():
 def view_team():
     """Renders view of team page, with board"""
 
-    team_id = request.args.get("team")
+    team_id = session.get("team_id")
+
+    if team_id is None:
+        team_id = request.args.get("team")
+        session["team_id"] = team_id
+
     team_object = Team.query.filter_by(t_id=team_id).first()  # REFACTOR THIS
-
-    # boards_list = []
-
-    # # new dictionary
-    # team_dict = {"t_id": team_id,
-    #              "name": team_object.name,
-    #              "desc": team_object.desc}
-
-    # boards_array = Board.query.filter_by(team_id=team_id).all()  # list of objects
-
-    # if boards_array:  # checks for whether any board object in the list
-    #     for board in boards_array:
-    #         # Add a dictionary with the keys b_id, name, desc, and updated
-    #             # as an item in the list boards_list
-    #         boards_list.append({"b_id": board.b_id,
-    #                             "name": board.name,
-    #                             "desc": board.desc,
-    #                             "updated": board.updated})
-    # return render_template('team-main.html',
-    #                        boards=boards_list,
-    #                        team=team_dict)
 
     return render_template("team-main.html", team=team_object)
 
 
 @app.route("/new-board", methods=["POST"])
-def create_board():
+def make_new_board():
     """Make a new board and update page without refresh; ajax."""
 
     ##### VALIDATION HERE PLEASE ######
     user_id = session.get("user_id")
 
-    name = request.form.get("name", "Untitled")  # board's name input
+    name = request.form.get("new-board-name", "Untitled")  # board's name input
         # Is this a good way to handle not requiring the team or board name
             # in the form, but in the data fields?
-    desc = request.form.get("description", None)  # board's desc input
-    team_id = request.form.get("team-id-info")
+    desc = request.form.get("new-board-desc", None)  # board's desc input
+    team_id = request.form.get("team-id")
+
+    session["team_id"] = team_id
+    # Not sure if I need this; it should already be there, but this keeps it
+        # current
 
     new_board = q.make_board(name, desc, team_id)
     q.add_to_db(new_board)
 
-    # flash("Team created! MAKE POPUP TO ASK To GO STRAIGHT TO THE TEAM PAGE")
-    return jsonify({"boardId": new_board.b_id})
+    flash("Board created! MAKE THAT BOARD SHOW AS DEFAULT!!!!")
+    return redirect("/view-team")
 
 
-@app.route("/view-board")
-def view_board():
-    """Renders view of a board's page, with projects"""
-                                                    ### NEED TO MAKE A ROUTE TO GO TO THE BOARD's PAGE########
-    pass
+# @app.route("/view-board")
+# def view_board():
+#     """Renders view of a board's page, with projects"""
+#                                                     ### NEED TO MAKE A ROUTE TO GO TO THE BOARD's PAGE########
+#     pass
 
 
 ###########################################################################

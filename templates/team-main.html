@@ -5,10 +5,9 @@
    .board > button {
     background-color:#30bdc0;
     }
-
     .board {
     display:inline-block;
-    float:left; 
+    /*float:left; */
     /* I had to add the float to get them to be inline at all*/
     vertical-align: top;
     background-color: yellow;
@@ -18,22 +17,46 @@
       width:90%;
       background-color: pink;
     }
+    .modal {
+      display:none; /* Starts hidden, using CSS */
+      position:fixed; /* Stays in place. - W3Schools. Learn more. */
+      z-index:1; /* On top; higher numbers go toward the user, covering page */
+      left:0; top:0; /* Not sure...learn more later */
+      width:100%; height:100%;
+      overflow:auto; /* "Enable scroll if needed" */
+      background-color: rgb(71, 71, 107);
+      background-color: rgba(71, 71, 107, 0.9); 
+        /* Standard rgb color with alpha or opacity */
+        /* http://www.css3.info/introduction-opacity-rgba/ */
+    }
+    .modal-content { /* Borrowed from W3Schools 'how to css modals'*/
+        /*position:absolute;*/
+        background-color: #fefefe;
+        margin: 20% auto; /* 20% from the top and centered */
+        padding: 20px;
+        border: 1px solid #999999;
+        width: 50%;
+        height:auto;
+    }
+    .close {  /* The Close Button */
+        /*position:absolute;*/
+        color: #999999;
+        float: right;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .close:hover, .close:focus { /* Borrowed from W3Schools 'how to css modals'*/
+        color: black;
+        text-decoration: none;
+        cursor: pointer; /* I think this is for the cursor hovering on the close*/
+    }
+
 
 </style>
 <!-- team     A dictionary.
   Each key in this dictionary is a different field name; they are:
     t_id, name, desc-->
 
-<!-- boards   A list. 
-  Each item in the list is a dictionary/object.
-    Each dictionary has these keys:
-      b_id, name, desc, updated -->
-
-<!-- projects  A dictionary/object.
-  Each key in the dictionary/object is a p_id.
-    The value for this key will be a dictionary/object, with the following
-    keys pertaining to the project:
-      b_id, user_id, phase_code, title, notes, updated-->
 
 <p>{{ team.t_id }}</P>
 
@@ -49,8 +72,6 @@
 
   <div id="all-team-boards">
     {% for board in team.boards %}
-      <br>
-      <br>
       
 
       <div class="board" id="{{ board.b_id }}">
@@ -64,7 +85,8 @@
                  show projects divs hid, and this one shows for the 
                  event.target / project button that was clicked. -->
 
-            <div id="show-projects-{{board.b_id}}" class="show-projects" hidden>
+            <div id="show-projects-{{ board.b_id }}" 
+                 class="show-projects" hidden>
               
               {% if board.projects %}
                 <div class="if-board-has-projects">
@@ -119,11 +141,46 @@
 {% endif %}
 <br><br>
 
-
-<div id="show-new-board">
-  <input id="show-make-board" type='button' value='Make a new board'>
+<!-- MAKE A NEW BOARD FOR THE TEAM: BUTTON -->
+<div id="make-new-board">
+  <button type="button" id="new-board" 
+          data-team-id="{{ team.t_id }}">
+    Add a new board</button>
   <p> CLICKING THIS SHOULD OPEN A MODAL TO MAKE A NEW BOARD </p>
 </div>
+
+<!-- MODAL WINDOW, TRIGGERED BY MAKE NEW BOARD BUTTON -->
+<div id="new-board-modal" class="modal"> 
+  <!-- This modal starts hidden, using css display:none -->
+
+    <!-- MODAL WINDOW CONTENT -->
+    <div class="modal-content">
+      <span id="modal-close">&times;</span>
+      <!-- MODAL FORM -->
+      <h3>Make a new board</h3>
+      
+      <form action="/new-board" method="POST" 
+            id="make-new-board-form">
+        <span>Name your board:</span>
+        <input type="text" name="new-board-name" placeholder="required"
+               required><br>
+        <span>Description:</span>
+        <div>
+          <textarea form="make-new-board-form" name="new-board-desc"
+                    placeholder="optional"></textarea>
+        </div>
+        <input type="hidden" name="team-id" value="{{ team.t_id }}">
+        <input type="submit" value="Submit" id="submit-new-board-form">
+      </form>
+    
+    </div>
+    <!-- These class names are borrowed from W3Schools  -->
+    <!-- &times; makes a perfectly angled x. search "HTML entities" -->
+
+
+</div>
+
+
 
 <br>
 <br>
