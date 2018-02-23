@@ -227,17 +227,6 @@ def update_team_membership():
     return redirect("/dashboard")
 
 
-# @app.route("/ignore-team-invite", methods=["POST"])
-# def show_ignored_teams():
-#     """Update UserTeam to ???????????????????????????????????????????"""
-
-#     user_id = session["user_id"]
-#     team_id = request.form.get("team")
-#     get userteam info for all those that have false listed
-
-#     pass
-
-
 @app.route("/ignored-teams", methods=["GET"])
 def display_ignored_teams():
     """PENDING PENDING PENDING"""
