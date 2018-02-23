@@ -16,7 +16,7 @@ $('.board-button').on('click', function (evt) {
         $(".make-new-project").hide();  // Close the new project div
     // handles clicking another board, which is not yet visible (regardless if
         // any are visible)
-    } else { 
+    } else {
         $(".show-projects").hide();
         $(".make-new-project").hide();
         $("#show-projects-" + boardId).show();
@@ -30,25 +30,53 @@ $('.board-button').on('click', function (evt) {
 /////////////////////////////////////////////////////////////////////////////
 
 // https://www.w3schools.com/howto/howto_css_modals.asp
-let modal = document.getElementById('new-board-modal');
+let boardModal = document.getElementById('new-board-modal');
 // Button id. There is only one, so it is weird to use a classs... 
 // but the id has the team id in jinja, so how can i get that in js?
 
 // When the user clicks on the button, open the modal 
-$("#new-board").on('click', function (evt) {
+$("#new-board-button").on('click', function (evt) {
     //let teamId = $(this).data("teamId");
-    modal.style.display = "block"; //changes css display value from none
+    boardModal.style.display = "block"; //changes css display value from none
 });
 
 // When the user clicks on <span> (x), close the modal
-$('#modal-close').on('click', function (evt) {
-    modal.style.display = "none"; //changes css display value from none
+$('#board-modal-close').on('click', function (evt) {
+    boardModal.style.display = "none"; //changes css display value from none
 });
 
 // javascript for an event listener
 window.addEventListener("click", function (evt) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+    if (event.target == boardModal) {
+        boardModal.style.display = "none";
+    }
+});
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// MODAL CODE: NEW IDEA MODAL ///
+/////////////////////////////////////////////////////////////////////////////
+
+// https://www.w3schools.com/howto/howto_css_modals.asp
+let ideaModal = document.getElementById('new-idea-modal');
+// Button id. There is only one, so it is weird to use a classs... 
+// but the id has the team id in jinja, so how can i get that in js?
+
+// When the user clicks on the button, open the modal 
+$("#new-idea-button").on('click', function (evt) {
+    //let teamId = $(this).data("teamId");
+    ideaModal.style.display = "block"; //changes css display value from none
+});
+
+// When the user clicks on <span> (x), close the modal
+$('#idea-modal-close').on('click', function (evt) {
+    ideaModal.style.display = "none"; //changes css display value from none
+});
+
+// javascript for an event listener
+window.addEventListener("click", function (evt) {
+    if (event.target == ideaModal) {
+        ideaModal.style.display = "none";
     }
 });
 
@@ -57,22 +85,24 @@ window.addEventListener("click", function (evt) {
 /// NEW PROJECT (ITEM OR IDEA) CODE ///
 /////////////////////////////////////////////////////////////////////////////
 
-// div with id all-board-projects starts with 'hidden' toggled on
-$('.board-button').on('click', function (evt) {
-    let boardId = $(this).data("boardId");
+// div with id "make-new-project-(board_id here)" starts as hidden and is
+// toggled with the show/hide on its board
 
-    // checks only the first div; if visible, toggles both off for the board
-        // when the button is clicked (again)
-    if ($("#show-projects-" + boardId).is(':visible')) {
-        $(".show-projects").hide();  // Close the div with the projects
-        $(".make-new-project").hide();  // Close the new project div
-    // handles clicking another board, which is not yet visible (regardless if
-        // any are visible)
-    } else { 
-        $(".show-projects").hide();
-        $(".make-new-project").hide();
-        $("#show-projects-" + boardId).show();
-        $("#make-new-project-" + boardId).show();
-    }
-});
+// $('MODAL SUBMIT').on('click', function (evt) {
+//     let boardId = $(this).data("boardId");
+//     let teamId = $(this).data("teamId");
+//     // checks only the first div; if visible, toggles both off for the board
+//         // when the button is clicked (again)
+//     if ($("#show-projects-" + boardId).is(':visible')) {
+//         $(".show-projects").hide();  // Close the div with the projects
+//         $(".make-new-project").hide();  // Close the new project div
+//     // handles clicking another board, which is not yet visible (regardless if
+//         // any are visible)
+//     } else { 
+//         $(".show-projects").hide();
+//         $(".make-new-project").hide();
+//         $("#show-projects-" + boardId).show();
+//         $("#make-new-project-" + boardId).show();
+//     }
+// });
 

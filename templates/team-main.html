@@ -8,58 +8,7 @@
   <!-- team    ..... an object
   Refer to model to see Team attributes and relationships-->
 
-<style type="text/css">
-   .board > button {
-    background-color:#30bdc0;
-    }
-    .board {
-    display:inline-block;
-    /*float:left; */
-    /* I had to add the float to get them to be inline at all*/
-    vertical-align: top;
-    background-color: yellow;
-    width:30%;
-    }
-    #all-team-boards {
-      width:90%;
-      background-color: pink;
-    }
-    .modal {
-      display:none; /* Starts hidden, using CSS */
-      position:fixed; /* Stays in place. - W3Schools. Learn more. */
-      z-index:1; /* On top; higher numbers go toward the user, covering page */
-      left:0; top:0; /* Not sure...learn more later */
-      width:100%; height:100%;
-      overflow:auto; /* "Enable scroll if needed" */
-      background-color: rgb(71, 71, 107);
-      background-color: rgba(71, 71, 107, 0.9); 
-        /* Standard rgb color with alpha or opacity */
-        /* http://www.css3.info/introduction-opacity-rgba/ */
-    }
-    .modal-content { /* Borrowed from W3Schools 'how to css modals'*/
-        /*position:absolute;*/
-        background-color: #fefefe;
-        margin: 20% auto; /* 20% from the top and centered */
-        padding: 20px;
-        border: 1px solid #999999;
-        width: 50%;
-        height:auto;
-    }
-    .close {  /* The Close Button */
-        /*position:absolute;*/
-        color: #999999;
-        float: right;
-        font-size: 24px;
-        font-weight: bold;
-    }
-    .close:hover, .close:focus { /* Borrowed from W3Schools 'how to css modals'*/
-        color: black;
-        text-decoration: none;
-        cursor: pointer; /* I think this is for the cursor hovering on the close*/
-    }
-</style>
-
-<!-- ************************** MAIN HTML BODY ************************** --> 
+<!-- *************************** MAIN HTML BODY *************************** --> 
 
 <p>{{ team.t_id }}</P>
 
@@ -91,8 +40,8 @@
 
 
         <!-- CHILD (A) FROM THE BOARD DIV -->
-        <div id="show-projects-{{ board.b_id }}" 
-             class="show-projects" hidden>
+        <div class="show-projects"  
+             id="show-projects-{{ board.b_id }}" hidden>
           
           {% if board.projects %}
             <div class="if-board-has-projects">
@@ -131,15 +80,55 @@
         <!-- CHILD (B) FROM THE BOARD DIV -->
 
         <!-- Make a new project for the board: DIV & BUTTON -->
-        <div id="make-new-project-{{board.b_id}}" 
-             class="make-new-project" hidden>
+        <div class="make-new-project"
+             id="make-new-project-{{board.b_id}}" 
+             hidden>
 
           <button type="button" id="new-item-button" 
-                  data-team-id="{{ team.t_id }}">
+                  data-team-id="{{ team.t_id }}"
+                  data-board-id="{{ board.b_id }}">
            Add a new to do ITEM</button>
           <button type="button" id="new-idea-button" 
-                  data-team-id="{{ team.t_id }}">
+                  data-team-id="{{ team.t_id }}"
+                  data-board-id="{{ board.b_id }}">
            Add an IDEA to the board</button>
+
+
+           <!-- Modal window, triggered by MAKE NEW IDEA button -->
+
+            <div class="modal" id="new-idea-modal"> 
+            <!-- This modal starts hidden, using css display:none -->
+            
+                <!-- MODAL WINDOW CONTENT -->
+                <div class="modal-content">
+                  <span id="idea-modal-close">&times;</span>
+                  <!-- &times; makes a perfectly angled x. search "HTML entities" -->
+
+                  <!-- MODAL FORM -->
+                  <h3>Add a new idea to your team board</h3>
+                  
+                  <form action="/new-idea" method="POST" 
+                        id="make-new-idea-form">
+                    <span>New Idea:</span>
+                    <input type="text" maxlength="300" title="new-idea-title" 
+                           placeholder="What is your idea?" required><br>
+                    <div>
+                      <textarea form="make-new-idea-form" name="new-idea-notes"
+                                placeholder="Want to enter any notes?">
+                      </textarea>
+                    </div>
+                    <input type="hidden" name="team-id" 
+                           value="{{ team.t_id }}">
+                    <input type="hidden" name="board-id" 
+                           value="{{ team.t_id }}">
+                    <input type="submit" value="Submit" 
+                           id="submit-new-idea-form">
+                  </form> <!-- Close form -->
+
+                </div> <!-- Close "modal-content" -->
+            </div> <!-- Close "new-board-modal" -->
+
+
 
         </div> <!-- closes new project div -->
       
@@ -159,20 +148,22 @@
 
 <!-- MAKE A NEW BOARD FOR THE TEAM: DIV & BUTTON -->
 <div id="make-new-board">
-  <button type="button" id="new-board" 
+  <button type="button" id="new-board-button" 
           data-team-id="{{ team.t_id }}">Add a new board</button>
 </div>
 
 
+
+<!-- ************************** HIDDEN MODALS ************************** -->
 <!-- MODAL DIVS CREATED BY REFERENCING HTML/CSS TUTORIAL from W3Schools  -->
 
-<!-- MODAL WINDOW, TRIGGERED BY MAKE NEW BOARD BUTTON -->
+<!-- Modal window, triggered by Make New Board button -->
 <!-- This modal starts hidden, using css display:none -->
-<div id="new-board-modal" class="modal"> 
+<div class="modal" id="new-board-modal"> 
 
     <!-- MODAL WINDOW CONTENT -->
     <div class="modal-content">
-      <span id="modal-close">&times;</span>
+      <span id="board-modal-close">&times;</span>
       <!-- &times; makes a perfectly angled x. search "HTML entities" -->
 
       <!-- MODAL FORM -->
@@ -195,6 +186,8 @@
 
     </div> <!-- Close "modal-content" -->
 </div> <!-- Close "new-board-modal" -->
+
+
 
 <br>
 
