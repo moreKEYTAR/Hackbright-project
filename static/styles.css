@@ -13,11 +13,17 @@
   background-color: yellow;
   width:30%;
   }
+
   #all-team-boards {
     width:90%;
     background-color: pink;
   }
-
+  .add-project-to-board-button {
+  background-color:#99ffbb;
+  }
+  .project-content {
+    background-color: lightblue;
+  }
 /* MODAL STYLING */
   .modal {
     display:none; /* Starts hidden, using CSS */
@@ -31,6 +37,7 @@
       /* Standard rgb color with alpha or opacity */
       /* http://www.css3.info/introduction-opacity-rgba/ */
   }
+
   .modal-content { /* Borrowed from W3Schools 'how to css modals'*/
       /*position:absolute;*/
       background-color: #fefefe;

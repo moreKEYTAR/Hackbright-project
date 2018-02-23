@@ -55,6 +55,16 @@ def update_userteam_relationship(u_id, t_id, u_choice):
     print "Membership on team is updated in db."
 
 
+def update_user_claiming_project(u_id, p_id):
+
+    project = get_project_object(p_id)
+    project.user_id = u_id
+    db.session.commit()
+    print "The project ownership is updated to the user {} and project {}".format(
+        u_id,
+        p_id)
+
+
 # OBJECT QUERIES #########################################################
 
 def get_user_object(u_id):
@@ -73,6 +83,13 @@ def get_userteam_object(u_id, t_id):
                                      UserTeam.team_id == t_id).first()
     return userteam
 
+
+def get_project_object(p_id):
+    """Takes in an integer and queries the projects table."""
+
+    project = Project.query.get(p_id)
+
+    return project
 
 # FETCH INSTANCE QUERIES (WITH FIRST) ####################################
 

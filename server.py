@@ -275,6 +275,17 @@ def make_new_board():
     return redirect("/view-team")
 
 
+@app.route("/claim-project", methods=["POST"])
+def assign_user_to_project():
+    """Update database with user_id for the project."""
+
+    user_id = session.get("user_id")
+    project_id = request.form.get("projectId")
+
+    q.update_user_claiming_project(user_id, project_id)
+    return redirect("/view-team")
+
+
 ###########################################################################
 # LOG OUT #################################################################
 

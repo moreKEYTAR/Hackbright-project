@@ -49,19 +49,29 @@
                 {% for project in board.projects %}
                   <br>
                   <div class="project" 
-                       id="{{ project.p_id }}" 
-                       data-parent="{{board.b_id}}" 
+                       id="{{ project.p_id }}"  
                        data-phase="{{ project.phase_code }}"
                        data-claiming-user="{{ project.user_id }}"
                        data-updated="{{ project.updated }}">
-                    <button type="button">{{ project.title }}</button>
-                    <input type="hidden" name="notes" value="{{ project.notes }}">
-                    {% if project.upvotes %}
-                      <h5>+ {{ project.upvotes}}</h5>
-                    {% endif %}
-                    {% if project.user_id %}
-                      <h5>{{ project.user.displayname }}</h5>
-                    {% endif %}
+                    <div class="project-content">
+                      <h5>{{ project.title }}</h5>
+                      <div class="if-unclaimed-project">
+                        {% if not project.user_id %}
+                        <button type="button" class="accept-project-button"
+                                data-phase="{{ project.phase_code }}"
+                                data-project-id="{{ project.p_id }}">
+                          Claim me!
+                        </button>
+                        {% endif %}
+                      </div> <!-- Closes the div if-unclaimed-project -->
+                      <input type="hidden" name="notes" value="{{ project.notes }}">
+                      {% if project.upvotes %}
+                        <h5>+ {{ project.upvotes}}</h5>
+                      {% endif %}
+                      {% if project.user_id %}
+                        <h5>{{ project.user.displayname }}</h5>
+                      {% endif %}
+                    </div> <!-- closes project content div -->
                   </div> <!-- closes project div -->
 
                 {% endfor %} <!-- ends the for each project loop -->
@@ -84,43 +94,49 @@
              id="make-new-project-{{board.b_id}}" 
              hidden>
 
-          <button type="button" id="new-item-button" 
+          <button type="button" class="add-project-to-board-button" 
                   data-team-id="{{ team.t_id }}"
                   data-board-id="{{ board.b_id }}">
-           Add a new to do ITEM</button>
-          <button type="button" id="new-idea-button" 
-                  data-team-id="{{ team.t_id }}"
-                  data-board-id="{{ board.b_id }}">
-           Add an IDEA to the board</button>
+           Add something to your board</button>
 
 
            <!-- Modal window, triggered by MAKE NEW IDEA button -->
 
-            <div class="modal" id="new-idea-modal"> 
+            <div class="modal" id="new-project-modal"> 
             <!-- This modal starts hidden, using css display:none -->
-            
+
                 <!-- MODAL WINDOW CONTENT -->
                 <div class="modal-content">
-                  <span id="idea-modal-close">&times;</span>
+                  <span id="project-modal-close">&times;</span>
                   <!-- &times; makes a perfectly angled x. search "HTML entities" -->
 
                   <!-- MODAL FORM -->
-                  <h3>Add a new idea to your team board</h3>
+                  <h3>Add to your team board</h3>
                   
-                  <form action="/new-idea" method="POST" 
-                        id="make-new-idea-form">
-                    <span>New Idea:</span>
-                    <input type="text" maxlength="300" title="new-idea-title" 
-                           placeholder="What is your idea?" required><br>
+                  <form action="/add-to-board" method="POST" 
+                        id="make-new-project-form">
+
+                    <span>Title or Short Description</span>
+                    <input type="text" maxlength="300" title="new-project-title" 
+                        placeholder="Let your teammates know what you're thinking!" 
+                        required><br>
                     <div>
-                      <textarea form="make-new-idea-form" name="new-idea-notes"
+                      <textarea form="make-new-project-form" name="new-project-notes"
                                 placeholder="Want to enter any notes?">
                       </textarea>
                     </div>
+                    <input type="radio" id="project-radio-phase-item" 
+                           name="project-phase" value="item">
+                           <label for="project-radio-phase-item">
+                            This is an action item</label>
+                    <input type="radio" id="project-radio-phase-idea" 
+                           name="project-phase" value="idea">
+                           <label for="project-radio-phase-idea">
+                            This is a new idea</label>
                     <input type="hidden" name="team-id" 
                            value="{{ team.t_id }}">
                     <input type="hidden" name="board-id" 
-                           value="{{ team.t_id }}">
+                           value="{{ board.b_id }}">
                     <input type="submit" value="Submit" 
                            id="submit-new-idea-form">
                   </form> <!-- Close form -->
@@ -154,9 +170,6 @@
 
 
 
-<!-- ************************** HIDDEN MODALS ************************** -->
-<!-- MODAL DIVS CREATED BY REFERENCING HTML/CSS TUTORIAL from W3Schools  -->
-
 <!-- Modal window, triggered by Make New Board button -->
 <!-- This modal starts hidden, using css display:none -->
 <div class="modal" id="new-board-modal"> 
@@ -187,7 +200,7 @@
     </div> <!-- Close "modal-content" -->
 </div> <!-- Close "new-board-modal" -->
 
-
+<!-- MODAL DIVS CREATED BY REFERENCING HTML/CSS TUTORIAL from W3Schools  -->
 
 <br>
 
