@@ -32,10 +32,23 @@ $('.board-button').on('click', function (evt) {
 $('.accept-project-button').on('click', function (evt) {
     let projectId = $(this).data("projectId");
     $.post ("/claim-project", {"projectId": projectId}, function (results) {
-        alert("Claimed!");
-    }); // closes function & ajax
+            // results is a dictionary, with the board id?
+        
+        // Select, out of the class of accept-project-buttons, the one
+        // where the data attribute is exactly data-project-id=projectId
+        let claimButton = $(
+            '.accept-project-button[data-project-id='+projectId+']');
+        claimButton.hide();
+        console.log(results);
+        // fade message to confirm success to user, from
+            // http://jsfiddle.net/sunnypmody/XDaEk/
+        $( "#success-claimed-project" ).fadeIn( 300 ).delay( 1500 ).
+        fadeOut( 400 );
 
-});
+        }); // closes function & ajax
+
+    }); // closes event listener function
+
 
 
 /////////////////////////////////////////////////////////////////////////////

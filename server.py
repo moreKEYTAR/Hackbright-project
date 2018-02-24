@@ -283,7 +283,8 @@ def assign_user_to_project():
     project_id = request.form.get("projectId")
 
     q.update_user_claiming_project(user_id, project_id)
-    return redirect("/view-team")
+
+    return "HTTP-status-code: 200"
 
 
 ###########################################################################

@@ -47,7 +47,7 @@ def add_to_db(baseobject):
 
 
 def update_userteam_relationship(u_id, t_id, u_choice):
-    """Uses id strings and boolean to update UserTeam object"""
+    """Uses ids and boolean to update UserTeam object"""
 
     userteam = get_userteam_object(u_id, t_id)
     userteam.is_member = u_choice
@@ -56,13 +56,15 @@ def update_userteam_relationship(u_id, t_id, u_choice):
 
 
 def update_user_claiming_project(u_id, p_id):
+    """Uses ids to update ownership of a project, and assigns the 'item' phase,
+        as ideas can currently be claimed too."""
 
     project = get_project_object(p_id)
     project.user_id = u_id
+    project.phase_code = "item"
     db.session.commit()
-    print "The project ownership is updated to the user {} and project {}".format(
-        u_id,
-        p_id)
+    print """The project ownership is updated to the user {} and
+    project {}""".format(u_id, p_id)
 
 
 # OBJECT QUERIES #########################################################

@@ -19,7 +19,9 @@
 
 <br>
 <h3>Your Boards</h3>
-
+<div id="success-claimed-project">Awesome! You own the project. 
+  It will also now be accessible on your Action Board.
+</div>
 {% if team.boards %}
 
   <div id="all-team-boards">
@@ -121,7 +123,8 @@
                         placeholder="Let your teammates know what you're thinking!" 
                         required><br>
                     <div>
-                      <textarea form="make-new-project-form" name="new-project-notes"
+                      <textarea form="make-new-project-form" 
+                                name="new-project-notes"
                                 placeholder="Want to enter any notes?">
                       </textarea>
                     </div>

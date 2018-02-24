@@ -2,6 +2,13 @@
 /*  CSS FOR TEAM-MAIN.HTML  */
 
 /* TEMP COLORS FOR PROGRAMMING */
+ #success-claimed-project {
+    color:#206050;
+    background-color:#c6ece2;
+    border-color:#d6e9c6;
+    display: none;
+  }
+
  .board > button {
   background-color:#30bdc0;
   }
@@ -21,6 +28,7 @@
   .add-project-to-board-button {
   background-color:#99ffbb;
   }
+
   .project-content {
     background-color: lightblue;
   }
