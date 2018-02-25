@@ -311,9 +311,29 @@ def add_new_project_to_board():
     new_project = q.make_project(title, notes, phase_code, board_id)
     q.add_to_db(new_project)
 
-    
+    # need to use datetime, rather than session key, pick which board to have
+        # open...how do we update datetime, and how do
     flash("New a new {} has been added to your board!".format(phase_code))
     return redirect("/view-team")
+
+
+@app.route("/view-details/<int:project_id>", methods=['GET'])
+def open_project_details(project_id):
+    """ """
+
+    project_object = Project.query.filter_by(p_id=project_id).first()
+    results = {"p_title": project_object.title,
+               "p_notes": project_object.notes
+               }
+    return jsonify(results)
+
+
+@app.route("/save-update/<int:project_id>", methods=['POST'])
+def save_updated_project_details(project_id):
+    """ """
+
+    return "nope not done"
+    # this should prob redirect to the view-team that does the render template
 
 
 ###########################################################################

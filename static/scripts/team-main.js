@@ -40,15 +40,49 @@ $('.accept-project-button').on('click', function (evt) {
             '.accept-project-button[data-project-id='+projectId+']');
         claimButton.hide();
         console.log(results);
-        // fade message to confirm success to user, from
+        
+        // fade message to confirm success to user, from website:
             // http://jsfiddle.net/sunnypmody/XDaEk/
         $( "#success-claimed-project" ).fadeIn( 300 ).delay( 1500 ).
         fadeOut( 400 );
-
         }); // closes function & ajax
-
     }); // closes event listener function
 
+
+/////////////////////////////////////////////////////////////////////////////
+/// PROJECT DETAILS MODAL ///
+/////////////////////////////////////////////////////////////////////////////
+
+// When any project is double-clicked:
+$('div.project').on('dblclick', function (evt) {
+    let projectId = $(this).data("projectId");
+
+    $.get("/view-details/"+projectId, function (results) {
+            // results is a dictionary with all project details
+
+        // Update empty h3 tag
+        $('#project-details-title').html(results.p_title);
+
+        // Update empty action attribute in the form
+        $('#update-project-details-form').attr("action", 
+                                               "/save-update/"+projectId);
+        $('#project-details-textarea').html(results.p_notes);
+        $('#project-details-modal').css("display", "block");
+
+    }); // closes function & ajax
+}); // closes event listener function
+
+
+$('#project-details-modal-close').on('click', function (evt) {
+    $('#project-details-modal').css("display", "none"); 
+        //changes css display value from none
+});
+
+window.addEventListener("click", function (evt) {
+    if (event.target == $('#project-details-modal')) {
+        $('#project-details-modal').css("display", "none");
+    }
+});
 
 
 /////////////////////////////////////////////////////////////////////////////

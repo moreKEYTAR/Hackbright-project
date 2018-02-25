@@ -51,7 +51,7 @@
                 {% for project in board.projects %}
                   <br>
                   <div class="project" 
-                       id="{{ project.p_id }}"  
+                       data-project-id="{{ project.p_id }}"  
                        data-phase="{{ project.phase_code }}"
                        data-claiming-user="{{ project.user_id }}"
                        data-updated="{{ project.updated }}">
@@ -180,6 +180,7 @@
 </div>
 
 
+<!-- MODAL DIVS CREATED BY REFERENCING HTML/CSS TUTORIAL from W3Schools  -->
 
 <!-- Modal window, triggered by Make New Board button -->
 <!-- This modal starts hidden, using css display:none -->
@@ -211,10 +212,43 @@
     </div> <!-- Close "modal-content" -->
 </div> <!-- Close "new-board-modal" -->
 
-<!-- MODAL DIVS CREATED BY REFERENCING HTML/CSS TUTORIAL from W3Schools  -->
+
+<!-- Modal window, triggered by Make New Board button -->
+<!-- This modal starts hidden, using css display:none -->
+
+<div class="modal" id="project-details-modal"> 
+
+    <!-- MODAL WINDOW CONTENT -->
+    <div class="modal-content">
+      <span id="project-details-modal-close">&times;</span>
+      <!-- &times; makes a perfectly angled x. search "HTML entities" -->
+
+      <!-- MODAL FORM -->
+      <h3 id="project-details-title"></h3>
+      <a href="https://d.ibtimes.co.uk/en/full/1424780/edit-meme.jpg">
+        Edit Title</a>
+        
+      <div><!-- Close around form 1 -->
+        <form action="" method="POST" 
+              id="project-details-form"> <!-- action updated in js file -->
+              
+          <div class="textarea">
+            <textarea id="project-details-textarea" 
+                      form="project-details-form" 
+                      name="notes" rows="80" cols="30"></textarea>
+          </div>
+          <br>
+          <input type="submit" value="Save Changes" 
+                 id="submit-project-details-form">
+        </form> <!-- Close form -->
+      </div><!-- Close div around form 1 -->
+      
+      <div>
+      </div><!-- Close div around form 1 -->
+    </div> <!-- Close "modal-content" -->
+</div> <!-- Close "new-board-modal" -->
 
 <br>
-
 <!-- **************************** SCRIPTS **************************** --> 
 
 <!-- jQuery inherited from base.html -->
