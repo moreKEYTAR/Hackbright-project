@@ -99,7 +99,7 @@
           <button type="button" class="add-project-to-board-button" 
                   data-team-id="{{ team.t_id }}"
                   data-board-id="{{ board.b_id }}">
-           Add something to your board</button>
+           Add a new post it</button>
 
 
            <!-- Modal window, triggered by MAKE NEW IDEA button -->
@@ -113,29 +113,36 @@
                   <!-- &times; makes a perfectly angled x. search "HTML entities" -->
 
                   <!-- MODAL FORM -->
-                  <h3>Add to your team board</h3>
                   
                   <form action="/add-to-board" method="POST" 
                         id="make-new-project-form">
 
-                    <span>Title or Short Description</span>
-                    <input type="text" maxlength="300" title="new-project-title" 
-                        placeholder="Let your teammates know what you're thinking!" 
-                        required><br>
+                    <h3>Title or Short Description</h3>
+                    <p><i>Something that sums it up for you or your teammates:
+                      </i></p>
+                    <input type="text" maxlength="300" style="width: 350px;" 
+                           title="new-project-title" placeholder="Title"
+                           required><br>
                     <div>
+                      <p>Add some notes? You can do this at any time.</p> 
                       <textarea form="make-new-project-form" 
-                                name="new-project-notes"
-                                placeholder="Want to enter any notes?">
+                                name="new-project-notes" style="width: 350px;"
+                                placeholder="optional">
                       </textarea>
                     </div>
+                    <br>
+                    <p>Is this an action item that someone should grab, or a 
+                      new idea that you want your teammates to weigh in on?</p>
                     <input type="radio" id="project-radio-phase-item" 
                            name="project-phase" value="item">
                            <label for="project-radio-phase-item">
-                            This is an action item</label>
+                            Action Item</label>
+                    <br>
                     <input type="radio" id="project-radio-phase-idea" 
                            name="project-phase" value="idea">
                            <label for="project-radio-phase-idea">
-                            This is a new idea</label>
+                            Idea</label>
+                    <br>
                     <input type="hidden" name="team-id" 
                            value="{{ team.t_id }}">
                     <input type="hidden" name="board-id" 

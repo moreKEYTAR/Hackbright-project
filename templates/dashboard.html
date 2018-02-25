@@ -26,7 +26,7 @@
     <div id="joined-teams">
     {% for team in teams_list %}
       <div> 
-        <form action="/view-team" method="GET">
+        <form action="/view-team" method="POST">
           <input type="hidden" name="team" value="{{ team.team_id }}">
           <input type="submit" value="{{ team.name }}">
           <p class="desc">{{ team.desc }}</p>

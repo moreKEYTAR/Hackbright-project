@@ -15,7 +15,7 @@ $('#trigger-make-team').on('click', function (evt) {
             // Should I put these into a separate function?
             let div = $("<div>");
             let form = $("<form>");  // makes a form element, still unattached
-                form.attr({"action": "/view-team", "method": "GET"});
+                form.attr({"action": "/view-team", "method": "POST"});
             let inputHidden = $("<input>");
                 inputHidden.attr({"type": "hidden", "name": "team", 
                                   "value": results.teamId});

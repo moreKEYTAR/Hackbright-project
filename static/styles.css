@@ -52,7 +52,7 @@
       margin: 20% auto; /* 20% from the top and centered */
       padding: 20px;
       border: 1px solid #999999;
-      width: 50%;
+      width: 75%;  /* Input text in the project modal is 300px wide...min-width?? */
       height:auto;
   }
   .close {  /* The Close Button */

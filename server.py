@@ -242,9 +242,18 @@ def view_team():
 
     team_id = session.get("team_id")
 
-    if team_id is None:
-        team_id = request.args.get("team")
-        session["team_id"] = team_id
+    team_object = Team.query.filter_by(t_id=team_id).first()  # REFACTOR THIS
+
+    return render_template("team-main.html", team=team_object)
+
+
+@app.route("/view-team", methods=["POST"])
+def view_team_and_update_session():
+    """Renders view of team page, with board"""
+
+    team_id = request.form.get("team")
+
+    session["team_id"] = team_id
 
     team_object = Team.query.filter_by(t_id=team_id).first()  # REFACTOR THIS
 
