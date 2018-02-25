@@ -35,6 +35,15 @@ def make_board(b_name, b_desc, t_id):
     return new_board
 
 
+def make_project(p_title, p_notes, p_phase, b_id):
+    """Takes in three strings and an integer,
+    makes a Project object, returns it."""
+
+    new_project = Project(board_id=b_id, phase_code=p_phase, title=p_title,
+                          notes=p_notes)
+    return new_project
+
+
 # UPDATE DATABASE #######################################################
 
 def add_to_db(baseobject):

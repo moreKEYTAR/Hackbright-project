@@ -110,21 +110,23 @@
                 <!-- MODAL WINDOW CONTENT -->
                 <div class="modal-content">
                   <span id="project-modal-close">&times;</span>
-                  <!-- &times; makes a perfectly angled x. search "HTML entities" -->
+                  <!-- &times: a perfectly angled x. search "HTML entities" -->
 
                   <!-- MODAL FORM -->
-                  
                   <form action="/add-to-board" method="POST" 
                         id="make-new-project-form">
 
-                    <h3>Title or Short Description</h3>
-                    <p><i>Something that sums it up for you or your teammates:
+                    <h3>New Post It</h3>
+                    <p><i>Write something that sums it up for you or your 
+                      teammates:
                       </i></p>
                     <input type="text" maxlength="300" style="width: 350px;" 
-                           title="new-project-title" placeholder="Title"
+                           name="new-project-title" 
+                           placeholder="Title or Short Description"
                            required><br>
                     <div>
-                      <p>Add some notes? You can do this at any time.</p> 
+                      <br>
+                      <p><i>Add some notes? You can do this at any time.</i></p> 
                       <textarea form="make-new-project-form" 
                                 name="new-project-notes" style="width: 350px;"
                                 placeholder="optional">
@@ -134,7 +136,7 @@
                     <p>Is this an action item that someone should grab, or a 
                       new idea that you want your teammates to weigh in on?</p>
                     <input type="radio" id="project-radio-phase-item" 
-                           name="project-phase" value="item">
+                           name="project-phase" value="item" checked>
                            <label for="project-radio-phase-item">
                             Action Item</label>
                     <br>
@@ -142,11 +144,10 @@
                            name="project-phase" value="idea">
                            <label for="project-radio-phase-idea">
                             Idea</label>
-                    <br>
-                    <input type="hidden" name="team-id" 
-                           value="{{ team.t_id }}">
                     <input type="hidden" name="board-id" 
                            value="{{ board.b_id }}">
+
+                    <br><br>
                     <input type="submit" value="Submit" 
                            id="submit-new-idea-form">
                   </form> <!-- Close form -->

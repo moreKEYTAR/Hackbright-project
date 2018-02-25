@@ -296,6 +296,26 @@ def assign_user_to_project():
     return "HTTP-status-code: 200"
 
 
+@app.route("/add-to-board", methods=["POST"])
+def add_new_project_to_board():
+    """Update database with new project and display on correct board
+    on team main."""
+
+    # make the board that the project was added to show by default. important
+    title = request.form.get("new-project-title", "Untitled")
+    # The title text box is required, but this is in case I change that soon.
+    notes = request.form.get("new-project-notes", None)
+    phase_code = request.form.get("project-phase")
+    board_id = request.form.get("board-id")
+
+    new_project = q.make_project(title, notes, phase_code, board_id)
+    q.add_to_db(new_project)
+
+    
+    flash("New a new {} has been added to your board!".format(phase_code))
+    return redirect("/view-team")
+
+
 ###########################################################################
 # LOG OUT #################################################################
 
