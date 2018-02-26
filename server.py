@@ -341,7 +341,7 @@ def save_updated_project_details(project_id):
 
 @app.route("/logout", methods=["POST"])
 def logout_user():
-
+    """ """
     session.clear()
     flash("You have been logged out.")
 
@@ -350,12 +350,24 @@ def logout_user():
 
 @app.route("/users/temp/logout", methods=["POST"])
 def temp_logout():
-
+    """ """
     session.clear()
     flash("You have been logged out from temp logout route.")
 
     return redirect("/")
 
+
+###########################################################################
+# EDIT HEADERS ############################################################
+
+@app.after_request
+def add_header(r):
+    """Flask utility to force a cache reload by adding settings in headers"""
+
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    # To fix the issue of making a new team on the dashboard, and using the
+    #browser's nav button to go back
+    return r
 
 ###########################################################################
 # DIRECT FILE CALL ########################################################

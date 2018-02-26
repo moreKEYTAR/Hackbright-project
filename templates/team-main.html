@@ -10,7 +10,7 @@
 
 <!-- *************************** MAIN HTML BODY *************************** --> 
 
-<p>{{ team.t_id }}</P>
+<p>{{ team.t_id }}</p>
 
 <h1>Team home: {{ team.name }}</h1>
 {% if team.desc %}
@@ -18,6 +18,12 @@
 {% endif %}
 
 <br>
+<!-- MAKE A NEW BOARD FOR THE TEAM: DIV & BUTTON -->
+<div id="make-new-board">
+  <button type="button" id="new-board-button" 
+          data-team-id="{{ team.t_id }}">Add a new board</button>
+</div>
+
 <h3>Your Boards</h3>
 <div id="success-claimed-project">Awesome! You own the project. 
   It will also now be accessible on your Action Board.
@@ -128,9 +134,9 @@
                       <br>
                       <p><i>Add some notes? You can do this at any time.</i></p> 
                       <textarea form="make-new-project-form" 
-                                name="new-project-notes" style="width: 350px;"
-                                placeholder="optional">
-                      </textarea>
+                                name="new-project-notes"
+                                style="width: 350px;"
+                                placeholder="optional"></textarea>
                     </div>
                     <br>
                     <p>Is this an action item that someone should grab, or a 
@@ -173,11 +179,7 @@
 
 <br><br>
 
-<!-- MAKE A NEW BOARD FOR THE TEAM: DIV & BUTTON -->
-<div id="make-new-board">
-  <button type="button" id="new-board-button" 
-          data-team-id="{{ team.t_id }}">Add a new board</button>
-</div>
+
 
 
 <!-- MODAL DIVS CREATED BY REFERENCING HTML/CSS TUTORIAL from W3Schools  -->
@@ -235,7 +237,7 @@
           <div class="textarea">
             <textarea id="project-details-textarea" 
                       form="project-details-form" 
-                      name="notes" rows="80" cols="30"></textarea>
+                      name="notes" rows="30" cols="30"></textarea>
           </div>
           <br>
           <input type="submit" value="Save Changes" 

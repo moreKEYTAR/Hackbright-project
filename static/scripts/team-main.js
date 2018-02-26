@@ -78,9 +78,10 @@ $('#project-details-modal-close').on('click', function (evt) {
         //changes css display value from none
 });
 
+let projectDetailsModal = document.getElementById('project-details-modal');
 window.addEventListener("click", function (evt) {
-    if (event.target == $('#project-details-modal')) {
-        $('#project-details-modal').css("display", "none");
+        if (event.target == projectDetailsModal) {
+        projectDetailsModal.style.display = "none";
     }
 });
 
