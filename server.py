@@ -45,6 +45,7 @@ app.jinja_env.auto_reload = True
     # "user_id" (int)
     # "team_id" (int)
     # "new_user" (bool)
+    # "displayname" (str)
 
 
 ###########################################################################
@@ -67,23 +68,24 @@ def make_new_user():
 
     email = request.form.get('email')
     pw = request.form.get('pw')
+    displayname = request.form.get('displayname')
 
     user_record = User.query.filter(User.email == email).first()
     # queries user table for first record for email; returns None if no record
     if user_record is None:
 
-        new_user = q.make_user(email, pw)
+        new_user = q.make_user(email, pw, displayname)
         q.add_to_db(new_user)
 
         user = q.get_user_by_email(email)
-        h.update_session_for_good_login(user.u_id)
+        h.update_session_for_good_login(user.u_id, user.displayname)
 
         session["new_user"] = True  # Pending: Tutorial
-        flash("Account created. Awesome!")
-        return redirect("/users/{}/dashboard".format(user.u_id))
+        flash("Account created!")
+        return redirect("/dashboard")
 
     else:
-        flash("Oops...that email has already been registered!")
+        flash("That email address has already been registered")
         return redirect("/")
 
 
@@ -124,7 +126,8 @@ def log_in_returning_user():
 
         # is valid password, handle accordingly
         else:
-            h.update_session_for_good_login(user_record.u_id)
+            h.update_session_for_good_login(user_record.u_id,
+                                            user_record.displayname)
             flash("Welcome back to SamePage")
             return redirect("/dashboard")
 
@@ -173,8 +176,10 @@ def dashboard():
                                "desc": userteam.team.desc}
                 invites_list.append(invite_dict)
 
-        return render_template('dashboard.html', teams_list=teams_list,
-                               invites_list=invites_list)
+        return render_template('dashboard.html', 
+                               teams_list=teams_list,
+                               invites_list=invites_list, 
+                               displayname=user_object.displayname)
 
     else:
         return redirect("/")
@@ -322,18 +327,32 @@ def open_project_details(project_id):
     """ """
 
     project_object = Project.query.filter_by(p_id=project_id).first()
-    results = {"p_title": project_object.title,
-               "p_notes": project_object.notes
+    user_id = session.get("user_id")
+    results = {"userId": user_id,
+               "pOwnerId": project_object.user_id,
+               "pTitle": project_object.title,
+               "pNotes": project_object.notes,
+               "pPhase": project_object.phase_code,
+               "pUpvotes": project_object.upvotes,
+               "pUpdated": project_object.updated
                }
+    if project_object.user_id:
+        results["pOwnerName"] = project_object.user.displayname
+    print results.keys
     return jsonify(results)
 
 
 @app.route("/save-update/<int:project_id>", methods=['POST'])
 def save_updated_project_details(project_id):
     """ """
+    project_object = Project.query.filter_by(p_id=project_id).first()
+    import pdb; pdb.set_trace()
+    # the team_object is none (WHY?), so no team.t_id in jinja front end
+    team_id = project_object.board.team_id
+    session["team_id"] = team_id
 
-    return "nope not done"
-    # this should prob redirect to the view-team that does the render template
+    flash("coolio, but nothing was actually updated")
+    return redirect("/view-team")
 
 
 ###########################################################################
@@ -343,16 +362,7 @@ def save_updated_project_details(project_id):
 def logout_user():
     """ """
     session.clear()
-    flash("You have been logged out.")
-
-    return redirect("/")
-
-
-@app.route("/users/temp/logout", methods=["POST"])
-def temp_logout():
-    """ """
-    session.clear()
-    flash("You have been logged out from temp logout route.")
+    # flash("You have been logged out.")
 
     return redirect("/")
 

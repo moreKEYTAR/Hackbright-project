@@ -12,26 +12,35 @@
  .board > button {
   background-color:#30bdc0;
   }
-  .board {
+ .board {
   display:inline-block;
   /*float:left; */
   /* I had to add the float to get them to be inline at all*/
   vertical-align: top;
-  background-color: yellow;
+  background-color:#E4E4E4;
   width:30%;
   }
 
   #all-team-boards {
     width:90%;
-    background-color: pink;
+    background-color: rgb(71, 71, 107);
+    background-color: rgba(71, 71, 107, 0.9); 
   }
   .add-project-to-board-button {
   background-color:#99ffbb;
   }
 
-  .project-content {
-    background-color: lightblue;
+  .project-content-idea {
+    background-color: #FFB24B;
+    /* #C4DAD5 */
   }
+
+  .project-content-item {
+    background-color: #ead98b;
+    /* #C4DAD5 */
+  }
+
+
 /* MODAL STYLING */
   .modal {
     display:none; /* Starts hidden, using CSS */

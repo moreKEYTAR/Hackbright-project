@@ -7,10 +7,10 @@ from model import (db, connect_to_db,
 
 # MAKE NEW OBJECT #######################################################
 
-def make_user(email, password):
+def make_user(email, password, displayname):
     """Takes in registration form strings, makes a User object, returns it."""
 
-    new_user = User(email=email, password=password)
+    new_user = User(email=email, password=password, displayname=displayname)
     return new_user
 
 

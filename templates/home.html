@@ -11,16 +11,20 @@
 
 <div>
 <h4>Want to join SamePage?</h4>
-<p class="reg-page">Sign up with just an email and password</p>
+
   <form action='/register' method='POST' id='enter-site-form'>
+    <p class="reg-page">Sign up with email and password</p>
     <input type='text' name='email' placeholder='email address' 
-           id='email-form-entry' required>
+           id='email-form-entry' size="50" style="display:block" required>
     <input type='password' name='pw' placeholder='password' 
-           id='pw-form-entry' required>
+           id='pw-form-entry' size="30" style="display:block" required>
+    <p class="reg-page">Type a display name</p>
+    <input type='text' name='displayname' placeholder='your name' 
+      size="30" maxlength="30" style="display:block" required>
     <div id='submit-input'>
-    <input type='submit' id='form-submission' value='Sign Up!'>
-    <p>It would be nice to validate the email or re-enter it, and 
-        same with password. <br>But we can't have nice things.</p>
+      <input type='submit' id='form-submission' value='Sign Up!'>
+      <p>It would be nice to validate the email or re-enter it, and 
+          same with password. <br>But we can't have nice things.</p>
     </div>
   </form>
 </div>

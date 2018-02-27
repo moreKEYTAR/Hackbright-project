@@ -7,17 +7,7 @@
 <!-- how do we validate for login before the page loads? how do we make the 
   url change to display the unique user, not users/login...
   the last route used...? -->
-<h1>Dashboard</h1>
-<p>This is the dashboard</p>
-
-
-<div>
-  <form action="/logout" method="POST">
-  <input type='submit' id='logout-submission' value='Log Out'>
-  </form>
-</div>
-
-
+<h1>{{ displayname }}'s Dashboard</h1>
 
 <div>
   {% if teams_list %}
@@ -25,7 +15,9 @@
     <h3>Your Teams</h3>
     <div id="joined-teams">
     {% for team in teams_list %}
-      <div> 
+      <div 
+      style="display:inline-block;width:200px;height:100px;vertical-align:top"> 
+      <!-- Fix later: put in CSS file -->
         <form action="/view-team" method="POST">
           <input type="hidden" name="team" value="{{ team.team_id }}">
           <input type="submit" value="{{ team.name }}">
@@ -48,7 +40,8 @@
       
       {% for invite in invites_list %}
         
-        <div> 
+        <div
+        style="display:inline-block;width:200px;height:200px;vertical-align:top"> 
 
           <h5>{{ invite.name }}</h5>
           <p class="desc">{{ invite.desc }}</p>

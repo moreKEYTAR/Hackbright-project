@@ -21,7 +21,7 @@ class User(db.Model):
     password = db.Column(db.String(30), nullable=False, unique=False)
     # password_salt = db.Column(db.String(50), nullable=False)
     # password_hash_algorithm = db.Column(db.String(50), nullable=False)
-    displayname = db.Column(db.String(30), nullable=True, unique=False)
+    displayname = db.Column(db.String(30), nullable=False, unique=False)
 
     # SEE UserTeam FOR RELATIONSHIP
     # SEE Project FOR RELATIONSHIP

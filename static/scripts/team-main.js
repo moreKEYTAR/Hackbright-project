@@ -50,6 +50,15 @@ $('.accept-project-button').on('click', function (evt) {
 
 
 /////////////////////////////////////////////////////////////////////////////
+/// EVENT LISTENER FOR SUBMITTING PROJECT DETAILS CHANGES ///
+/////////////////////////////////////////////////////////////////////////////
+// $('#project-details-form').on('submit', function (evt) {
+    
+// }); // closes submit event listener and function
+
+
+
+/////////////////////////////////////////////////////////////////////////////
 /// PROJECT DETAILS MODAL ///
 /////////////////////////////////////////////////////////////////////////////
 
@@ -58,36 +67,99 @@ $('div.project').on('dblclick', function (evt) {
     let projectId = $(this).data("projectId");
 
     $.get("/view-details/"+projectId, function (results) {
-            // results is a dictionary with all project details
+        // results has the following keys:
+            // userId, pOwnerId, pOwnerName, pTitle, pNotes, 
+                // pPhase, pUpvotes, pUpdated
 
+        // If the project is claimed...
+        if (results.pOwnerId) {
+
+            // ...by the current user who is logged in, display that info to 
+                // the user, show notes field, and allow user to mark as done.
+
+
+            if (results.pOwnerId === results.userId) {
+                $('#project-details-project-owner'
+                  ).html("You have claimed this item");
+                $('#project-details-project-owner'
+                  ).append('<br>');
+                // Make checkbox so that user can "complete" the item
+                let inputCheckbox = $('<input>');
+                    inputCheckbox.attr({"type": "checkbox", 
+                                        "name": "check-is-completed",
+                                        "value": "done",
+                                        "id": "check-item-as-done",
+                                        "form": "project-details-form"});
+                let checkLabel = $('<label>');
+                    checkLabel.attr({"for": "check-item-as-done"});
+                let checkSpan = $('<span>');
+                    checkSpan.html("  Mark as Done");
+
+                $('#project-details-project-owner').append(inputCheckbox);
+                $('#project-details-project-owner').append(checkLabel);
+                $('#project-details-project-owner').append(checkSpan);
+
+                $("#project-details-notes-div").show();
+            
+            // ...by a different user, display that info, do not show option to
+                // mark as done, do not show notes. Later: comments.
+
+            } else {
+                $('#project-details-project-owner'
+                  ).html(results.pOwnerName+" is working on this item.");
+                // Cannot edit notes, but can add comments. V2.0, pending
+            }
+
+        // If the item or idea is not claimed, show notes, allow save changes 
+            // (form), show upvotes (PENDING), allow to upvote (PENDING), allow
+            // user to claim it (PENDING)
+        } else {
+            $('#project-details-project-owner'
+              ).html("Up for grabs!");
+            $('#project-details-project-owner').append('<br>');
+            // No owner of the project. Replicate the claim button, and allow
+            // notes (V1.0); change notes to COMMENTS (V2.0, pending)
+            $("#project-details-notes-div").show();  // hidden when modal closes
+        }
+
+        // Populate modal elements with information retrieved from db via route
         // Update empty h3 tag
-        $('#project-details-title').html(results.p_title);
+        $('#project-details-title').html(results.pTitle);
 
         // Update empty action attribute in the form
-        $('#update-project-details-form').attr("action", 
+        $('#project-details-notes-form').attr("action", 
                                                "/save-update/"+projectId);
-        $('#project-details-textarea').html(results.p_notes);
+        $('#project-details-notes-textarea').html(results.pNotes);
+
+        // Everything is "loaded" before display is set to block (showing modal)
         $('#project-details-modal').css("display", "block");
 
     }); // closes function & ajax
 }); // closes event listener function
 
-
+// Close modal via the x span
 $('#project-details-modal-close').on('click', function (evt) {
+    $("#project-details-notes-div").hide(); 
+        // Makes sure it hides so it will only show if the logic is met, when triggered
     $('#project-details-modal').css("display", "none"); 
         //changes css display value from none
 });
 
+// Close modal via clicking outside the modal content, into the modal background
 let projectDetailsModal = document.getElementById('project-details-modal');
 window.addEventListener("click", function (evt) {
-        if (event.target == projectDetailsModal) {
+    if (event.target == projectDetailsModal) {
+        $("#project-details-notes-div").hide();
+        // Makes sure it hides so it will only show if the logic is met, when triggered
         projectDetailsModal.style.display = "none";
+
     }
 });
 
 
+
 /////////////////////////////////////////////////////////////////////////////
-/// MODAL CODE: NEW BOARD MODAL ///
+/// NEW BOARD MODAL ///
 /////////////////////////////////////////////////////////////////////////////
 
 // https://www.w3schools.com/howto/howto_css_modals.asp
@@ -112,27 +184,31 @@ window.addEventListener("click", function (evt) {
 
 
 /////////////////////////////////////////////////////////////////////////////
-/// MODAL CODE: NEW PROJECT MODAL ///
+/// NEW PROJECT MODAL ///
 /////////////////////////////////////////////////////////////////////////////
 
 // https://www.w3schools.com/howto/howto_css_modals.asp
-let projectModal = document.getElementById('new-project-modal');
+let newProjectModal = document.getElementById('new-project-modal');
 
 // When the user clicks on the button, open the modal 
 $(".add-project-to-board-button").on('click', function (evt) {
     let boardId = $(this).data("boardId");
-    projectModal.style.display = "block"; //changes css display value from none
+    let hiddenInput = document.querySelector('#new-project-hidden-input');
+    hiddenInput.setAttribute('value', boardId);
+      // this value will be reset with every click, so no need to "dump" boardId
+    newProjectModal.style.display = "block";
+      //changes css display value from none
 });
 
 // When the user clicks on <span> (x), close the modal
 $('#project-modal-close').on('click', function (evt) {
-    projectModal.style.display = "none"; //changes css display value from none
+    newProjectModal.style.display = "none"; //changes css display value from none
 });
 
 // javascript for an event listener
 window.addEventListener("click", function (evt) {
-    if (event.target == projectModal) {
-        projectModal.style.display = "none";
+    if (event.target == newProjectModal) {
+        newProjectModal.style.display = "none";
     }
 });
 

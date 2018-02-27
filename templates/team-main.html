@@ -4,10 +4,12 @@
 
 {% block content %}
 
+<!-- ********************************************************************* -->
 <!-- ************************** DATA FROM SERVER ************************** -->
   <!-- team    ..... an object
   Refer to model to see Team attributes and relationships-->
 
+<!-- ********************************************************************* -->
 <!-- *************************** MAIN HTML BODY *************************** --> 
 
 <p>{{ team.t_id }}</p>
@@ -55,13 +57,13 @@
             <div class="if-board-has-projects">
               
                 {% for project in board.projects %}
+                  {% if project.phase_code == "idea" or 
+                    project.phase_code == "item" %}
                   <br>
                   <div class="project" 
-                       data-project-id="{{ project.p_id }}"  
-                       data-phase="{{ project.phase_code }}"
-                       data-claiming-user="{{ project.user_id }}"
-                       data-updated="{{ project.updated }}">
-                    <div class="project-content">
+                       data-project-id="{{ project.p_id }}">
+
+                    <div class="project-content-{{ project.phase_code }}">
                       <h5>{{ project.title }}</h5>
                       <div class="if-unclaimed-project">
                         {% if not project.user_id %}
@@ -81,7 +83,7 @@
                       {% endif %}
                     </div> <!-- closes project content div -->
                   </div> <!-- closes project div -->
-
+                  {% endif %} <!-- ends the check projects that are items or ideas -->
                 {% endfor %} <!-- ends the for each project loop -->
 
             </div> <!-- closes if-board-has-projects div -->
@@ -103,65 +105,8 @@
              hidden>
 
           <button type="button" class="add-project-to-board-button" 
-                  data-team-id="{{ team.t_id }}"
                   data-board-id="{{ board.b_id }}">
-           Add a new post it</button>
-
-
-           <!-- Modal window, triggered by MAKE NEW IDEA button -->
-
-            <div class="modal" id="new-project-modal"> 
-            <!-- This modal starts hidden, using css display:none -->
-
-                <!-- MODAL WINDOW CONTENT -->
-                <div class="modal-content">
-                  <span id="project-modal-close">&times;</span>
-                  <!-- &times: a perfectly angled x. search "HTML entities" -->
-
-                  <!-- MODAL FORM -->
-                  <form action="/add-to-board" method="POST" 
-                        id="make-new-project-form">
-
-                    <h3>New Post It</h3>
-                    <p><i>Write something that sums it up for you or your 
-                      teammates:
-                      </i></p>
-                    <input type="text" maxlength="300" style="width: 350px;" 
-                           name="new-project-title" 
-                           placeholder="Title or Short Description"
-                           required><br>
-                    <div>
-                      <br>
-                      <p><i>Add some notes? You can do this at any time.</i></p> 
-                      <textarea form="make-new-project-form" 
-                                name="new-project-notes"
-                                style="width: 350px;"
-                                placeholder="optional"></textarea>
-                    </div>
-                    <br>
-                    <p>Is this an action item that someone should grab, or a 
-                      new idea that you want your teammates to weigh in on?</p>
-                    <input type="radio" id="project-radio-phase-item" 
-                           name="project-phase" value="item" checked>
-                           <label for="project-radio-phase-item">
-                            Action Item</label>
-                    <br>
-                    <input type="radio" id="project-radio-phase-idea" 
-                           name="project-phase" value="idea">
-                           <label for="project-radio-phase-idea">
-                            Idea</label>
-                    <input type="hidden" name="board-id" 
-                           value="{{ board.b_id }}">
-
-                    <br><br>
-                    <input type="submit" value="Submit" 
-                           id="submit-new-idea-form">
-                  </form> <!-- Close form -->
-
-                </div> <!-- Close "modal-content" -->
-            </div> <!-- Close "new-board-modal" -->
-
-
+           Add a post</button>
 
         </div> <!-- closes new project div -->
       
@@ -180,12 +125,13 @@
 <br><br>
 
 
+<!-- ********************************************************************* -->
+<!-- ****************************** MODALS ******************************* -->
+      <!-- made referencing HTML/CSS tutorial from W3Schools  -->
+      <!-- Modals start hidden, using css display:none -->
 
+<!-- ********************** MAKE NEW BOARD MODAL ********************** -->
 
-<!-- MODAL DIVS CREATED BY REFERENCING HTML/CSS TUTORIAL from W3Schools  -->
-
-<!-- Modal window, triggered by Make New Board button -->
-<!-- This modal starts hidden, using css display:none -->
 <div class="modal" id="new-board-modal"> 
 
     <!-- MODAL WINDOW CONTENT -->
@@ -215,8 +161,58 @@
 </div> <!-- Close "new-board-modal" -->
 
 
-<!-- Modal window, triggered by Make New Board button -->
-<!-- This modal starts hidden, using css display:none -->
+<!-- *************** MAKE NEW PROJECT (ITEM OR IDEA) MODAL *************** -->
+
+  <div class="modal" id="new-project-modal"> 
+
+      <!-- MODAL WINDOW CONTENT -->
+      <div class="modal-content">
+        <span id="project-modal-close">&times;</span>
+        <!-- &times: a perfectly angled x. search "HTML entities" -->
+
+        <!-- MODAL FORM -->
+        <form action="/add-to-board" method="POST" 
+              id="make-new-project-form">
+
+          <h3>Add to your board</h3>
+          <br>
+            <p class="helper-text">
+              <i>Is this something that should be grabbed and completed soon, or a new idea for teammate feedback?</i></p>
+          <input type="radio" id="project-radio-phase-item" 
+                 name="project-phase" value="item" checked>
+            <label for="project-radio-phase-item">Action Item</label>
+          <br>
+          <input type="radio" id="project-radio-phase-idea" 
+                 name="project-phase" value="idea">
+            <label for="project-radio-phase-idea">Idea</label>
+          <p><i>Give it a headline:
+            </i></p>
+          <input type="text" maxlength="300" style="width: 350px;" 
+                 name="new-project-title" 
+                 placeholder="300 characters max"
+                 required><br>
+          <div>
+            <br>
+            <p><i>Add some notes?</i></p> 
+            <textarea form="make-new-project-form" 
+                      name="new-project-notes"
+                      style="width: 350px;"
+                      placeholder="optional"></textarea>
+          </div>
+          <br>
+          <input id="new-project-hidden-input" type="hidden" name="board-id" 
+                 value="">
+
+          <br><br>
+          <input type="submit" value="Submit" 
+                 id="submit-new-idea-form">
+        </form> <!-- Close form -->
+
+      </div> <!-- Close "modal-content" -->
+  </div> <!-- Close "new-board-modal" -->
+
+
+<!-- **************** PROJECT DETAILS (IDEA OR ITEM) MODAL **************** -->
 
 <div class="modal" id="project-details-modal"> 
 
@@ -225,32 +221,44 @@
       <span id="project-details-modal-close">&times;</span>
       <!-- &times; makes a perfectly angled x. search "HTML entities" -->
 
-      <!-- MODAL FORM -->
       <h3 id="project-details-title"></h3>
       <a href="https://d.ibtimes.co.uk/en/full/1424780/edit-meme.jpg">
         Edit Title</a>
-        
-      <div><!-- Close around form 1 -->
-        <form action="" method="POST" 
-              id="project-details-form"> <!-- action updated in js file -->
-              
-          <div class="textarea">
-            <textarea id="project-details-textarea" 
+
+      <div><!-- Div around project details form -->
+
+        <!-- MODAL FORM -->
+        <form action="" method="POST" id="project-details-form"> 
+            <!-- action updated in js file -->
+            <div id="project-details-project-owner">
+              <!-- This div is used for appending project ownership info/elements -->
+              <!-- This div may be appended with a checkbox for completing the item -->
+            </div>
+
+          <br>
+          <div class="textarea" id="project-details-notes-div" hidden>
+            <br>
+            <p>Notes: <i>(max 3000 char)</i></p>
+            <textarea id="project-details-notes-textarea" 
                       form="project-details-form" 
-                      name="notes" rows="30" cols="30"></textarea>
+                      name="notes" rows="20" cols="50"></textarea>
           </div>
           <br>
+
           <input type="submit" value="Save Changes" 
-                 id="submit-project-details-form">
+                 id="submit-project-details-save-changes"
+                 form="project-details-form">
         </form> <!-- Close form -->
-      </div><!-- Close div around form 1 -->
+
+      </div><!-- Close div around project details form -->
       
-      <div>
-      </div><!-- Close div around form 1 -->
     </div> <!-- Close "modal-content" -->
 </div> <!-- Close "new-board-modal" -->
 
 <br>
+
+
+<!-- ***************************************************************** -->
 <!-- **************************** SCRIPTS **************************** --> 
 
 <!-- jQuery inherited from base.html -->

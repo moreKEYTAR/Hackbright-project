@@ -39,11 +39,13 @@ def calc_attempts_remaining(login_count):
     return remaining
 
 
-def update_session_for_good_login(user_id):
+def update_session_for_good_login(user_id, displayname):
     """Takes in integer for user id, updates session, returns nothing."""
     session["user_id"] = user_id
+    session["displayname"] = displayname
     session["login"] = True
     session["login_count"] = 0
+
     print "Session updated; logged in."
 
 
