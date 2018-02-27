@@ -54,6 +54,10 @@ app.jinja_env.auto_reload = True
 @app.route("/")
 def index():
     """Return index (homepage)."""
+
+    logged_in = session.get("login")
+
+
     # How do I check for logged in status before rendering?
     # What do I want to show for people who are logged in?
     return render_template("home.html")
@@ -346,13 +350,28 @@ def open_project_details(project_id):
 def save_updated_project_details(project_id):
     """ """
     project_object = Project.query.filter_by(p_id=project_id).first()
-    import pdb; pdb.set_trace()
+    # import pdb; pdb.set_trace()
     # the team_object is none (WHY?), so no team.t_id in jinja front end
     team_id = project_object.board.team_id
     session["team_id"] = team_id
 
     flash("coolio, but nothing was actually updated")
     return redirect("/view-team")
+
+
+###########################################################################
+# ACTION BOARD ############################################################
+
+@app.route("/actions-board")
+def display_user_actions_board():
+    """Retrieve user and project data from db, render projects on action page. """
+
+    if session.get("login") is True:
+        # Fossil from validation version; does not hurt to keep
+        user_id = session.get("user_id")
+        projects_objects = q.get_projects_by_user(user_id)
+
+    return render_template("actions-board.html", projects=projects_objects)
 
 
 ###########################################################################

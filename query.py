@@ -102,10 +102,22 @@ def get_project_object(p_id):
 
     return project
 
+
 # FETCH INSTANCE QUERIES (WITH FIRST) ####################################
 
 def get_user_by_email(email):
-    """Filters for user record by email, returning None if not present. """
+    """Filters for user record by email, returning None if not present."""
 
     user = User.query.filter(User.email == email).first()
+
     return user
+
+
+# GET ALL OBJECTS QUERRIES ###############################################
+
+def get_projects_by_user(u_id):
+    """Retrieves all project objects for the given user."""
+
+    projects = Project.query.filter(Project.user_id == u_id).all()
+
+    return projects

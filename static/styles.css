@@ -2,6 +2,12 @@
 /*  CSS FOR TEAM-MAIN.HTML  */
 
 /* TEMP COLORS FOR PROGRAMMING */
+
+ul.navbar {
+  list-style-type:none;
+}
+
+
  #success-claimed-project {
     color:#206050;
     background-color:#c6ece2;

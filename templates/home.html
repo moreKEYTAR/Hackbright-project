@@ -1,15 +1,26 @@
-<!doctype html>
-<head>
-<!--   <link rel="stylesheet"
-          href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.css"/> -->
-  <title>SamePage Registration</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
+{% block title %}Get Started with SamePage{% endblock %}
+
+{% if session.user_id %}
+  {% block navbarItems %}
+      <li><a href="http://localhost:5000/dashboard">
+        <button type="button">Dashboard</button></a></li>
+      <li><a href="http://localhost:5000/action-board">
+        <button type="button">Action Board</button></a></li>
+  {% endblock %}
+{% endif %}
+
+{% block content %}
 
 <h1>Welcome to SamePage</h1>
 
-<div>
+
+<div class="container">
+
+{% if not session.user_id %}
+
+<div id="home-registration-form">
 <h4>Want to join SamePage?</h4>
 
   <form action='/register' method='POST' id='enter-site-form'>
@@ -29,28 +40,23 @@
   </form>
 </div>
 <h4 class="reg-page">Already have an account? 
-                   <a href="/login" method='GET'>Log In</a></h4>
-                   <!-- Would prefer login to just be in header -->
+    <a href="/login" method='GET'>Log In</a></h4>
+
+</div> <!-- closes container div -->
+
+{% else %}
+
+<div id="home-inspo-widget">
+
+  <p class="quote"> In 2010, Harvard psychologists Matthew Killingsworth and Daniel Gilbert discovered that 47% of our waking hours are spent thinking about something totally unrelated to what’s currently right in front of us.
+  https://alifeofproductivity.com/do-one-thing-at-a-time/ </p>
+
+  <p class="quote"> On average, people can work with and remember 7 things. Does your board have more than 7 things? It might be time to clean things up and let some items move to the backlog.</p>
+</div>
+<div id="home-features">
+  <h4>What is SamePage working on?</h4>
+</div>
+{% endif %}
 
 
-
-<script><script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
-
-<script>
-// "use strict";
-
-// $('#login-link').on('click', function (evt){
-//     evt.preventDefault();
-//     let elements = document.querySelectorAll(".reg-page")
-//     for (let element of elements) {
-//         element.style.visibility = "hidden";
-//     }
-//     $("h4").html("Log In to SamePage");
-//     document.getElementById('enter-site-form').action = '/users/login';
-//     // How do you change the url so that it looks different, but stay on same page?
-// })
-
-</script>
-
-</body>
-</html>
+{% endblock %}
