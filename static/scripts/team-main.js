@@ -87,7 +87,8 @@ $('div.project').on('dblclick', function (evt) {
             // no ownership if an idea ????
             // there is a form in this div, with no action
             // Update notes textarea...no current way to update
-            $('#pd-idea-textarea').html(results.pNotes);
+            
+            // $('#pd-idea-textarea').html(results.pNotes);
 
             // Show the correct div
             $('#pd-idea-div').show();
