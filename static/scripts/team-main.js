@@ -31,6 +31,13 @@ $('.board-button').on('click', function (evt) {
 
 $('.accept-project-button').on('click', function (evt) {
     let projectId = $(this).data("projectId");
+    let allParents = ($(this).parents());
+    
+    let grandparent = allParents[1];
+    // Need to set the new class on the grandparent, regardless whether it was
+        // an item or idea, so that the display is for an item
+    console.log(grandparent);
+
     $.post ("/claim-project", {"projectId": projectId}, function (results) {
             // results is a dictionary, with the board id?
         
@@ -39,23 +46,19 @@ $('.accept-project-button').on('click', function (evt) {
         let claimButton = $(
             '.accept-project-button[data-project-id='+projectId+']');
         claimButton.hide();
+            // Claim button is now hidden until page refresh, 
+            // when it will not be generated
+
+        grandparent.className ='project-content-item';
+
+        // Print the string that was returned
         console.log(results);
-        
-        // fade message to confirm success to user, from website:
+        // Fade message to confirm success to user, from website:
             // http://jsfiddle.net/sunnypmody/XDaEk/
         $( "#success-claimed-project" ).fadeIn( 300 ).delay( 1500 ).
         fadeOut( 400 );
         }); // closes function & ajax
     }); // closes event listener function
-
-
-/////////////////////////////////////////////////////////////////////////////
-/// EVENT LISTENER FOR SUBMITTING PROJECT DETAILS CHANGES ///
-/////////////////////////////////////////////////////////////////////////////
-// $('#project-details-form').on('submit', function (evt) {
-    
-// }); // closes submit event listener and function
-
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -66,70 +69,65 @@ $('.accept-project-button').on('click', function (evt) {
 $('div.project').on('dblclick', function (evt) {
     let projectId = $(this).data("projectId");
 
+    // Modal content is based on showing / hiding the correct div (currently)
+    $(".project-details-div").hide();
+
     $.get("/view-details/"+projectId, function (results) {
         // results has the following keys:
             // userId, pOwnerId, pOwnerName, pTitle, pNotes, 
                 // pPhase, pUpvotes, pUpdated
 
-        // If the project is claimed...
-        if (results.pOwnerId) {
-
-            // ...by the current user who is logged in, display that info to 
-                // the user, show notes field, and allow user to mark as done.
-
-
-            if (results.pOwnerId === results.userId) {
-                $('#project-details-project-owner'
-                  ).html("You have claimed this item");
-                $('#project-details-project-owner'
-                  ).append('<br>');
-                // Make checkbox so that user can "complete" the item
-                let inputCheckbox = $('<input>');
-                    inputCheckbox.attr({"type": "checkbox", 
-                                        "name": "check-is-completed",
-                                        "value": "done",
-                                        "id": "check-item-as-done",
-                                        "form": "project-details-form"});
-                let checkLabel = $('<label>');
-                    checkLabel.attr({"for": "check-item-as-done"});
-                let checkSpan = $('<span>');
-                    checkSpan.html("  Mark as Done");
-
-                $('#project-details-project-owner').append(inputCheckbox);
-                $('#project-details-project-owner').append(checkLabel);
-                $('#project-details-project-owner').append(checkSpan);
-
-                $("#project-details-notes-div").show();
-            
-            // ...by a different user, display that info, do not show option to
-                // mark as done, do not show notes. Later: comments.
-
-            } else {
-                $('#project-details-project-owner'
-                  ).html(results.pOwnerName+" is working on this item.");
-                // Cannot edit notes, but can add comments. V2.0, pending
-            }
-
-        // If the item or idea is not claimed, show notes, allow save changes 
-            // (form), show upvotes (PENDING), allow to upvote (PENDING), allow
-            // user to claim it (PENDING)
-        } else {
-            $('#project-details-project-owner'
-              ).html("Up for grabs!");
-            $('#project-details-project-owner').append('<br>');
-            // No owner of the project. Replicate the claim button, and allow
-            // notes (V1.0); change notes to COMMENTS (V2.0, pending)
-            $("#project-details-notes-div").show();  // hidden when modal closes
-        }
-
-        // Populate modal elements with information retrieved from db via route
-        // Update empty h3 tag
+        // Populate general info
+        // Title in h3 div:
         $('#project-details-title').html(results.pTitle);
 
-        // Update empty action attribute in the form
-        $('#project-details-notes-form').attr("action", 
-                                               "/save-update/"+projectId);
-        $('#project-details-notes-textarea').html(results.pNotes);
+        // If the project is an idea (and therefore not claimed)?
+        if (results.pPhase === "idea") {
+            
+            // no ownership if an idea ????
+            // there is a form in this div, with no action
+            // Update notes textarea...no current way to update
+            $('#pd-idea-textarea').html(results.pNotes);
+
+            // Show the correct div
+            $('#pd-idea-div').show();
+        }
+        
+        // If the project is an item (which is the only other kind of 
+            // clickable on this page)...
+        else if (results.pPhase === "item") {
+
+            // There is no owner...
+            if (!results.pOwnerId) {
+                $("#project-details-unclaimed-div").show();
+            
+            
+            // If the project is claimed, and it is by the current user...
+            } else if (results.pOwnerId, 
+                     results.pOwnerId === results.userId) {
+
+                // Update the form submission action
+                $('#project-details-owner-form'
+                  ).attr({"action": "/save-update/"+projectId});
+
+                // Update the notes content
+                $('#project-details-notes-textarea').html(results.pNotes);
+
+                // Show the correct div
+                $('#project-details-owner-div').show();
+            
+            // The owner is NOT the current user...
+            } else if (results.pOwnerId, 
+                       results.pOwnerId !== results.userId){
+                $('#owner-info-not-user'
+                  ).html(results.pOwnerName+" is working on this item.");
+
+                // Show the correct div
+                $('#project-details-not-owner-div').show();
+
+            } // Close else if for results.pOwnderId
+
+        } // Close else if for item
 
         // Everything is "loaded" before display is set to block (showing modal)
         $('#project-details-modal').css("display", "block");

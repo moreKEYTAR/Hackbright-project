@@ -301,6 +301,7 @@ def assign_user_to_project():
     project_id = request.form.get("projectId")
 
     q.update_user_claiming_project(user_id, project_id)
+        # Also updates project to "item"
 
     return "HTTP-status-code: 200"
 
@@ -380,8 +381,16 @@ def display_user_actions_board():
 @app.route("/logout", methods=["POST"])
 def logout_user():
     """ """
+
     session.clear()
     # flash("You have been logged out.")
+
+    return redirect("/")
+
+
+@app.route("/logout", methods=["GET"])
+def logout_user_when_site_crashes():
+    """ """
 
     return redirect("/")
 

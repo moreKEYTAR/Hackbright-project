@@ -2,7 +2,7 @@
 
 {% block title %}Get Started with SamePage{% endblock %}
 
-{% if session.user_id %}
+{% if session.get("user_id") %}
   {% block navbarItems %}
       <li><a href="http://localhost:5000/dashboard">
         <button type="button">Dashboard</button></a></li>
@@ -18,7 +18,7 @@
 
 <div class="container">
 
-{% if not session.user_id %}
+
 
 <div id="home-registration-form">
 <h4>Want to join SamePage?</h4>
@@ -44,7 +44,7 @@
 
 </div> <!-- closes container div -->
 
-{% else %}
+
 
 <div id="home-inspo-widget">
 
@@ -56,7 +56,7 @@
 <div id="home-features">
   <h4>What is SamePage working on?</h4>
 </div>
-{% endif %}
+
 
 
 {% endblock %}

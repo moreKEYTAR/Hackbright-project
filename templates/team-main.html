@@ -74,8 +74,9 @@
                   <br>
                   <div class="project" 
                        data-project-id="{{ project.p_id }}">
-
-                    <div class="project-content-{{ project.phase_code }}">
+                    <!-- I NEED TO UPDATE THE PROJECT.PHASE_CODE, WHETHER ITEM OR IDEA...TO DISPLAY CORRECTLY -->
+                    <div class="project-content-{{ project.phase_code }}"
+                         data-project-id="{{ project.p_id }}">
                       <h5>{{ project.title }}</h5>
                       <div class="if-unclaimed-project">
                         {% if not project.user_id %}
@@ -228,46 +229,96 @@
 
 <div class="modal" id="project-details-modal"> 
 
-    <!-- MODAL WINDOW CONTENT -->
+  <!-- ****************** MODAL WINDOW CONTENT ****************** -->
     <div class="modal-content">
       <span id="project-details-modal-close">&times;</span>
       <!-- &times; makes a perfectly angled x. search "HTML entities" -->
-
       <h3 id="project-details-title"></h3>
+      <!-- This is currently fake...may need too put inside the divs -->
       <a href="https://d.ibtimes.co.uk/en/full/1424780/edit-meme.jpg">
         Edit Title</a>
 
-      <div><!-- Div around project details form -->
-
-        <!-- MODAL FORM -->
-        <form action="" method="POST" id="project-details-form"> 
+      <!-- ************* IDEA DIV, HIDDEN ************* -->
+      <div class="project-details-div" id="pd-idea-div" hidden>
+  
+        <!-- IDEA UPVOTE FORM -->
+        <form action="" method="POST" id="pd-idea-div-form-upvotes"> 
             <!-- action updated in js file -->
-            <div id="project-details-project-owner">
-              <!-- This div is used for appending project ownership info/elements -->
-              <!-- This div may be appended with a checkbox for completing the item -->
-            </div>
+          <input type="submit" value="Upvote" 
+                 form="pd-idea-div-form-upvotes">
+        </form> <!-- Close form -->
 
+        <!-- IDEA NOTES FORM -->
+        <form action="" method="POST" id="pd-idea-div-form-textarea"> 
+            <!-- action updated in js file -->
+            <!-- see original notes???? -->
+          <p>Notes: <i>(max 3000 char)</i></p>
+          <textarea id="pd-idea-textarea" 
+                      form="pd-idea-div-form-textarea" 
+                      name="notes" rows="20" cols="50"></textarea>
+          <input type="submit" value="Save Changes" 
+                 form="pd-idea-div-form-textarea">
+        </form> <!-- Close IDEA form -->
+      </div><!-- Close IDEA DIV -->
+
+      <!-- ************* ITEM DIV, USER IS OWNER ************* -->
+
+      <div class="project-details-div" id="project-details-owner-div" hidden>
+
+        <!-- USER IS OWNER FORM -->
+        <form action="" method="POST" id="project-details-owner-form"> 
+            <!-- action updated in js file -->
+            <div>
+             <span>You have claimed this item</span>
+            </div>
           <br>
-          <div class="textarea" id="project-details-notes-div" hidden>
+          <label for="check-item-as-done">
+            <input type="checkbox" name="check-if-completed" value="complete"
+                 id="check-item-as-done" form="project-details-owner-form">
+            </label>
+            <span>Mark as done</span>
+          <br>
+          <div class="textarea" id="project-details-notes-div">
             <br>
             <p>Notes: <i>(max 3000 char)</i></p>
             <textarea id="project-details-notes-textarea" 
-                      form="project-details-form" 
+                      form="project-details-owner-form" 
                       name="notes" rows="20" cols="50"></textarea>
           </div>
           <br>
-
           <input type="submit" value="Save Changes" 
                  id="submit-project-details-save-changes"
-                 form="project-details-form">
-        </form> <!-- Close form -->
-
-      </div><!-- Close div around project details form -->
+                 form="project-details-owner-form">
+        </form> <!-- Close USER IS OWNERform -->
+      </div><!-- Close ITEM & USER IS OWNER div -->
       
-    </div> <!-- Close "modal-content" -->
-</div> <!-- Close "new-board-modal" -->
+      <!-- ************* ITEM DIV, OWNED BY ANOTHER USER ************* -->
+      <div class="project-details-div" id="project-details-not-owner-div" hidden>
+         
+ <!--          <form action="" method="POST" id="pd-idea-div-form-upvotes">  -->
+        <div id="owner-info-not-user"></div>
+        
+        
+        <!-- FORM -->
+        <!-- <form action="" method="POST" id=""> 
+            
+        </form> -->
 
-<br>
+      </div><!-- Close ITEM div for owned by different user-->
+
+      <!-- ************* ITEM DIV, NOT OWNED ************* -->
+      <div class="project-details-div" id="project-details-unclaimed-div" hidden>
+         
+        
+          <p> This action item is for grabs! </p>
+
+
+      </div><!-- Close ITEM div for owned by different user-->
+
+
+    </div>  <!-- ///////// CLOSE MODAL WINDOW CONTENT /////// -->
+</div>  <!-- Close "new-board-modal" -->
+<br>  <!-- end of page break spacing -->
 
 
 <!-- ***************************************************************** -->
