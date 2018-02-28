@@ -3,28 +3,27 @@
 
 /* TEMP COLORS FOR PROGRAMMING */
 
-ul.navbar {
-  list-style-type:none;
-}
+  ul.navbar {
+    list-style-type:none;
+  }
 
-
- #success-claimed-project {
+  #success-claimed-project {
     color:#206050;
     background-color:#c6ece2;
     border-color:#d6e9c6;
     display: none;
   }
 
- .board > button {
-  background-color:#30bdc0;
+  .board > button {
+    background-color:#30bdc0;
   }
- .board {
-  display:inline-block;
-  /*float:left; */
-  /* I had to add the float to get them to be inline at all*/
-  vertical-align: top;
-  background-color:#E4E4E4;
-  width:30%;
+  .board {
+    display:inline-block;
+    /*float:left; */
+    /* I had to add the float to get them to be inline at all*/
+    vertical-align: top;
+    background-color:#E4E4E4;
+    width:30%;
   }
 
   #all-team-boards {
@@ -33,16 +32,22 @@ ul.navbar {
     background-color: rgba(71, 71, 107, 0.9); 
   }
   .add-project-to-board-button {
-  background-color:#99ffbb;
+    background-color:#99ffbb;
   }
 
   .project-content-idea {
     background-color: #FFB24B;
+    display:inline-block;
+    width:200px;
+    height:200px;
     /* #C4DAD5 */
   }
 
   .project-content-item {
     background-color: #ead98b;
+    display:inline-block;
+    width:200px;
+    height:200px;
     /* #C4DAD5 */
   }
 

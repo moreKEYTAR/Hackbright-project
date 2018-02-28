@@ -7,5 +7,5 @@
 4|1|item|Armor or train Drogon and Rhaegal||2|
 4|3|item|Arm Vale and Northern armies with Dragonglass|Current amount mined: 30 tonnes||
 11|5|item|Ask Cersei for assurances she will not march northward|Contact her through Jaime?||
-11||idea|Have Varys teleport to Essos and speak with the Iron Bank|Do they support Cersei still? Can Varys teleport with items, like a wight?||
+11||idea|Have Varys teleport to Essos and speak with the Iron Bank|Do they support Cersei still? Can Varys teleport with items, like a wight?|1|
 12|3|item|Speak to Samwell Tarly about findings from the Restricted Section|Did the Citadel have information about the Long Night?||

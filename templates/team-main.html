@@ -38,6 +38,7 @@
 <div id="success-claimed-project">Awesome! You own the project. 
   It will also now be accessible on your Action Board.
 </div>
+
 {% if team.boards %}
 
   <div id="all-team-boards">
@@ -77,7 +78,9 @@
                     <div class="project-content-{{ project.phase_code }}"
                          data-project-id="{{ project.p_id }}">
                       <h5>{{ project.title }}</h5>
+                      
                       <div class="if-unclaimed-project">
+                        <!-- Do not change any divs between the button and the div with class project (see js section CLAIM PROJECT CODE) -->
                         {% if not project.user_id %}
                         <button type="button" class="accept-project-button"
                                 data-phase="{{ project.phase_code }}"
@@ -85,11 +88,19 @@
                           Claim me!
                         </button>
                         {% endif %}
+
                       </div> <!-- Closes the div if-unclaimed-project -->
-                      <input type="hidden" name="notes" value="{{ project.notes }}">
+                      
+                      <input type="hidden" name="notes" 
+                             value="{{ project.notes }}">
+                      
                       {% if project.phase_code == "idea" %}
-                        <h5>+ {{ project.upvotes}}</h5>
+                        <div class="upvotes" 
+                             data-project-id="{{ project.p_id }}">
+                             <h5>+ {{ project.upvotes}}</h5>
+                        </div>
                       {% endif %}
+
                       {% if project.user_id %}
                         <h5>{{ project.user.displayname }}</h5>
                       {% endif %}

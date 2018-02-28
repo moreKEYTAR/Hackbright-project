@@ -32,15 +32,15 @@ $('.board-button').on('click', function (evt) {
 $('.accept-project-button').on('click', function (evt) {
     let projectId = $(this).data("projectId");
     let allParents = ($(this).parents());
-    
     let grandparent = allParents[1];
     // Need to set the new class on the grandparent, regardless whether it was
         // an item or idea, so that the display is for an item
-    console.log(grandparent);
 
     $.post ("/claim-project", {"projectId": projectId}, function (results) {
-            // results is a dictionary, with the board id?
-        
+        // Results is one string, as no results needed to complete
+
+        // Print the string that was returned
+        console.log(results);
         // Select, out of the class of accept-project-buttons, the one
         // where the data attribute is exactly data-project-id=projectId
         let claimButton = $(
@@ -50,15 +50,16 @@ $('.accept-project-button').on('click', function (evt) {
             // when it will not be generated
 
         grandparent.className ='project-content-item';
-
-        // Print the string that was returned
-        console.log(results);
+        let upvotesDiv = $('.upvotes[data-project-id='+projectId+']');
+        if (upvotesDiv) {
+            upvotesDiv.hide();
+        }
         // Fade message to confirm success to user, from website:
             // http://jsfiddle.net/sunnypmody/XDaEk/
-        $( "#success-claimed-project" ).fadeIn( 300 ).delay( 1500 ).
+        $( "#success-claimed-project" ).fadeIn( 300 ).delay( 2000 ).
         fadeOut( 400 );
-        }); // closes function & ajax
-    }); // closes event listener function
+    }); // closes function & ajax
+}); // closes event listener function
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -87,7 +88,7 @@ $('div.project').on('dblclick', function (evt) {
             // no ownership if an idea ????
             // there is a form in this div, with no action
             // Update notes textarea...no current way to update
-            
+
             // $('#pd-idea-textarea').html(results.pNotes);
 
             // Show the correct div
