@@ -15,48 +15,52 @@
 
 <h1>Welcome to SamePage</h1>
 
-
+{% if not session.get("user_id") %}
 <div class="container">
 
+  <div id="home-registration-form">
+  <h4>Want to join SamePage?</h4>
 
-
-<div id="home-registration-form">
-<h4>Want to join SamePage?</h4>
-
-  <form action='/register' method='POST' id='enter-site-form'>
-    <p class="reg-page">Sign up with email and password</p>
-    <input type='text' name='email' placeholder='email address' 
-           id='email-form-entry' size="50" style="display:block" required>
-    <input type='password' name='pw' placeholder='password' 
-           id='pw-form-entry' size="30" style="display:block" required>
-    <p class="reg-page">Type a display name</p>
-    <input type='text' name='displayname' placeholder='your name' 
-      size="30" maxlength="30" style="display:block" required>
-    <div id='submit-input'>
-      <input type='submit' id='form-submission' value='Sign Up!'>
-      <p>It would be nice to validate the email or re-enter it, and 
-          same with password. <br>But we can't have nice things.</p>
-    </div>
-  </form>
-</div>
-<h4 class="reg-page">Already have an account? 
-    <a href="/login" method='GET'>Log In</a></h4>
+    <form action='/register' method='POST' id='enter-site-form'>
+      <p class="reg-page">Sign up with email and password</p>
+      <input type='text' name='email' placeholder='email address' 
+             id='email-form-entry' size="50" style="display:block" required>
+      <input type='password' name='pw' placeholder='password' 
+             id='pw-form-entry' size="30" style="display:block" required>
+      <p class="reg-page">Type a display name</p>
+      <input type='text' name='displayname' placeholder='your name' 
+        size="30" maxlength="30" style="display:block" required>
+      <div id='submit-input'>
+        <input type='submit' id='form-submission' value='Sign Up!'>
+        <p>It would be nice to validate the email or re-enter it, and 
+            same with password. <br>But we can't have nice things.</p>
+      </div>
+    </form>
+  </div>
+  <h4 class="reg-page">Already have an account? 
+      <a href="/login" method='GET'>Log In</a></h4>
 
 </div> <!-- closes container div -->
+{% endif %}
 
+{% if session.get("user_id") %}
+<div class="container">
+  <div id="home-inspo-widget">
 
+    <p class="quote"> In 2010, Harvard psychologists Matthew Killingsworth and 
+      Daniel Gilbert discovered that 47% of our waking hours are spent thinking 
+      about something totally unrelated to what’s currently right in front of us.
+    https://alifeofproductivity.com/do-one-thing-at-a-time/ </p>
 
-<div id="home-inspo-widget">
+    <p class="quote"> On average, people can work with and remember 7 things. 
+      Does your board have more than 7 things? It might be time to clean things 
+      up and let some items move to the backlog.</p>
+  </div>
+  <div id="home-features">
+    <h4>What is SamePage working on?</h4>
+  </div>
+</div> <!-- Close container div -->
 
-  <p class="quote"> In 2010, Harvard psychologists Matthew Killingsworth and Daniel Gilbert discovered that 47% of our waking hours are spent thinking about something totally unrelated to what’s currently right in front of us.
-  https://alifeofproductivity.com/do-one-thing-at-a-time/ </p>
-
-  <p class="quote"> On average, people can work with and remember 7 things. Does your board have more than 7 things? It might be time to clean things up and let some items move to the backlog.</p>
-</div>
-<div id="home-features">
-  <h4>What is SamePage working on?</h4>
-</div>
-
-
+{% endif %}
 
 {% endblock %}

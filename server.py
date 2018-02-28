@@ -351,10 +351,8 @@ def open_project_details(project_id):
 def save_updated_project_details(project_id):
     """ """
     project_object = Project.query.filter_by(p_id=project_id).first()
-    # import pdb; pdb.set_trace()
-    # the team_object is none (WHY?), so no team.t_id in jinja front end
-    team_id = project_object.board.team_id
-    session["team_id"] = team_id
+
+    #request.form.get("")
 
     flash("coolio, but nothing was actually updated")
     return redirect("/view-team")

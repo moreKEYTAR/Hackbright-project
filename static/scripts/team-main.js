@@ -111,7 +111,7 @@ $('div.project').on('dblclick', function (evt) {
                   ).attr({"action": "/save-update/"+projectId});
 
                 // Update the notes content
-                $('#project-details-notes-textarea').html(results.pNotes);
+                $('#pd-notes-textarea-is-owner').html(results.pNotes);
 
                 // Show the correct div
                 $('#project-details-owner-div').show();
@@ -137,7 +137,6 @@ $('div.project').on('dblclick', function (evt) {
 
 // Close modal via the x span
 $('#project-details-modal-close').on('click', function (evt) {
-    $("#project-details-notes-div").hide(); 
         // Makes sure it hides so it will only show if the logic is met, when triggered
     $('#project-details-modal').css("display", "none"); 
         //changes css display value from none
@@ -147,7 +146,6 @@ $('#project-details-modal-close').on('click', function (evt) {
 let projectDetailsModal = document.getElementById('project-details-modal');
 window.addEventListener("click", function (evt) {
     if (event.target == projectDetailsModal) {
-        $("#project-details-notes-div").hide();
         // Makes sure it hides so it will only show if the logic is met, when triggered
         projectDetailsModal.style.display = "none";
 
