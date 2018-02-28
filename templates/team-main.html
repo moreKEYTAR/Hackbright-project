@@ -196,20 +196,24 @@
           <h3>Add to your board</h3>
           <br>
             <p class="helper-text">
-              <i>Is this something that should be grabbed and completed soon, or a new idea for teammate feedback?</i></p>
+              <i>What type is it?</i></p>
           <input type="radio" id="project-radio-phase-item" 
                  name="project-phase" value="item" checked>
-            <label for="project-radio-phase-item">Action Item</label>
+            <span><strong>Action Item:</strong> It is a "to do" that someone should grab</span>
           <br>
           <input type="radio" id="project-radio-phase-idea" 
                  name="project-phase" value="idea">
-            <label for="project-radio-phase-idea">Idea</label>
+            <span><strong>Idea:</strong> A new suggestion that teammates can weigh in on</span>
+          <br>
+          <br>
+          <div>
           <p><i>Give it a headline:
             </i></p>
           <input type="text" maxlength="300" style="width: 350px;" 
-                 name="new-project-title" 
+                 name="new-project-title"
                  placeholder="300 characters max"
                  required><br>
+          </div>
 <!--           <div>
             <br>
             <p><i>Add some notes?</i></p> 
@@ -279,7 +283,7 @@
             </div>
           <br>
           <label for="check-item-as-done">
-            <input type="checkbox" name="check-if-completed" value="complete"
+            <input type="checkbox" name="completion" value="is-checked"
                  id="check-item-as-done" form="project-details-owner-form">
             </label>
             <span>Mark as done</span>

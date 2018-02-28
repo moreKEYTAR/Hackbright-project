@@ -12,6 +12,7 @@ from flask import (Flask,
                    jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
 import jinja2
+import random
 from model import (db, connect_to_db,
                    User, Team, UserTeam, Board, Project, Phase)
 import query as q
@@ -352,9 +353,25 @@ def save_updated_project_details(project_id):
     """ """
     project_object = Project.query.filter_by(p_id=project_id).first()
 
-    #request.form.get("")
+    # One checkbox with name completed, so using .get is fine
+    checked_lst = request.form.get("completion")
+    updated_notes = request.form.get("notes")
 
-    flash("coolio, but nothing was actually updated")
+    project_object.notes = updated_notes
+
+    congratulatory_messages = ["High five!", "Nice work!", "You rock.",
+                               "Nice."]
+
+    if checked_lst == "is-checked":  # making explicit
+
+        project_object.phase_code = "done"
+        flash("Action item is completed. {}".format
+              (random.choice(congratulatory_messages)))
+        # A little corny...but that is on brand. So why not.
+    else:
+        flash("Changes saved.")
+    db.session.commit()
+
     return redirect("/view-team")
 
 
@@ -363,7 +380,8 @@ def save_updated_project_details(project_id):
 
 @app.route("/actions-board")
 def display_user_actions_board():
-    """Retrieve user and project data from db, render projects on action page. """
+    """Retrieve user and project data from db,
+    render projects on action page. """
 
     if session.get("login") is True:
         # Fossil from validation version; does not hurt to keep
