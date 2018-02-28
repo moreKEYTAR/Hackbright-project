@@ -30,6 +30,9 @@
     width:90%;
     background-color: rgb(71, 71, 107);
     background-color: rgba(71, 71, 107, 0.9); 
+    min-height:400px;
+    max-height:600px;
+    /* what do i do about height??*/
   }
   .add-project-to-board-button {
     background-color:#99ffbb;
@@ -39,20 +42,33 @@
 
   }
 
+  .dock {
+    /* styling update pending */
+    background-color:#008080;
+    width:90%; 
+    /* same width as #all-team-boards...may be a good idea to make this a joint styling*/
+    height:400px;
+    /*temporary height*/
+  }
+
+/* not the action I want...so defining in js file for now*/
+/* .dock:hover, .dock:focus { 
+    background-color:#00b3b3;
+ }*/
 
   .project-content-idea {
     background-color: #FFB24B;
     display:inline-block;
-    width:200px;
-    height:200px;
+    width:128px;
+    height:128px;
     /* #C4DAD5 */
   }
 
   .project-content-item {
     background-color: #ead98b;
     display:inline-block;
-    width:200px;
-    height:200px;
+    width:128px;
+    height:128px;
     /* #C4DAD5 */
   }
 

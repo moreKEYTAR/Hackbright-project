@@ -157,7 +157,9 @@ def dashboard():
         # route, and therefore must be reset.
 
     if session.get("new_user"):
-        flash("New user! Tutorial time! NEED TO MAKE POP UP")
+        flash("""Welcome to SamePage. Hover over different areas on our pages
+            for tutorial tips. You can turn the tutorial off and on from your
+            Dashboard.""")
 
     if session.get("is_logged_in") is True:
         # Fossil from validation version; does not hurt to keep

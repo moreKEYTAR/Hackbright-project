@@ -6,8 +6,8 @@
   
     <li><a href="http://localhost:5000/dashboard">
       <button type="button">Dashboard</button></a></li>
-    <li><a href="http://localhost:5000/action-board">
-      <button type="button">Actions Board</button></a></li>
+<!--     <li><a href="http://localhost:5000/action-board">
+      <button type="button">Actions Board</button></a></li> -->
 
 {% endblock %}
 
@@ -37,6 +37,12 @@
 <h3>Your Boards</h3>
 <div id="success-claimed-project">Awesome! You own the project. 
   It will also now be accessible on your Action Board.
+</div>
+
+<!-- MAKE A NEW BOARD FOR THE TEAM: DIV & BUTTON -->
+<div id="make-new-board">
+  <button type="button" id="new-board-button" 
+          data-team-id="{{ team.t_id }}">Add a new board</button>
 </div>
 
 {% if team.boards %}
@@ -146,12 +152,16 @@
 {% endif %} <!-- ends the if team.boards check -->
 
 <br>
-<!-- MAKE A NEW BOARD FOR THE TEAM: DIV & BUTTON -->
-<div id="make-new-board">
-  <button type="button" id="new-board-button" 
-          data-team-id="{{ team.t_id }}">Add a new board</button>
-</div>
+
 <br>
+<!-- ****************************** DOCK ******************************* -->
+<h3>Your In Progress Dock</h3>
+<div class="dock" id="user-dock" 
+     data-user-id="{{ session['user_id'] }}">
+
+     
+</div>
+
 
 
 

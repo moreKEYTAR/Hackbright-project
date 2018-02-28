@@ -3,8 +3,49 @@
 /////////////////////////////////////////////////////////////////////////////
 /// DRAG AND DROP FOR PROJECTS ///
 /////////////////////////////////////////////////////////////////////////////
+/* To dos for drag and drop:
+    - make projects draggable DONE
+    - make the dock droppable
+    - make areas force a drag snap back (undroppable)
+    - make the dock auto-populate with divs with all projects that the logged in 
+        user owns for that team...regardless of board
+    - make the display of the items that the user owns, when seen in the board, 
+        be more transparent or something
+    - make the drop onto the dock have meaning and effects, including:
+        - updating ownership IF the project is up for grabs
+            (and therefore, the claim button is no longer needed on the 
+                project itself)
+        - doing nothing else if the project is NOT up for grabs
+        - making the project now live in the dock too, larger 
+        - completing the project removes it from the dock...and completing 
+            it can ALSO be done by dragging
+        - can also drag to backlog, which changes the status
+    ---> need the interactive board area to be able to go wide and be fixed
+    --> need help with logic for this
+*/
+$('.project').draggable( {
+    drag: function( event, ui ) {
+        $(this).css("opacity", "0.8");
+    }
 
-$('.project').draggable();
+});
+$('.project').draggable( {
+    stop: function( event, ui ) {
+        $(this).css("opacity", "1.0");
+    }
+});
+$('.dock').droppable( {
+    // over: function(evt, ui) {
+    //     $('.dock').css("background-color", "#00b3b3");
+    //}
+});
+// $(".dock").droppable({
+//     drop: function(event, ui) {
+
+// $(this).css("background-color", "lightgreen");
+// };
+// // on hover, change color of doc
+// });
 
 
 
