@@ -42,7 +42,7 @@ app.jinja_env.auto_reload = True
 # SESSION STORAGE #########################################################
 
 # Keys:
-    # "login" (bool)
+    # "is_logged_in" (bool)
     # "user_id" (int)
     # "team_id" (int)
     # "new_user" (bool)
@@ -56,8 +56,7 @@ app.jinja_env.auto_reload = True
 def index():
     """Return index (homepage)."""
 
-    logged_in = session.get("login")
-
+    logged_in = session.get("is_logged_in")
 
     # How do I check for logged in status before rendering?
     # What do I want to show for people who are logged in?
@@ -160,7 +159,7 @@ def dashboard():
     if session.get("new_user"):
         flash("New user! Tutorial time! NEED TO MAKE POP UP")
 
-    if session.get("login") is True:
+    if session.get("is_logged_in") is True:
         # Fossil from validation version; does not hurt to keep
         teams_list = []
         invites_list = []
@@ -383,7 +382,7 @@ def display_user_actions_board():
     """Retrieve user and project data from db,
     render projects on action page. """
 
-    if session.get("login") is True:
+    if session.get("is_logged_in") is True:
         # Fossil from validation version; does not hurt to keep
         user_id = session.get("user_id")
         projects_objects = q.get_projects_by_user(user_id)

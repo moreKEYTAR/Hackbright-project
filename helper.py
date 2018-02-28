@@ -43,7 +43,7 @@ def update_session_for_good_login(user_id, displayname):
     """Takes in integer for user id, updates session, returns nothing."""
     session["user_id"] = user_id
     session["displayname"] = displayname
-    session["login"] = True
+    session["is_logged_in"] = True
     session["login_count"] = 0
 
     print "Session updated; logged in."
@@ -56,7 +56,7 @@ def handle_bad_attempts(remaining):
         - Gives user flash feedback
         - Returns a string for the template to render"""
 
-    session["login"] = False
+    session["is_logged_in"] = False
 
     if remaining <= 0:   # handling for negative numbers... still
                          # testing to see if this is possible to create.
