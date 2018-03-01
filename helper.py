@@ -5,7 +5,21 @@ from flask import (Flask,  # Flask allows app object
                    jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
 import query
-# don't need to import app, right?
+
+
+def send_simple_message():
+    return requests.post(
+        "https://api.mailgun.net/v3/sandbox0ad8a1a97a3f4a05a0aea4a032508752.mailgun.org/messages",
+        auth=("api", "key-428982cbb737a4ba880ae8c26bd8dfc6"),
+        data={"from": "Mailgun Sandbox <postmaster@sandbox0ad8a1a97a3f4a05a0aea4a032508752.mailgun.org>",
+              "to": "Liz <lantz.ek@gmail.com>",
+              "subject": "Hello Liz",
+              "text": "Congratulations Liz, you just sent an email with Mailgun!  You are truly awesome!"})
+
+# You can see a record of this email in your logs: https://app.mailgun.com/app/logs .
+
+# You can send up to 300 emails/day from this sandbox server.
+# Next, you should add your own domain so you can send 10,000 emails/month for free.
 
 
 # LOGIN HELPERS ##########################################################
