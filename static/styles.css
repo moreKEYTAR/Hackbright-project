@@ -3,108 +3,117 @@
 
 /* TEMP COLORS FOR PROGRAMMING */
 
-  ul.navbar {
-    list-style-type:none;
-  }
+ul.navbar {
+  list-style-type:none;
+}
 
-  #success-claimed-project {
-    color:#206050;
-    background-color:#c6ece2;
-    border-color:#d6e9c6;
-    display: none;
-  }
+#success-claimed-project {
+  color:#206050;
+  background-color:#c6ece2;
+  border-color:#d6e9c6;
+  display: none;
+}
 
-  .board > button {
-    background-color:#30bdc0;
-  }
-  .board {
-    display:inline-block;
-    /*float:left; */
-    /* I had to add the float to get them to be inline at all*/
-    vertical-align: top;
-    background-color:#E4E4E4;
-    width:30%;
-  }
+.board > button {
+  background-color:#30bdc0;
+}
+.board {
+  display:inline-block;
+  /*float:left; */
+  /* I had to add the float to get them to be inline at all*/
+  vertical-align: top;
+  background-color:#E4E4E4;
+  width:30%;
+}
 
-  #all-team-boards {
-    width:90%;
-    background-color: rgb(71, 71, 107);
-    background-color: rgba(71, 71, 107, 0.9); 
-    min-height:400px;
-    max-height:600px;
-    /* what do i do about height??*/
-  }
-  .add-project-to-board-button {
-    background-color:#99ffbb;
-  }
+#all-team-boards {
+  width:90%;
+  background-color: rgb(71, 71, 107);
+  background-color: rgba(71, 71, 107, 0.9); 
+  /* what do i do about height??*/
+}
+.add-project-to-board-button {
+  background-color:#99ffbb;
+}
 
-  .project {
+.show-projects, .make-new-project {
+  width:90%;
+  background-color: rgb(71, 71, 107);
+  background-color: rgba(71, 71, 107, 0.9); 
 
-  }
+}
 
-  .dock {
-    /* styling update pending */
-    background-color:#008080;
-    width:90%; 
-    /* same width as #all-team-boards...may be a good idea to make this a joint styling*/
-    height:400px;
-    /*temporary height*/
-  }
+.make-new-project {
+  text-align: right;
+}
+
+.project {
+  display:inline-block;
+}
+
+.project-content-idea {
+  background-color: #FFB24B;
+
+  width:128px;
+  height:128px;
+  /* #C4DAD5 */
+}
+
+.project-content-item {
+  background-color: #ead98b;
+
+  width:128px;
+  height:128px;
+  /* #C4DAD5 */
+}
+
+.dock {
+  /* styling update pending */
+  background-color:#008080;
+  width:90%; 
+  /* same width as #all-team-boards...may be a good idea to make this a joint styling*/
+  height:400px;
+  /*temporary height*/
+}
 
 /* not the action I want...so defining in js file for now*/
 /* .dock:hover, .dock:focus { 
-    background-color:#00b3b3;
- }*/
-
-  .project-content-idea {
-    background-color: #FFB24B;
-    display:inline-block;
-    width:128px;
-    height:128px;
-    /* #C4DAD5 */
-  }
-
-  .project-content-item {
-    background-color: #ead98b;
-    display:inline-block;
-    width:128px;
-    height:128px;
-    /* #C4DAD5 */
-  }
+  background-color:#00b3b3;
+}*/
 
 
 /* MODAL STYLING */
-  .modal {
-    display:none; /* Starts hidden, using CSS */
-    position:fixed; /* Stays in place. - W3Schools. Learn more. */
-    z-index:1; /* On top; higher numbers go toward the user, covering page */
-    left:0; top:0; /* Not sure...learn more later */
-    width:100%; height:100%;
-    overflow:auto; /* "Enable scroll if needed" */
-    background-color: rgb(71, 71, 107);
-    background-color: rgba(71, 71, 107, 0.9); 
-      /* Standard rgb color with alpha or opacity */
-      /* http://www.css3.info/introduction-opacity-rgba/ */
-  }
+.modal {
+  display:none; /* Starts hidden, using CSS */
+  position:fixed; /* Stays in place. - W3Schools. Learn more. */
+  z-index:1; /* On top; higher numbers go toward the user, covering page */
+  left:0; top:0; /* Not sure...learn more later */
+  width:100%; height:100%;
+  overflow:auto; /* "Enable scroll if needed" */
+  background-color: rgb(71, 71, 107);
+  background-color: rgba(71, 71, 107, 0.9); 
+    /* Standard rgb color with alpha or opacity */
+    /* http://www.css3.info/introduction-opacity-rgba/ */
+}
 
-  .modal-content { /* Borrowed from W3Schools 'how to css modals'*/
-      /*position:absolute;*/
-      background-color: #fefefe;
-      margin: 20% auto; /* 20% from the top and centered */
-      padding: 20px;
-      border: 1px solid #999999;
-      width: 75%;  /* Input text in the project modal is 300px wide...min-width?? */
-      height:auto;
-  }
-  .close {  /* The Close Button */
-      /*position:absolute;*/
-      color: #999999;
-      float: right;
-      font-size: 24px;
-      font-weight: bold;
-  }
-  .close:hover, .close:focus { /* Borrowed from W3Schools 'how to css modals'*/
-      color: black;
-      text-decoration: none;
-      cursor: pointer; /* I think this is for the cursor hovering on the close*/
-  }
+.modal-content { /* Borrowed from W3Schools 'how to css modals'*/
+    /*position:absolute;*/
+    background-color: #fefefe;
+    margin: 20% auto; /* 20% from the top and centered */
+    padding: 20px;
+    border: 1px solid #999999;
+    width: 75%;  /* Input text in the project modal is 300px wide...min-width?? */
+    height:auto;
+}
+.close {  /* The Close Button */
+    /*position:absolute;*/
+    color: #999999;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+}
+.close:hover, .close:focus { /* Borrowed from W3Schools 'how to css modals'*/
+    color: black;
+    text-decoration: none;
+    cursor: pointer; /* I think this is for the cursor hovering on the close*/
+}

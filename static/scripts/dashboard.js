@@ -1,5 +1,8 @@
 "use strict"; /*jslint node: true */
 
+
+
+
 // div with id new-team starts with 'hidden' toggled on
 $('#show-make-team').on('click', function (evt) {
     $('#new-team').toggleClass('hidden');

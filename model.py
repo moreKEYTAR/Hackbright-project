@@ -114,7 +114,7 @@ class Project(db.Model):
                            nullable=False, unique=False)
     title = db.Column(db.String(300), nullable=False, unique=False)
     notes = db.Column(db.String(2000), nullable=True, unique=False)
-    upvotes = db.Column(db.Integer, nullable=True)
+    upvotes = db.Column(db.Integer, nullable=True, default=1)
     updated = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
         # needs more study
 

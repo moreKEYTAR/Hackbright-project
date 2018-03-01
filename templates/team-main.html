@@ -44,125 +44,118 @@
   <button type="button" id="new-board-button" 
           data-team-id="{{ team.t_id }}">Add a new board</button>
 </div>
+<!-- A note on the show/hide behavior: 
+     Board button above is always visible; projects are visible based on clicking that board button. Then all other show projects divs hid, and this one shows for the event.target / project button that was clicked. -->
 
+<!-- ******************** MAKE EACH BOARD BUTTON/TAB ******************** -->
 {% if team.boards %}
 
   <div id="all-team-boards">
+
     {% for board in team.boards %}
-      
-      <!-- BOARD DIV: HAS TWO CHILD NODES:
-           show-projects-... & make-new-project... -->
-      <div class="board" id="{{ board.b_id }}">
-        <button type="button" class="board-button" 
-                data-board-id="{{ board.b_id }}">
-                {{ board.name }}</button>
-        {% if board.desc %}
-        <p class="description">{{ board.desc }}</p>
-        {% endif %}
-        <a href="http://i.dailymail.co.uk/i/pix/2017/05/05/08/3FF683F700000578-0-image-a-3_1493970441297.jpg"><p>Edit Board details</p></a>
-            
-            <!-- Board button above is always visible; projects are
-                 visible based on clicking that board button. Then all other 
-                 show projects divs hid, and this one shows for the 
-                 event.target / project button that was clicked. -->
-
-
-        <!-- CHILD (A) FROM THE BOARD DIV -->
-        <div class="show-projects"  
-             id="show-projects-{{ board.b_id }}" hidden>
-          
-          {% if board.projects %}
-            <div class="if-board-has-projects">
-              
-                {% for project in board.projects %}
-                  {% if project.phase_code == "idea" or 
-                    project.phase_code == "item" %}
-                  <br>
-                  <div class="project" 
-                       data-project-id="{{ project.p_id }}">
-                    <!-- I NEED TO UPDATE THE PROJECT.PHASE_CODE, WHETHER ITEM OR IDEA...TO DISPLAY CORRECTLY -->
-                    <div class="project-content-{{ project.phase_code }}"
-                         data-project-id="{{ project.p_id }}">
-                      <h5>{{ project.title }}</h5>
-                      
-                      <div class="if-unclaimed-project">
-                        <!-- Do not change any divs between the button and the div with class project (see js section CLAIM PROJECT CODE) -->
-                        {% if not project.user_id %}
-                        <button type="button" class="accept-project-button"
-                                data-phase="{{ project.phase_code }}"
-                                data-project-id="{{ project.p_id }}">
-                          Claim me!
-                        </button>
-                        {% endif %}
-
-                      </div> <!-- Closes the div if-unclaimed-project -->
-                      
-                      <input type="hidden" name="notes" 
-                             value="{{ project.notes }}">
-                      
-                      {% if project.phase_code == "idea" %}
-                        <div class="upvotes" 
-                             data-project-id="{{ project.p_id }}">
-                             <h5>+ {{ project.upvotes}}</h5>
-                        </div>
-                      {% endif %}
-
-                      {% if project.user_id %}
-                        <h5>{{ project.user.displayname }}</h5>
-                      {% endif %}
-                    </div> <!-- closes project content div -->
-                  </div> <!-- closes project div -->
-                  {% endif %} <!-- ends the check projects that are items or ideas -->
-                {% endfor %} <!-- ends the for each project loop -->
-
-            </div> <!-- closes if-board-has-projects div -->
-          
-          {% else %} <!-- If there are no projects yet -->
-
-            <p class="encouragement">No projects yet!</p>
-
-          {% endif %} <!-- ends "if board.projects" check -->
-
-        </div> <!-- closes show-projects div -->
-
-
-        <!-- CHILD (B) FROM THE BOARD DIV -->
-
-        <!-- Make a new project for the board: DIV & BUTTON -->
-        <div class="make-new-project"
-             id="make-new-project-{{board.b_id}}" 
-             hidden>
-
-          <button type="button" class="add-project-to-board-button" 
-                  data-board-id="{{ board.b_id }}">
-           Add a post</button>
-
-        </div> <!-- closes new project div -->
-      
-      </div> <!-- closes board div -->
-    
-    {% endfor %} <!-- ends the for each board loop -->
-  
-  </div> <!-- closes all-team-boards div -->
-
+    <div class="board" id="{{ board.b_id }}">
+      <button type="button" class="board-button" 
+              data-board-id="{{ board.b_id }}">
+              {{ board.name }}</button>
+      {% if board.desc %}
+      <p class="description">{{ board.desc }}</p>
+      {% endif %}
+      <a href="http://i.dailymail.co.uk/i/pix/2017/05/05/08/3FF683F700000578-0-image-a-3_1493970441297.jpg"><p>Edit Board details</p></a>
+    </div> <!-- Closes an individual board div -->
+    {% endfor %}
+  </div> <!-- Closes all-team-boards -->
 {% else %} <!-- If there are no boards yet -->
+  <p class="encouragement">No boards yet. Click below to make one!</p>
+{% endif %}   
 
-<p class="encouragement">No boards yet. Click below to make one!</p>
+
+<!-- ******************** MAKE HIDDEN PROJECTS AREA ******************** -->
+{% if team.boards %}
+  {% for board in team.boards %}
+<!-- FOR EACH BOARD, TWO DIVS ARE MADE INSIDE SHOW-PROJECTS: 
+     if-board-has-projects AND make-new-project -->
+
+  <div class="show-projects"  
+       id="show-projects-{{ board.b_id }}" hidden>
+      <!--This div is no longer required; will remove when code is refactored
+          for jquery agreement too, but currently has hiding & width settings requiring it to be kept -->
+
+    <!-- optional div, board.projects -->
+    {% if board.projects %}
+    <div class="if-board-has-projects">  
+      {% for project in board.projects %}
+
+        {% if project.phase_code == "idea" or project.phase_code == "item" %}
+
+        <div class="project" 
+             data-project-id="{{ project.p_id }}">
+
+          <div class="project-content-{{ project.phase_code }}"
+               data-project-id="{{ project.p_id }}">
+               <!-- Div class is updated based on being a grandparent of the 
+                    button that has the event, which determines styling & display -->
+            <h5>{{ project.title }}</h5>
+
+            {% if not project.user_id %}
+            <div class="if-unclaimed-project"> 
+              <!-- Do not change any divs between the button and the div with class project (see js section CLAIM PROJECT CODE) -->
+              <button type="button" class="accept-project-button"
+                      data-phase="{{ project.phase_code }}"
+                      data-project-id="{{ project.p_id }}">
+                Claim me!
+              </button>
+            </div> <!-- Closes the div if-unclaimed-project -->
+            {% endif %}
+          <!-- <input type="hidden" name="notes" 
+                 value="{{ project.notes }}"> -->
+          
+            {% if project.phase_code == "idea" %}
+            <div class="upvotes" 
+                 data-project-id="{{ project.p_id }}">
+                 <h5>+ {{ project.upvotes}}</h5>
+            </div>
+            {% endif %}
+
+            {% if project.user_id %}
+            <h5>{{ project.user.displayname }}</h5>
+            {% endif %}
+          </div> <!-- closes project content div -->
+        </div> <!-- closes project div -->
+        {% endif %} <!-- ends the check projects that are items or ideas -->
+
+      {% endfor %} <!-- ends the for project in board.projects -->
+
+    </div> <!-- closes if-board-has-projects div -->
+
+    {% else %} <!-- else if NOT board.projects -->
+
+      <p class="encouragement">No projects yet!</p>
+
+    {% endif %} <!-- ends "if board.projects" check -->
+
+
+
+    <div class="make-new-project"
+         id="make-new-project-{{board.b_id}}" 
+         hidden>
+
+      <button type="button" class="add-project-to-board-button" 
+              data-board-id="{{ board.b_id }}">
+       Add a post</button>
+
+    </div> <!-- closes make-new-project div -->
+  </div> <!-- ends the show projects div --> 
+  {% endfor %} <!-- ends the for each board loop -->
 
 {% endif %} <!-- ends the if team.boards check -->
-
+<br>
 <br>
 
-<br>
 <!-- ****************************** DOCK ******************************* -->
 <h3>Your In Progress Dock</h3>
 <div class="dock" id="user-dock" 
      data-user-id="{{ session['user_id'] }}">
-
-     
 </div>
-
-
 
 
 <!-- ********************************************************************* -->
