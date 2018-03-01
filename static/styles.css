@@ -5,8 +5,27 @@
 
 ul.navbar {
   list-style-type:none;
+
 }
 
+ul.team-members {
+  list-style-type:none;
+
+}
+
+ul li.one-team-member {
+    display: inline;
+    padding-right: 20px;
+    padding-left:0;
+}
+
+/*h3.inline-heading {
+  display:inline;
+}*/
+
+a.edit-this {
+  font-style: italic;
+}
 #success-claimed-project {
   color:#206050;
   background-color:#c6ece2;

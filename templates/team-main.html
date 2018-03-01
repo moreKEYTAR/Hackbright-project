@@ -30,8 +30,23 @@
 {% if team.desc %}
 <h5>{{ team.desc }}</h5>
 {% endif %}
-<a href="http://i.dailymail.co.uk/i/pix/2017/05/05/08/3FF683F700000578-0-image-a-3_1493970441297.jpg"><span>Edit Team details</span></a>
+<a class="edit-this" href="http://i.dailymail.co.uk/i/pix/2017/05/05/08/3FF683F700000578-0-image-a-3_1493970441297.jpg"><span>Edit Team details</span></a>
 <br>
+
+
+<!-- Unlike boards or projects, the team will always have at least one member -->
+<h3 class="inline-heading">Your Teammates</h3>
+<ul class="team-members">
+{% for userteam in team.userteams %}
+  <li class="one-team-member"><button>{{ userteam.user.displayname }}</button></li>
+
+{% endfor %}
+</ul>
+
+<br>
+
+<button type="button" id="invite-teammates-button"
+        data-team-id="{{ team.t_id }}">Invite new teammates</button>
 
 
 <h3>Your Boards</h3>
@@ -60,7 +75,7 @@
       {% if board.desc %}
       <p class="description">{{ board.desc }}</p>
       {% endif %}
-      <a href="http://i.dailymail.co.uk/i/pix/2017/05/05/08/3FF683F700000578-0-image-a-3_1493970441297.jpg"><p>Edit Board details</p></a>
+      <a "edit-this" href="http://i.dailymail.co.uk/i/pix/2017/05/05/08/3FF683F700000578-0-image-a-3_1493970441297.jpg"><p>Edit Board details</p></a>
     </div> <!-- Closes an individual board div -->
     {% endfor %}
   </div> <!-- Closes all-team-boards -->
@@ -160,6 +175,38 @@
       <!-- made referencing HTML/CSS tutorial from W3Schools  -->
       <!-- Modals start hidden, using css display:none -->
 
+<!-- ********************** INVITE TEAMMATES MODAL ********************** -->
+
+<div class="modal" id="invite-teammates-modal"> 
+
+  <!-- MODAL WINDOW CONTENT -->
+  <div class="modal-content">
+    <span id="invite-teammates-modal-close">&times;</span>
+    <!-- &times; makes a perfectly angled x. search "HTML entities" -->
+
+    <!-- MODAL FORM -->
+    <h3>Invite people to your SamePage team</h3>
+    
+    <form action="/invite-teammates/{{ team.t_id }}" method="POST" 
+          id="team-invitations-form">
+      <div id="email-input-area">
+        <span>&#43;</span><span> Teammate's email address:</span>
+        <input type="text" maxlength="254" style="width:200px;" 
+               name="email" placeholder="email address" 
+               form="team-invitations-form" required>
+        <p> SamePage will send the invitation instructions with this message. Feel free to personalize it!</p>
+        <textarea form="make-new-board-form" name="email-message" 
+                  rows="2" cols="30">{{ session.get("user_id") }} has invited you to join the team {{ team.name }} on SamePage and help with its projects.</textarea>
+        <button>&#43;</button>
+      </div> <!-- Close email-input-area div -->
+      <br>
+      <input type="submit" value="Send invites" form="team-invitations-form">
+    </form> <!-- Close form -->
+
+  </div> <!-- Close "modal-content" -->
+
+</div> <!-- Close "invite-teammates-modal" -->
+
 <!-- ********************** MAKE NEW BOARD MODAL ********************** -->
 
 <div class="modal" id="new-board-modal"> 
@@ -238,8 +285,7 @@
                  value="">
 
           <br><br>
-          <input type="submit" value="Submit" 
-                 id="submit-new-idea-form">
+          <input type="submit" value="Submit" id="submit-new-idea-form">
         </form> <!-- Close form -->
 
       </div> <!-- Close "modal-content" -->

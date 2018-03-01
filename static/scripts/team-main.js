@@ -52,7 +52,6 @@ $('.dock').droppable( {
 // });
 
 
-
 /////////////////////////////////////////////////////////////////////////////
 /// BOARD VIEW CODE ///
 /////////////////////////////////////////////////////////////////////////////
@@ -112,6 +111,90 @@ $('.accept-project-button').on('click', function (evt) {
         fadeOut( 400 );
     }); // closes function & ajax
 }); // closes event listener function
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// INVITE TEAMMATES MODAL ///
+/////////////////////////////////////////////////////////////////////////////
+
+// CSS keeps modal hidden to start
+let teammateInviteModal = document.getElementById('invite-teammates-modal');
+
+// When the user clicks on the button, open the modal 
+$('#invite-teammates-button').on('click', function (evt) {
+    teammateInviteModal.style.display = "block"; 
+});
+
+// When the user clicks on <span> (x), close the modal
+$('#invite-teammates-button').on('click', function (evt) {
+    teammateInviteModal.style.display = "none"; 
+});
+
+// javascript for an event listener
+window.addEventListener('click', function (evt) {
+    if (event.target == teammateInviteModal) {
+        teammateInviteModal.style.display = "none";
+    }
+});
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// NEW BOARD MODAL ///
+/////////////////////////////////////////////////////////////////////////////
+
+// https://www.w3schools.com/howto/howto_css_modals.asp
+let boardModal = document.getElementById('new-board-modal');
+
+// When the user clicks on the button, open the modal 
+$("#new-board-button").on('click', function (evt) {
+    boardModal.style.display = "block"; //changes css display value from none
+});
+
+// When the user clicks on <span> (x), close the modal
+$('#board-modal-close').on('click', function (evt) {
+    boardModal.style.display = "none"; //changes css display value from none
+});
+
+// javascript for an event listener
+window.addEventListener("click", function (evt) {
+    if (event.target == boardModal) {
+        boardModal.style.display = "none";
+    }
+});
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// NEW PROJECT MODAL ///
+/////////////////////////////////////////////////////////////////////////////
+
+// https://www.w3schools.com/howto/howto_css_modals.asp
+let newProjectModal = document.getElementById('new-project-modal');
+
+// When the user clicks on the button, open the modal 
+$(".add-project-to-board-button").on('click', function (evt) {
+    let boardId = $(this).data("boardId");
+    let hiddenInput = document.querySelector('#new-project-hidden-input');
+    hiddenInput.setAttribute('value', boardId);
+      // this value will be reset with every click, so no need to "dump" boardId
+    newProjectModal.style.display = "block";
+      //changes css display value from none
+});
+
+// When the user clicks on <span> (x), close the modal
+$('#project-modal-close').on('click', function (evt) {
+    newProjectModal.style.display = "none"; //changes css display value from none
+});
+
+// javascript for an event listener
+window.addEventListener("click", function (evt) {
+    if (event.target == newProjectModal) {
+        newProjectModal.style.display = "none";
+    }
+});
+
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -202,65 +285,7 @@ window.addEventListener("click", function (evt) {
     if (event.target == projectDetailsModal) {
         // Makes sure it hides so it will only show if the logic is met, when triggered
         projectDetailsModal.style.display = "none";
-
     }
 });
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-/// NEW BOARD MODAL ///
-/////////////////////////////////////////////////////////////////////////////
-
-// https://www.w3schools.com/howto/howto_css_modals.asp
-let boardModal = document.getElementById('new-board-modal');
-
-// When the user clicks on the button, open the modal 
-$("#new-board-button").on('click', function (evt) {
-    boardModal.style.display = "block"; //changes css display value from none
-});
-
-// When the user clicks on <span> (x), close the modal
-$('#board-modal-close').on('click', function (evt) {
-    boardModal.style.display = "none"; //changes css display value from none
-});
-
-// javascript for an event listener
-window.addEventListener("click", function (evt) {
-    if (event.target == boardModal) {
-        boardModal.style.display = "none";
-    }
-});
-
-
-/////////////////////////////////////////////////////////////////////////////
-/// NEW PROJECT MODAL ///
-/////////////////////////////////////////////////////////////////////////////
-
-// https://www.w3schools.com/howto/howto_css_modals.asp
-let newProjectModal = document.getElementById('new-project-modal');
-
-// When the user clicks on the button, open the modal 
-$(".add-project-to-board-button").on('click', function (evt) {
-    let boardId = $(this).data("boardId");
-    let hiddenInput = document.querySelector('#new-project-hidden-input');
-    hiddenInput.setAttribute('value', boardId);
-      // this value will be reset with every click, so no need to "dump" boardId
-    newProjectModal.style.display = "block";
-      //changes css display value from none
-});
-
-// When the user clicks on <span> (x), close the modal
-$('#project-modal-close').on('click', function (evt) {
-    newProjectModal.style.display = "none"; //changes css display value from none
-});
-
-// javascript for an event listener
-window.addEventListener("click", function (evt) {
-    if (event.target == newProjectModal) {
-        newProjectModal.style.display = "none";
-    }
-});
-
 
 
