@@ -29,7 +29,7 @@ ul.navbar {
 #all-team-boards {
   width:90%;
   background-color: rgb(71, 71, 107);
-  background-color: rgba(71, 71, 107, 0.9); 
+
   /* what do i do about height??*/
 }
 .add-project-to-board-button {
@@ -38,8 +38,8 @@ ul.navbar {
 
 .show-projects, .make-new-project {
   width:90%;
+  min-height: 250px;
   background-color: rgb(71, 71, 107);
-  background-color: rgba(71, 71, 107, 0.9); 
 
 }
 
@@ -49,10 +49,11 @@ ul.navbar {
 
 .project {
   display:inline-block;
+  vertical-align: top;
 }
 
 .project-content-idea {
-  background-color: #FFB24B;
+  background-color: #ffb3b3;
 
   width:128px;
   height:128px;
@@ -67,6 +68,10 @@ ul.navbar {
   /* #C4DAD5 */
 }
 
+.make-new-project {
+  text-align:right; 
+}
+
 .dock {
   /* styling update pending */
   background-color:#008080;
@@ -75,7 +80,9 @@ ul.navbar {
   height:400px;
   /*temporary height*/
 }
-
+.ui-droppable-hover {
+  background-color:#006666;
+}
 /* not the action I want...so defining in js file for now*/
 /* .dock:hover, .dock:focus { 
   background-color:#00b3b3;

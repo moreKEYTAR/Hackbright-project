@@ -24,10 +24,14 @@
     --> need help with logic for this
 */
 $('.project').draggable( {
+    cursor: "move",
+    //revert: true, I ONLY WANT REVERT TO HAPPEN IF IT GOES INTO A FORBIDDEN ZONE
+    // helper: "clone",
     drag: function( event, ui ) {
         $(this).css("opacity", "0.8");
-    }
 
+    },
+    // stack: ".project",
 });
 $('.project').draggable( {
     stop: function( event, ui ) {

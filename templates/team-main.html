@@ -87,24 +87,21 @@
 
         {% if project.phase_code == "idea" or project.phase_code == "item" %}
 
-        <div class="project" 
-             data-project-id="{{ project.p_id }}">
-
-          <div class="project-content-{{ project.phase_code }}"
-               data-project-id="{{ project.p_id }}">
+        <div class="project" data-project-id="{{ project.p_id }}">
+          <div class="project-content-{{ project.phase_code }}" data-project-id="{{ project.p_id }}">
                <!-- Div class is updated based on being a grandparent of the 
                     button that has the event, which determines styling & display -->
             <h5>{{ project.title }}</h5>
 
             {% if not project.user_id %}
-            <div class="if-unclaimed-project"> 
-              <!-- Do not change any divs between the button and the div with class project (see js section CLAIM PROJECT CODE) -->
-              <button type="button" class="accept-project-button"
-                      data-phase="{{ project.phase_code }}"
-                      data-project-id="{{ project.p_id }}">
-                Claim me!
-              </button>
-            </div> <!-- Closes the div if-unclaimed-project -->
+              <div class="if-unclaimed-project"> 
+                <!-- Do not change any divs between the button and the div with class project (see js section CLAIM PROJECT CODE) -->
+                <button type="button" class="accept-project-button"
+                        data-phase="{{ project.phase_code }}"
+                        data-project-id="{{ project.p_id }}">
+                  Claim me!
+                </button>
+              </div> <!-- Closes the div if-unclaimed-project -->
             {% endif %}
           <!-- <input type="hidden" name="notes" 
                  value="{{ project.notes }}"> -->
@@ -272,17 +269,7 @@
                  form="pd-idea-div-form-upvotes">
         </form> <!-- Close form -->
 
-        <!-- IDEA NOTES FORM -->
-        <form action="" method="POST" id="pd-idea-div-form-textarea"> 
-            <!-- action updated in js file -->
-            <!-- see original notes???? -->
-          <p>Notes: <i>(max 3000 char)</i></p>
-<!--           <textarea id="pd-idea-textarea" 
-                      form="pd-idea-div-form-textarea" 
-                      name="notes" rows="20" cols="50"></textarea> -->
-          <input type="submit" value="Save Changes" 
-                 form="pd-idea-div-form-textarea">
-        </form> <!-- Close IDEA form -->
+
       </div><!-- Close IDEA DIV -->
 
       <!-- ************* ITEM DIV, USER IS OWNER ************* -->
