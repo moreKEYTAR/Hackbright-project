@@ -313,16 +313,18 @@ def update_most_recently_clicked_board():
 
 @app.route("/claim-project", methods=["POST"])
 def assign_user_to_project():
-    """Update database with user_id for the project."""
+    """Update database with user_id for the project, return data to js file."""
 
     user_id = session.get("user_id")
     project_id = request.form.get("projectId")
 
     q.update_user_claiming_project(user_id, project_id)
         # Also updates project to "item"
-
+    project_object = db.session.query(Project).filter_by(p_id=project_id).first()
     results = {"displayname": session.get("displayname"),
-               "statusMessage": "HTTP-status-code: 200"}
+               "statusMessage": "HTTP-status-code: 200",
+               "projectTitle": project_object.title,
+               "projectNotes": project_object.notes}
 
     return jsonify(results)
 

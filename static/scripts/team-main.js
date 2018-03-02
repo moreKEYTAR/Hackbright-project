@@ -110,7 +110,7 @@ $('.accept-project-button').on('click', function (evt) {
         // an item or idea, so that the display is for an item
 
     $.post ("/claim-project", {"projectId": projectId}, function (results) {
-        // Results keys: "displayname", "statusMessage"
+    // Results keys: "displayname", "statusMessage", "projectTitle", "projectNotes"
 
         // Print the string that was returned
         console.log(results.statusMessage);
@@ -127,16 +127,35 @@ $('.accept-project-button').on('click', function (evt) {
         if (upvotesDiv) {
             upvotesDiv.hide();
         }
-        // console.log(results.displayname);
-        // // add user's name
-        // let nameHeading = $('<h5>');
-        //     nameHeading.html("hi");
-        // grandparent.append(nameHeading);
-
+ 
+        // update the user's name to the claimed project in the board area
         let appendDiv = $('.project-content-item[data-project-id='+projectId+']');
         let nameHeading = $('<h5>');
             nameHeading.html(results.displayname);
         appendDiv.append(nameHeading);
+
+        // update the dock with the project
+        let dockDiv = $('<div>');
+            dockDiv.attr({"class": "project-in-dock"});
+        let dockDivContent = $('<div>');
+            dockDivContent.attr({"class": "project-in-dock",
+                          "data-project-id": ''+projectId+''});
+        let projectHeading = $('<h5>');
+            projectHeading.html(results.projectTitle);
+        let hiddenNotesInput = $('<input>');
+            hiddenNotesInput.attr({"type": "hidden",
+                              "name": "notes",
+                              "value": ''+results.projectNotes+''});
+        let nameHeadingTwo = $('<h5>');
+            nameHeadingTwo.html(results.displayname);
+
+        dockDiv.append(dockDivContent);
+        dockDivContent.append(projectHeading);
+        dockDivContent.append(hiddenNotesInput);
+        dockDivContent.append(nameHeadingTwo);
+        $('#dock-projects-all').append(dockDiv);
+
+
         // Fade message to confirm success to user, from website:
             // http://jsfiddle.net/sunnypmody/XDaEk/
         $( "#success-claimed-project" ).fadeIn( 300 ).delay( 2000 ).

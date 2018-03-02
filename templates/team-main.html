@@ -168,26 +168,28 @@
 <h3>Your In Progress Dock</h3>
 <div class="dock" id="user-dock" data-user-id="{{ session['user_id'] }}">
 
-{% if team.boards%}
-  {% for board in team.boards %}
-    {% if board.projects %}
-      {% for project in board.projects%}
-        {% if project.user_id == session.get("user_id") %}
-          <div class="project-in-dock">
-            <div class="project-content-in-dock" 
-                 data-project-id="{{ project.p_id }}">
-              <h5>{{ project.title }}</h5>
-              <input type="hidden" name="notes" value="{{ project.notes }}">
-              <h5>{{ project.user.displayname }}</h5>
-            </div> <!-- closes project content div -->
-          </div> <!-- closes project-in-dock div -->
+  <div id="dock-projects-all">
+    {% if team.boards%}
+      {% for board in team.boards %}
+        {% if board.projects %}
+          {% for project in board.projects%}
+            {% if project.user_id == session.get("user_id") %}
+              <div class="project-in-dock">
+                <div class="project-content-in-dock" 
+                     data-project-id="{{ project.p_id }}">
+                  <h5>{{ project.title }}</h5>
+                  <input type="hidden" name="notes" value="{{ project.notes }}">
+                  <h5>{{ project.user.displayname }}</h5>
+                </div> <!-- closes project content div -->
+              </div> <!-- closes project-in-dock div -->
+            {% endif %}
+          {% endfor %}
         {% endif %}
       {% endfor %}
     {% endif %}
-  {% endfor %}
-{% endif %}
 
-</div> <!-- closes dock div -->
+  </div> <!-- closes dock-projects-all -->
+</div> <!-- closes user-dock-->
 
 <!-- ********************************************************************* -->
 <!-- ****************************** MODALS ******************************* -->
