@@ -9,3 +9,33 @@
 11|5|item|Ask Cersei for assurances she will not march northward|Contact her through Jaime?||
 11||idea|Have Varys teleport to Essos and speak with the Iron Bank|Do they support Cersei still? Can Varys teleport with items, like a wight?|1|
 12|3|item|Speak to Samwell Tarly about findings from the Restricted Section|Did the Citadel have information about the Long Night?||
+
+
+
+
+12||idea|Reassemble Riverlands armies under Sansa||2|
+12||idea|Consult Melisandre about Lord of Light||1|
+4||idea|Use the magic of Direwolves||2|
+4||item|Train smallfolk to fight|||
+12||item|Scout Lannister movement||3|
+4||item|Prepare the Gift for wight warfare|||
+4|1|item|Armor or train Drogon and Rhaegal||2|
+4|3|item|Arm Vale and Northern armies with Dragonglass|Current amount mined: 30 tonnes||
+11|5|item|Ask Cersei for assurances she will not march northward|Contact her through Jaime?||
+11||idea|Have Varys teleport to Essos and speak with the Iron Bank|Do they support Cersei still? Can Varys teleport with items, like a wight?|1|
+12|3|item|Speak to Samwell Tarly about findings from the Restricted Section|Did the Citadel have information about the Long Night?||
+
+
+4|Offensive Strategy|Fighting wights & the Night King
+11|Diplomacy|Working with allies in the fight for Battle for the Dawn
+12|Intel and Knowledge
+
+
+1|dragonvengeance@gmail.com|Dragonz4life|Dany
+2|catofthecanals@yahoo.com|morghulis|A girl has no name
+3|brooder@hotmail.com|Ghost|Jon
+4|summerchild@gmail.com|wolfdreams|Bran
+5|t.lannister@gmail.com|exhand|Tyrion
+6|theornithologist@hotmail.com|fortherealm|Varys
+7|sansa@me.com|lemoncakes|Sansa
+8|bearlover@hotmail.com|giantsbane|Tormund GB

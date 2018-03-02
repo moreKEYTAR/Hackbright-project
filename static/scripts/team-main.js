@@ -42,7 +42,11 @@ function updateInteractivity () {
         stop: function( event, ui ) {
             $(this).css("opacity", "1.0");
         }
+        //revert: function(event, ui) {
+           // if 
+        // }
     });
+    $(".project").draggable({ revert: 'valid' });
 
     $('.project-in-dock').draggable( {
         cursor: "move",

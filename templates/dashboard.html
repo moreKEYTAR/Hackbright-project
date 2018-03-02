@@ -19,7 +19,13 @@
   url change to display the unique user, not users/login...
   the last route used...? -->
 <h1>{{ displayname }}'s Dashboard</h1>
-
+<div class="tutorial">
+  <label class="checkbox-inline">
+    <input id="tutorial-hidden-input" type="hidden" name="new_user" value="{{ session.get('new_user') }}">
+    <input type="checkbox" data-toggle="toggle" data-size="small" data-on="Tutorial"> Tutorial
+  </label>
+  <!-- need to set as disabled or checked, based on if new user...and have consequences for toggle -->
+</div>
 <div>
   {% if teams_list %}
 
@@ -105,9 +111,7 @@
 </div>
 
 
-<div>
 
-</div>
 <!-- link to js below here -->
 <script src="/static/scripts/dashboard.js"></script>
 
