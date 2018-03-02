@@ -318,14 +318,16 @@ def assign_user_to_project():
 
     user_id = session.get("user_id")
     project_id = request.form.get("projectId")
-
+    grandparent_class = request.form.get("grandClass")
+    #"projectId", grandClass
     q.update_user_claiming_project(user_id, project_id)
         # Also updates project to "item"
     project_object = db.session.query(Project).filter_by(p_id=project_id).first()
     results = {"displayname": session.get("displayname"),
-               "statusMessage": "HTTP-status-code: 200",
                "projectTitle": project_object.title,
-               "projectNotes": project_object.notes}
+               "projectNotes": project_object.notes,
+               "projectId": project_id,
+               "grandClass": grandparent_class}
 
     return jsonify(results)
 
@@ -334,7 +336,7 @@ def assign_user_to_project():
 # def assign_user_to_project_dragdrop():
 #     """Update database with user_id for the project, return data to js file.
 #     Project claimed, or grabbed, with drag and drop."""
-    
+
 #     print request.form.get("projectId")
 
 #     return "these are the results"

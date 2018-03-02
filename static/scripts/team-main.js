@@ -56,6 +56,38 @@ function updateInteractivity () {
             let projectClassDragged = ui.draggable.attr("class");
             let pClassLst = projectClassDragged.split(" ");
             if (pClassLst[0] === "project") {
+
+                console.log(ui);
+                console.log(ui.parents());
+                //console.log($(allParents[1]));
+
+
+
+
+
+
+
+
+
+
+                // pending
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                aleiljfi;
                 let payload = {"projectId": projectIdDragged};
                 $.post("/claim-project", payload, function (results) {
                     console.log("end of post method request");
@@ -66,6 +98,15 @@ function updateInteractivity () {
             }
 
 
+
+
+    // let projectId = $(this).data("projectId");
+    // let allParents = ($(this).parents());
+    // let grandparent = $(allParents[1]);
+    // let grandClass = grandparent.attr("class");
+
+    // let payload = {"projectId": projectId,
+    //                "grandClass": grandClass};
 
             //let dockId = $(this).attr("id");
             // other class: project-in-dock
@@ -156,66 +197,128 @@ $('.board-button').on('click', function (evt) {
 /// CLAIM PROJECT BUTTON ///
 /////////////////////////////////////////////////////////////////////////////
 
+
+function updateProjectOwnership(results) {
+    // Results keys: 
+        // "displayname", "projectTitle", "projectNotes", "projectId", "grandClass"
+
+    let pId = results.projectId;
+
+    // Select, out of the class of accept-project-buttons, the one
+    // where the data attribute is exactly data-project-id=projectId
+    let claimButton = $(
+        '.accept-project-button[data-project-id='+pId+']');
+    claimButton.hide();
+
+    // Make sure that the class is updated for the project-content... div
+    let projectContentDiv = $('.project[data-project-id='+pId+']').children('div')[0];
+    projectContentDiv.className = 'project-content-item';
+
+    let upvotesDiv = $('.upvotes[data-project-id='+pId+']');
+    if (upvotesDiv) {
+        upvotesDiv.hide();
+    }
+
+    // update the user's name to the claimed project in the board area
+    let appendDiv = $('.project-content-item[data-project-id='+pId+']');
+    let nameHeading = $('<h5>');
+        nameHeading.html(results.displayname);
+    appendDiv.append(nameHeading);
+
+    // update the dock with the project
+    let dockDiv = $('<div>');
+        dockDiv.attr({"class": "project-in-dock",
+                      "data-project-id": ''+pId+''});
+    let dockDivContent = $('<div>');
+        dockDivContent.attr({"class": "project-content-in-dock",
+                             "data-project-id": ''+pId+''});
+    let projectHeading = $('<h5>');
+        projectHeading.html(results.projectTitle);
+    let hiddenNotesInput = $('<input>');
+        hiddenNotesInput.attr({"type": "hidden",
+                          "name": "notes",
+                          "value": ''+results.projectNotes+''});
+    let nameHeadingTwo = $('<h5>');
+        nameHeadingTwo.html(results.displayname);
+
+    dockDiv.append(dockDivContent);
+    dockDivContent.append(projectHeading);
+    dockDivContent.append(hiddenNotesInput);
+    dockDivContent.append(nameHeadingTwo);
+    $('#dock-projects-all').append(dockDiv);
+
+    // update the draggable & droppable properties for these items, as needed
+    updateInteractivity();
+
+    // Fade message to confirm success to user, from website:
+        // http://jsfiddle.net/sunnypmody/XDaEk/
+    $( "#success-claimed-project" ).fadeIn( 300 ).delay( 2000 ).
+    fadeOut( 400 );
+}
+
 $('.accept-project-button').on('click', function (evt) {
     let projectId = $(this).data("projectId");
     let allParents = ($(this).parents());
-    let grandparent = allParents[1];
-    // Need to set the new class on the grandparent, regardless whether it was
-        // an item or idea, so that the display is for an item
+    let grandparent = $(allParents[1]);
+    let grandClass = grandparent.attr("class");
+    // grandClass needed to identify the correct div in the callback fn
+        //Will need to set the new class on the grandparent for correct css
+    let payload = {"projectId": projectId,
+                   "grandClass": grandClass};
 
-    $.post ("/claim-project", {"projectId": projectId}, function (results) {
-    // Results keys: "displayname", "statusMessage", "projectTitle", "projectNotes"
+    $.post ("/claim-project", payload, updateProjectOwnership); 
+    // // Results keys: "displayname", "statusMessage", "projectTitle", "projectNotes"
 
-        // Print the string that was returned
-        console.log(results.statusMessage);
-        // Select, out of the class of accept-project-buttons, the one
-        // where the data attribute is exactly data-project-id=projectId
-        let claimButton = $(
-            '.accept-project-button[data-project-id='+projectId+']');
-        claimButton.hide();
-            // Claim button is now hidden until page refresh, 
-            // when it will not be generated
+    //     // Print the string that was returned
+    //     console.log(results.statusMessage);
+    //     // Select, out of the class of accept-project-buttons, the one
+    //     // where the data attribute is exactly data-project-id=projectId
+    //     let claimButton = $(
+    //         '.accept-project-button[data-project-id='+projectId+']');
+    //     claimButton.hide();
+    //         // Claim button is now hidden until page refresh, 
+    //         // when it will not be generated
 
-        grandparent.className ='project-content-item';
-        let upvotesDiv = $('.upvotes[data-project-id='+projectId+']');
-        if (upvotesDiv) {
-            upvotesDiv.hide();
-        }
+    //     grandparent.className ='project-content-item';
+    //     let upvotesDiv = $('.upvotes[data-project-id='+projectId+']');
+    //     if (upvotesDiv) {
+    //         upvotesDiv.hide();
+    //     }
  
-        // update the user's name to the claimed project in the board area
-        let appendDiv = $('.project-content-item[data-project-id='+projectId+']');
-        let nameHeading = $('<h5>');
-            nameHeading.html(results.displayname);
-        appendDiv.append(nameHeading);
+    //     // update the user's name to the claimed project in the board area
+    //     let appendDiv = $('.project-content-item[data-project-id='+projectId+']');
+    //     let nameHeading = $('<h5>');
+    //         nameHeading.html(results.displayname);
+    //     appendDiv.append(nameHeading);
 
-        // update the dock with the project
-        let dockDiv = $('<div>');
-            dockDiv.attr({"class": "project-in-dock",
-                          "data-project-id": ''+projectId+''});
-        let dockDivContent = $('<div>');
-            dockDivContent.attr({"class": "project-content-in-dock",
-                                 "data-project-id": ''+projectId+''});
-        let projectHeading = $('<h5>');
-            projectHeading.html(results.projectTitle);
-        let hiddenNotesInput = $('<input>');
-            hiddenNotesInput.attr({"type": "hidden",
-                              "name": "notes",
-                              "value": ''+results.projectNotes+''});
-        let nameHeadingTwo = $('<h5>');
-            nameHeadingTwo.html(results.displayname);
+    //     // update the dock with the project
+    //     let dockDiv = $('<div>');
+    //         dockDiv.attr({"class": "project-in-dock",
+    //                       "data-project-id": ''+projectId+''});
+    //     let dockDivContent = $('<div>');
+    //         dockDivContent.attr({"class": "project-content-in-dock",
+    //                              "data-project-id": ''+projectId+''});
+    //     let projectHeading = $('<h5>');
+    //         projectHeading.html(results.projectTitle);
+    //     let hiddenNotesInput = $('<input>');
+    //         hiddenNotesInput.attr({"type": "hidden",
+    //                           "name": "notes",
+    //                           "value": ''+results.projectNotes+''});
+    //     let nameHeadingTwo = $('<h5>');
+    //         nameHeadingTwo.html(results.displayname);
 
-        dockDiv.append(dockDivContent);
-        dockDivContent.append(projectHeading);
-        dockDivContent.append(hiddenNotesInput);
-        dockDivContent.append(nameHeadingTwo);
-        $('#dock-projects-all').append(dockDiv);
+    //     dockDiv.append(dockDivContent);
+    //     dockDivContent.append(projectHeading);
+    //     dockDivContent.append(hiddenNotesInput);
+    //     dockDivContent.append(nameHeadingTwo);
+    //     $('#dock-projects-all').append(dockDiv);
 
-        updateInteractivity();
-        // Fade message to confirm success to user, from website:
-            // http://jsfiddle.net/sunnypmody/XDaEk/
-        $( "#success-claimed-project" ).fadeIn( 300 ).delay( 2000 ).
-        fadeOut( 400 );
-    }); // closes function & ajax
+    //     updateInteractivity();
+    //     // Fade message to confirm success to user, from website:
+    //         // http://jsfiddle.net/sunnypmody/XDaEk/
+    //     $( "#success-claimed-project" ).fadeIn( 300 ).delay( 2000 ).
+    //     fadeOut( 400 );
+    // }); // closes function & ajax
 
 }); // closes event listener function
 
