@@ -5,12 +5,10 @@
 
 ul.navbar {
   list-style-type:none;
-
 }
 
 ul.team-members {
   list-style-type:none;
-
 }
 
 ul li.one-team-member {
@@ -26,6 +24,7 @@ ul li.one-team-member {
 a.edit-this {
   font-style: italic;
 }
+
 #success-claimed-project {
   color:#206050;
   background-color:#c6ece2;
@@ -36,6 +35,7 @@ a.edit-this {
 .board > button {
   background-color:#30bdc0;
 }
+
 .board {
   display:inline-block;
   /*float:left; */
@@ -45,13 +45,12 @@ a.edit-this {
   width:20%;
 }
 
-
 #all-team-boards {
   width:90%;
   background-color: rgb(71, 71, 107);
-
   /* what do i do about height??*/
 }
+
 .add-project-to-board-button {
   background-color:#99ffbb;
 }
@@ -79,7 +78,6 @@ a.edit-this {
 
 .project-content-idea {
   background-color: #ffb3b3;
-
   width:128px;
   height:128px;
   /* #C4DAD5 */
@@ -87,7 +85,6 @@ a.edit-this {
 
 .project-content-item {
   background-color: #ead98b;
-
   width:128px;
   height:128px;
   /* #C4DAD5 */
@@ -97,10 +94,9 @@ a.edit-this {
   display:inline-block;
   vertical-align: top;
   background-color: #ead98b;
-  width:250px;
-  height:250px;
+  width:200px;
+  height:200px;
 }
-
 
 .make-new-project {
   text-align:right; 
@@ -140,8 +136,6 @@ a.edit-this {
 #team-invitations-form textarea {
   resize: none;
 }
-
-/**/
 
 .modal-content { /* Borrowed from W3Schools 'how to css modals'*/
     /*position:absolute;*/

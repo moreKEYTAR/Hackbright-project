@@ -29,10 +29,10 @@
 <p>{{ team.t_id }}</p>
 
 <h1>Team home: {{ team.name }}</h1>
+<a href="#"><span class="glyphicon glyphicon-edit"></span></a>
 {% if team.desc %}
 <h5>{{ team.desc }}</h5>
 {% endif %}
-<a class="edit-this" href="http://i.dailymail.co.uk/i/pix/2017/05/05/08/3FF683F700000578-0-image-a-3_1493970441297.jpg"><span>Edit Team details</span></a>
 <br>
 
 
@@ -71,11 +71,12 @@
       <button type="button" class="board-button" 
               data-board-id="{{ board.b_id }}">
               {{ board.name }}</button>
+        <a href="#"><span class="glyphicon glyphicon-edit"></span></a>
+        <!-- <a href="#"><span class="glyphicon glyphicon-trash"></span></a> -->
       {% if board.desc %}
       <p class="description">{{ board.desc }}</p>
       {% endif %}
-      <a "edit-this" 
-      href="http://i.dailymail.co.uk/i/pix/2017/05/05/08/3FF683F700000578-0-image-a-3_1493970441297.jpg"><p>Edit Board details</p></a>
+
     </div> <!-- Closes an individual board div -->
     {% endfor %}
   </div> <!-- Closes all-team-boards -->
@@ -226,6 +227,7 @@
       </div> <!-- Close email-input-area div -->
       <button id="add-email-invite-inputs-button" 
               data-team-id="{{ team.t_id }}">&#43;</button>
+
       <br>
       <br>
 

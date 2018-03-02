@@ -32,8 +32,8 @@
         <form action="/view-team" method="POST">
           <input type="hidden" name="team" value="{{ team.team_id }}">
           <input type="submit" value="{{ team.name }}">
-          <a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-          <a href="#"><span class="glyphicon glyphicon-trash"></span></a>
+          <a href="#"><span class="glyphicon glyphicon-edit"></span></a>
+<!--           <a href="#"><span class="glyphicon glyphicon-trash"></span></a> -->
           {% if team.desc %}
           <p class="desc">{{ team.desc }}</p>
           {% endif %}
