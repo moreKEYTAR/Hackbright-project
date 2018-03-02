@@ -376,6 +376,13 @@ def save_updated_project_details(project_id):
     return redirect("/view-team")
 
 
+@app.route("/invite-teammates/<int:team_id>", methods=['POST'])
+def invite_new_teammates(team_id):
+    """ """
+
+    return "Nothing happened!"
+
+
 ###########################################################################
 # ACTION BOARD ############################################################
 

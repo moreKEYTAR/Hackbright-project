@@ -122,6 +122,12 @@ a.edit-this {
     /* http://www.css3.info/introduction-opacity-rgba/ */
 }
 
+#team-invitations-form textarea {
+  resize: none;
+}
+
+/**/
+
 .modal-content { /* Borrowed from W3Schools 'how to css modals'*/
     /*position:absolute;*/
     background-color: #fefefe;

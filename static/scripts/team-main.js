@@ -123,22 +123,56 @@ let teammateInviteModal = document.getElementById('invite-teammates-modal');
 
 // When the user clicks on the button, open the modal 
 $('#invite-teammates-button').on('click', function (evt) {
-    teammateInviteModal.style.display = "block"; 
+    teammateInviteModal.style.display = "block";
+
 });
 
 // When the user clicks on <span> (x), close the modal
-$('#invite-teammates-button').on('click', function (evt) {
+$('#invite-teammates-modal-close').on('click', function (evt) {
     teammateInviteModal.style.display = "none"; 
+    $("#email-address-default").val('');
 });
 
 // javascript for an event listener
 window.addEventListener('click', function (evt) {
     if (event.target == teammateInviteModal) {
         teammateInviteModal.style.display = "none";
+        $("#email-address-default").val('');
     }
 });
 
+// Update modal with more rows in the team-invitations-form;
+let addEntry = document.getElementById('add-email-invite-inputs-button');
+$(addEntry).on('click', function (evt) {
+    // make a new entry row for an email invitation
+    let div = $("<div>");
+        div.attr({"class": "add-email-invite-div"});
+    let plusSpan = $("<span>");
+        plusSpan.html("&#43;");
+    let wordsSpan = $("<span>");
+        wordsSpan.html(" Teammate's email address:");
+    let newInput = $("<input>");
+        newInput.attr({"type": "text", 
+                       "maxlength": "254", 
+                       "style": "width:200px", 
+                       "name": "email",
+                       "placeholder": "email address",
+                       "form": "team-invitations-form"});
+        newInput.prop("required", true);
+    let newTextarea = $("<textarea>");
+    let emailText = $( "#textarea-template-team-invites" ).html();
+        newTextarea.html(emailText);
+        newTextarea.attr({"form": "team-invitations-form",
+                          "name": "email-message",
+                          "rows": "3",
+                          "cols": "40"});
 
+    $("#email-input-area").append(div);
+    div.append(plusSpan);
+    div.append(wordsSpan);
+    div.append(newInput);
+    div.append(newTextarea);
+});
 
 
 /////////////////////////////////////////////////////////////////////////////
