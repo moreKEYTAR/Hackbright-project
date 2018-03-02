@@ -47,6 +47,7 @@ app.jinja_env.auto_reload = True
     # "team_id" (int)
     # "new_user" (bool)
     # "displayname" (str)
+    # "current_board" (int)
 
 
 ###########################################################################
@@ -293,6 +294,20 @@ def make_new_board():
 
     flash("Board created! MAKE THAT BOARD SHOW AS DEFAULT!!!!")
     return redirect("/view-team")
+
+
+@app.route("/current-board", methods=["POST"])
+def update_most_recently_clicked_board():
+    """ """
+
+    # Below is v1.0. Next version involves updating the db model to track this
+    # information, so the board is displayed on login.
+
+    board_id = request.form.get("boardId")
+    session["current_board"] = board_id
+    print "Session updated with board {}.".format(board_id)
+
+    return "HTTP-status-code: 200"
 
 
 @app.route("/claim-project", methods=["POST"])

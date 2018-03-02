@@ -22,6 +22,10 @@
 <!-- ********************************************************************* -->
 <!-- *************************** MAIN HTML BODY *************************** --> 
 
+
+<input id="current-board-info" type="hidden" name="notes" 
+       value="{{ session.get('current_board') }}">
+
 <p>{{ team.t_id }}</p>
 
 <h1>Team home: {{ team.name }}</h1>

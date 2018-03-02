@@ -1,5 +1,6 @@
 "use strict"; /*jslint node: true */
 
+
 /////////////////////////////////////////////////////////////////////////////
 /// DRAG AND DROP FOR PROJECTS ///
 /////////////////////////////////////////////////////////////////////////////
@@ -43,13 +44,23 @@ $('.dock').droppable( {
     //     $('.dock').css("background-color", "#00b3b3");
     //}
 });
-// $(".dock").droppable({
-//     drop: function(event, ui) {
 
-// $(this).css("background-color", "lightgreen");
-// };
-// // on hover, change color of doc
-// });
+
+/////////////////////////////////////////////////////////////////////////////
+/// FUNCTION TO HAVE MOST RECENT BOARD OPEN ///
+/////////////////////////////////////////////////////////////////////////////
+
+function showRecentBoard() {
+    let currentBoard = $('#current-board-info').attr("value");
+    if (currentBoard === "None") {
+        console.log("Boards all closed.");
+    } else {
+        $(".show-projects").hide();
+        $(".make-new-project").hide();
+        $("#show-projects-" + currentBoard).show();
+        $("#make-new-project-" + currentBoard).show();
+}}
+showRecentBoard();
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -65,6 +76,8 @@ $('.board-button').on('click', function (evt) {
     if ($("#show-projects-" + boardId).is(':visible')) {
         $(".show-projects").hide();  // Close the div with the projects
         $(".make-new-project").hide();  // Close the new project div
+        $('#current-board-info').attr({"value": "None"});
+
     // handles clicking another board, which is not yet visible (regardless if
         // any are visible)
     } else {
@@ -72,7 +85,16 @@ $('.board-button').on('click', function (evt) {
         $(".make-new-project").hide();
         $("#show-projects-" + boardId).show();
         $("#make-new-project-" + boardId).show();
+
     }
+
+    // Route updates session with most recent board.
+    $.post("/current-board", {"boardId": boardId}, function (results) {
+        console.log(results);
+        $('#current-board-info').attr({"value": boardId});
+
+    });
+        
 });
 
 
