@@ -39,14 +39,13 @@
 <!-- Unlike boards or projects, the team will always have at least one member -->
 <h3 class="inline-heading">Your Teammates</h3>
 <ul class="team-members">
-{% for userteam in team.userteams %}
-  <li class="one-team-member"><button>{{ userteam.user.displayname }}</button></li>
-
-{% endfor %}
+  {% for userteam in team.userteams %}
+    <li class="one-team-member"><span>{{ userteam.user.displayname }}          </span></li>
+  {% endfor %}
 </ul>
 
 <br>
-<button type="button" id="invite-teammates-button">Invite your teammates</button>
+<button type="button" id="invite-teammates-button">Invite teammates</button>
 
 <h3>Your Boards</h3>
 <div id="success-claimed-project">Awesome! You own the project. 
@@ -57,7 +56,8 @@
 <div id="make-new-board">
   <button type="button" id="new-board-button" 
           data-team-id="{{ team.t_id }}">Add a new board</button>
-</div>
+</div><br>
+
 <!-- A note on the show/hide behavior: 
      Board button above is always visible; projects are visible based on clicking that board button. Then all other show projects divs hid, and this one shows for the event.target / project button that was clicked. -->
 
@@ -218,10 +218,8 @@
                name="email" placeholder="email address" id="email-address-default"
                form="team-invitations-form" required>
         <textarea form="team-invitations-form" name="email-message" 
-                  rows="3" cols="40" id="textarea-template-team-invites">
-                  {{ session.get("displayname") }} has invited you to join the 
-                  team {{ team.name }} on SamePage. Accept to help complete 
-                  projects for {{ team.name }}.</textarea>
+                  id="textarea-template-team-invites" rows="3" 
+                  cols="40">{{ session.get("displayname") }} has invited you to join the team {{ team.name }} on SamePage. Accept to help complete projects for {{ team.name }}.</textarea>
       </div> <!-- Close email-input-area div -->
       <button id="add-email-invite-inputs-button" 
               data-team-id="{{ team.t_id }}">&#43;</button>

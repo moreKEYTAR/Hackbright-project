@@ -183,9 +183,9 @@ def dashboard():
                                "desc": userteam.team.desc}
                 invites_list.append(invite_dict)
 
-        return render_template('dashboard.html', 
+        return render_template('dashboard.html',
                                teams_list=teams_list,
-                               invites_list=invites_list, 
+                               invites_list=invites_list,
                                displayname=user_object.displayname)
 
     else:
@@ -291,8 +291,9 @@ def make_new_board():
 
     new_board = q.make_board(name, desc, team_id)
     q.add_to_db(new_board)
+    session["current_board"] = new_board.b_id
 
-    flash("Board created! MAKE THAT BOARD SHOW AS DEFAULT!!!!")
+    flash("New board successfully created.")
     return redirect("/view-team")
 
 
