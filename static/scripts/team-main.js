@@ -110,10 +110,10 @@ $('.accept-project-button').on('click', function (evt) {
         // an item or idea, so that the display is for an item
 
     $.post ("/claim-project", {"projectId": projectId}, function (results) {
-        // Results is one string, as no results needed to complete
+        // Results keys: "displayname", "statusMessage"
 
         // Print the string that was returned
-        console.log(results);
+        console.log(results.statusMessage);
         // Select, out of the class of accept-project-buttons, the one
         // where the data attribute is exactly data-project-id=projectId
         let claimButton = $(
@@ -127,6 +127,16 @@ $('.accept-project-button').on('click', function (evt) {
         if (upvotesDiv) {
             upvotesDiv.hide();
         }
+        // console.log(results.displayname);
+        // // add user's name
+        // let nameHeading = $('<h5>');
+        //     nameHeading.html("hi");
+        // grandparent.append(nameHeading);
+
+        let appendDiv = $('.project-content-item[data-project-id='+projectId+']');
+        let nameHeading = $('<h5>');
+            nameHeading.html(results.displayname);
+        appendDiv.append(nameHeading);
         // Fade message to confirm success to user, from website:
             // http://jsfiddle.net/sunnypmody/XDaEk/
         $( "#success-claimed-project" ).fadeIn( 300 ).delay( 2000 ).

@@ -321,7 +321,10 @@ def assign_user_to_project():
     q.update_user_claiming_project(user_id, project_id)
         # Also updates project to "item"
 
-    return "HTTP-status-code: 200"
+    results = {"displayname": session.get("displayname"),
+               "statusMessage": "HTTP-status-code: 200"}
+
+    return jsonify(results)
 
 
 @app.route("/add-to-board", methods=["POST"])
@@ -361,7 +364,7 @@ def open_project_details(project_id):
                }
     if project_object.user_id:
         results["pOwnerName"] = project_object.user.displayname
-    print results.keys
+    print results.keys()
     return jsonify(results)
 
 

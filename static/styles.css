@@ -42,8 +42,9 @@ a.edit-this {
   /* I had to add the float to get them to be inline at all*/
   vertical-align: top;
   background-color:#E4E4E4;
-  width:30%;
+  width:20%;
 }
+
 
 #all-team-boards {
   width:90%;
@@ -55,11 +56,16 @@ a.edit-this {
   background-color:#99ffbb;
 }
 
-.show-projects, .make-new-project {
+.show-projects {
   width:90%;
   min-height: 250px;
-  background-color: rgb(71, 71, 107);
+  background-color:#E4E4E4;
+}
 
+.make-new-project {
+  background-color:#E4E4E4;
+  width:90%;
+  text-align: bottom;
 }
 
 .make-new-project {
