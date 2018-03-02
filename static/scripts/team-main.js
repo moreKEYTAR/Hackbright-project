@@ -51,11 +51,51 @@ function updateInteractivity () {
     });
 
     $('.dock').droppable( {
+        drop: function( event, ui ) {
+            let projectIdDragged = ui.draggable.attr("data-project-id");
+            let projectClassDragged = ui.draggable.attr("class");
+            let pClassLst = projectClassDragged.split(" ");
+            if (pClassLst[0] === "project") {
+                let payload = {"projectId": projectIdDragged};
+                $.post("/claim-project", payload, function (results) {
+                    console.log("end of post method request");
+                    console.log(results);
+                });
+            } else {
+                console.log("booooo");
+            }
+
+
+
+            //let dockId = $(this).attr("id");
+            // other class: project-in-dock
+        }
         // over: function(evt, ui) {
         //     $('.dock').css("background-color", "#00b3b3");
         //}
-    });
-}
+    }); // closes $('.dock').droppable...
+} // closes updateInteractivity...
+
+
+
+// drop: function(event, ui) {     
+//       let draggedID = ui.draggable.attr("id");
+//       let droppableID = $(this).attr("id");
+
+// $(this).css("background-color", "lightgreen")}              
+
+//       let payload = {"colorPick": draggedID};
+      
+// $.post("/record-color", payload, function 
+//             (results) {     
+//         alert(`Vote recorded for ${results}!`);
+//       });
+//     }
+
+
+
+
+
 
 updateInteractivity();
 
@@ -150,10 +190,11 @@ $('.accept-project-button').on('click', function (evt) {
 
         // update the dock with the project
         let dockDiv = $('<div>');
-            dockDiv.attr({"class": "project-in-dock"});
+            dockDiv.attr({"class": "project-in-dock",
+                          "data-project-id": ''+projectId+''});
         let dockDivContent = $('<div>');
             dockDivContent.attr({"class": "project-content-in-dock",
-                          "data-project-id": ''+projectId+''});
+                                 "data-project-id": ''+projectId+''});
         let projectHeading = $('<h5>');
             projectHeading.html(results.projectTitle);
         let hiddenNotesInput = $('<input>');

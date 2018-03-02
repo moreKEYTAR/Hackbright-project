@@ -313,7 +313,8 @@ def update_most_recently_clicked_board():
 
 @app.route("/claim-project", methods=["POST"])
 def assign_user_to_project():
-    """Update database with user_id for the project, return data to js file."""
+    """Update database with user_id for the project, return data to js file.
+    Project claimed with button click."""
 
     user_id = session.get("user_id")
     project_id = request.form.get("projectId")
@@ -327,6 +328,16 @@ def assign_user_to_project():
                "projectNotes": project_object.notes}
 
     return jsonify(results)
+
+
+# @app.route("/grab-project", methods=["POST"])
+# def assign_user_to_project_dragdrop():
+#     """Update database with user_id for the project, return data to js file.
+#     Project claimed, or grabbed, with drag and drop."""
+    
+#     print request.form.get("projectId")
+
+#     return "these are the results"
 
 
 @app.route("/add-to-board", methods=["POST"])

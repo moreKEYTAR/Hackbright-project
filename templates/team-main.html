@@ -174,7 +174,8 @@
         {% if board.projects %}
           {% for project in board.projects%}
             {% if project.user_id == session.get("user_id") %}
-              <div class="project-in-dock">
+              <div class="project-in-dock" 
+                   data-project-id="{{ project.p_id }}">
                 <div class="project-content-in-dock" 
                      data-project-id="{{ project.p_id }}">
                   <h5>{{ project.title }}</h5>
