@@ -20,12 +20,14 @@
         <li><li><a href="/"><img src="/static/img-assets/ph-g-66.png"></a></li>
 
         {% block navbarItems %}{% endblock %}
-
-        <li>SEARCH FIELD HERE</li>
+        <form action="/search-my-history" method="GET">
+          <li><input type="search" placeholder="search your team items by keyword" style="width:256px"></li>
+          <li><input type="submit" name="search-submit" value="Search"></li>
+        </form>
         <li><div>
-        <form action="/logout" method="POST">
-            <input type='submit' id='logout-submission' value='Log Out'>
-        </form></div></li>
+          <form action="/logout" method="POST">
+              <input type='submit' id='logout-submission' value='Log Out'>
+          </form></div></li>
     {% else %} <!-- If not logged in -->
 
     {% endif %}

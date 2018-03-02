@@ -64,6 +64,38 @@ def index():
     return render_template("home.html")
 
 
+@app.route('/productivity-stats.json')
+def weekly_productivity_data():
+    """Return data about productivity for donut chart."""
+
+    data_dict = {"labels": ["Monday",
+                            "Tuesday",
+                            "Wednesday",
+                            "Thursday",
+                            "Friday",
+                            "Saturday",
+                            "Sunday"],
+                 "datasets": [{"data": [200, 168, 456, 321, 109, 88, 149],
+                               "backgroundColor": ["yellow",
+                                                   "blue",
+                                                   "lightgreen",
+                                                   "purple",
+                                                   "pink",
+                                                   "orange",
+                                                   "lightblue"],
+                               "hoverBackgroundColor": ["#FF6384",
+                                                        "#36A2EB",
+                                                        "#FFCE56",
+                                                        "#FF6384",
+                                                        "#36A2EB",
+                                                        "#FFCE56",
+                                                        "#FF6384"]
+                               }]
+                 }
+
+    return jsonify(data_dict)
+
+
 ###########################################################################
 # REGISTRATION ############################################################
 

@@ -29,10 +29,7 @@ $('#trigger-make-team').on('click', function (evt) {
                 aPencil.attr({"href": "#"});
             let pencilSpan = $('<span>');
                 pencilSpan.attr({"class": "glyphicon glyphicon-edit"});
-            // let aTrashCan = $('<a>');
-            //     aTrashCan.attr({"href": "#"});
-            // let trashSpan = $('<span>');
-            //     trashSpan.attr({"class": "glyphicon glyphicon-trash"});
+
             let descPara = $("<p>");
                 descPara.attr({"class": "desc"});
             if (newTeamDesc !== "None") {
@@ -43,8 +40,7 @@ $('#trigger-make-team').on('click', function (evt) {
             form.append(inputSubmit);
             form.append(aPencil);
             aPencil.append(pencilSpan);
-            // form.append(aTrashCan);
-            // aTrashCan.append(trashSpan);
+
             form.append(descPara);
             div.append(form);
             $('#joined-teams').append(div);
