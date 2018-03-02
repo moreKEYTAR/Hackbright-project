@@ -5,22 +5,29 @@ from flask import (Flask,  # Flask allows app object
                    jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
 import query
+import requests
+import os
 
 
-def send_simple_message():
+def send_team_invite(email_address, sender_name, message, team_name):
+    origin_domain = os.environ['MAILGUN_API_SANDBOX_DOMAIN']
+    api_key = os.environ['MAILGUN_API_KEY']
+    postmaster = os.environ['MAILGUN_API_POSTMASTER_ADDRESS']
     return requests.post(
-        "https://api.mailgun.net/v3/sandbox0ad8a1a97a3f4a05a0aea4a032508752.mailgun.org/messages",
-        auth=("api", "key-428982cbb737a4ba880ae8c26bd8dfc6"),
-        data={"from": "Mailgun Sandbox <postmaster@sandbox0ad8a1a97a3f4a05a0aea4a032508752.mailgun.org>",
-              "to": "Liz <lantz.ek@gmail.com>",
-              "subject": "Hello Liz",
-              "text": "Congratulations Liz, you just sent an email with Mailgun!  You are truly awesome!"})
+        origin_domain,
+        auth=("api", api_key),
+        data={"from": "SamePage Beta, via Mailgun " + postmaster,
+              "to": "<" + email_address + ">",
+              "subject": "SamePage Team Invite from " + sender_name + ": " + team_name,
+              "text": message})
 
 # You can see a record of this email in your logs: https://app.mailgun.com/app/logs .
 
 # You can send up to 300 emails/day from this sandbox server.
 # Next, you should add your own domain so you can send 10,000 emails/month for free.
 
+# You can change the to line in data to look like this:
+  # "to": "Liz <someemailaddress@stuff.com>"
 
 # LOGIN HELPERS ##########################################################
 

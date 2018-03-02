@@ -380,7 +380,12 @@ def save_updated_project_details(project_id):
 def invite_new_teammates(team_id):
     """ """
 
-    return "Nothing happened!"
+    emails_lst = request.form.getlist("email")
+    messages_list = request.form.getlist("email-message")
+    sender = session.get("displayname")
+# {{ session.get("displayname") }} has invited you to join the team {{ team.name }} on SamePage. Accept to help complete projects for {{ team.name }}.
+
+    return "{}, {}...{}, {}".format(emails_lst, messages_list, team_id, sender)
 
 
 ###########################################################################
