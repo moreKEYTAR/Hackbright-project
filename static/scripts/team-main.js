@@ -52,68 +52,29 @@ function updateInteractivity () {
 
     $('.dock').droppable( {
         drop: function( event, ui ) {
-            let projectIdDragged = ui.draggable.attr("data-project-id");
+            let pIdDrag = ui.draggable.attr("data-project-id");
             let projectClassDragged = ui.draggable.attr("class");
             let pClassLst = projectClassDragged.split(" ");
+            // check to make sure it is not a dock-project...
             if (pClassLst[0] === "project") {
+                // Make sure that the class is updated for the project-content... div
+                let projectContentDiv = $('.project[data-project-id='+pIdDrag+']').children('div')[0];
+                console.log(projectContentDiv);
+                let grandClass = projectContentDiv.getAttribute("class");
 
-                console.log(ui);
-                console.log(ui.parents());
-                //console.log($(allParents[1]));
+                let payload = {"projectId": pIdDrag, "grandClass": grandClass};
 
-
-
-
-
-
-
-
-
-
-                // pending
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                aleiljfi;
-                let payload = {"projectId": projectIdDragged};
-                $.post("/claim-project", payload, function (results) {
-                    console.log("end of post method request");
-                    console.log(results);
-                });
+                $.post("/claim-project", payload, updateProjectOwnership);
             } else {
-                console.log("booooo");
+                // interactivity for a project-doc item is tbd
+                console.log("pending behavior");
             }
-
-
-
-
-    // let projectId = $(this).data("projectId");
-    // let allParents = ($(this).parents());
-    // let grandparent = $(allParents[1]);
-    // let grandClass = grandparent.attr("class");
-
-    // let payload = {"projectId": projectId,
-    //                "grandClass": grandClass};
-
-            //let dockId = $(this).attr("id");
-            // other class: project-in-dock
         }
+
         // over: function(evt, ui) {
         //     $('.dock').css("background-color", "#00b3b3");
         //}
+
     }); // closes $('.dock').droppable...
 } // closes updateInteractivity...
 
@@ -156,41 +117,6 @@ function showRecentBoard() {
         $("#make-new-project-" + currentBoard).show();
 }}
 showRecentBoard();
-
-
-/////////////////////////////////////////////////////////////////////////////
-/// BOARD VIEW CODE ///
-/////////////////////////////////////////////////////////////////////////////
-
-// div with id all-board-projects starts with 'hidden' toggled on
-$('.board-button').on('click', function (evt) {
-    let boardId = $(this).data("boardId");
-
-    // checks only the first div; if visible, toggles both off for the board
-        // when the button is clicked (again)
-    if ($("#show-projects-" + boardId).is(':visible')) {
-        $(".show-projects").hide();  // Close the div with the projects
-        $(".make-new-project").hide();  // Close the new project div
-        $('#current-board-info').attr({"value": "None"});
-
-    // handles clicking another board, which is not yet visible (regardless if
-        // any are visible)
-    } else {
-        $(".show-projects").hide();
-        $(".make-new-project").hide();
-        $("#show-projects-" + boardId).show();
-        $("#make-new-project-" + boardId).show();
-
-    }
-
-    // Route updates session with most recent board.
-    $.post("/current-board", {"boardId": boardId}, function (results) {
-        console.log(results);
-        $('#current-board-info').attr({"value": boardId});
-
-    });
-        
-});
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -322,6 +248,40 @@ $('.accept-project-button').on('click', function (evt) {
 
 }); // closes event listener function
 
+
+/////////////////////////////////////////////////////////////////////////////
+/// BOARD VIEW CODE ///
+/////////////////////////////////////////////////////////////////////////////
+
+// div with id all-board-projects starts with 'hidden' toggled on
+$('.board-button').on('click', function (evt) {
+    let boardId = $(this).data("boardId");
+
+    // checks only the first div; if visible, toggles both off for the board
+        // when the button is clicked (again)
+    if ($("#show-projects-" + boardId).is(':visible')) {
+        $(".show-projects").hide();  // Close the div with the projects
+        $(".make-new-project").hide();  // Close the new project div
+        $('#current-board-info').attr({"value": "None"});
+
+    // handles clicking another board, which is not yet visible (regardless if
+        // any are visible)
+    } else {
+        $(".show-projects").hide();
+        $(".make-new-project").hide();
+        $("#show-projects-" + boardId).show();
+        $("#make-new-project-" + boardId).show();
+
+    }
+
+    // Route updates session with most recent board.
+    $.post("/current-board", {"boardId": boardId}, function (results) {
+        console.log(results);
+        $('#current-board-info').attr({"value": boardId});
+
+    });
+        
+});
 
 
 /////////////////////////////////////////////////////////////////////////////
