@@ -24,26 +24,40 @@
     ---> need the interactive board area to be able to go wide and be fixed
     --> need help with logic for this
 */
-$('.project').draggable( {
-    cursor: "move",
-    //revert: true, I ONLY WANT REVERT TO HAPPEN IF IT GOES INTO A FORBIDDEN ZONE
-    // helper: "clone",
-    drag: function( event, ui ) {
-        $(this).css("opacity", "0.8");
 
-    },
-    // stack: ".project",
-});
-$('.project').draggable( {
-    stop: function( event, ui ) {
-        $(this).css("opacity", "1.0");
-    }
-});
-$('.dock').droppable( {
-    // over: function(evt, ui) {
-    //     $('.dock').css("background-color", "#00b3b3");
-    //}
-});
+function updateInteractivity () {
+    $('.project').draggable( {
+        cursor: "move",
+        //revert: true, I ONLY WANT REVERT TO HAPPEN IF IT GOES INTO A FORBIDDEN ZONE
+        // helper: "clone",
+        // stack: ".project",
+        drag: function( event, ui ) {
+            $(this).css("opacity", "0.8");
+        },
+        stop: function( event, ui ) {
+            $(this).css("opacity", "1.0");
+        }
+    });
+
+
+    $('.project-in-dock').draggable( {
+        cursor: "move",
+        drag: function( event, ui ) {
+            $(this).css("opacity", "0.8");
+        },
+        stop: function( event, ui ) {
+            $(this).css("opacity", "1.0");
+        }
+    });
+
+    $('.dock').droppable( {
+        // over: function(evt, ui) {
+        //     $('.dock').css("background-color", "#00b3b3");
+        //}
+    });
+}
+
+updateInteractivity();
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -138,7 +152,7 @@ $('.accept-project-button').on('click', function (evt) {
         let dockDiv = $('<div>');
             dockDiv.attr({"class": "project-in-dock"});
         let dockDivContent = $('<div>');
-            dockDivContent.attr({"class": "project-in-dock",
+            dockDivContent.attr({"class": "project-content-in-dock",
                           "data-project-id": ''+projectId+''});
         let projectHeading = $('<h5>');
             projectHeading.html(results.projectTitle);
@@ -155,12 +169,13 @@ $('.accept-project-button').on('click', function (evt) {
         dockDivContent.append(nameHeadingTwo);
         $('#dock-projects-all').append(dockDiv);
 
-
+        updateInteractivity();
         // Fade message to confirm success to user, from website:
             // http://jsfiddle.net/sunnypmody/XDaEk/
         $( "#success-claimed-project" ).fadeIn( 300 ).delay( 2000 ).
         fadeOut( 400 );
     }); // closes function & ajax
+
 }); // closes event listener function
 
 
