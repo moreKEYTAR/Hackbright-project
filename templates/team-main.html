@@ -22,7 +22,7 @@
 <!-- ********************************************************************* -->
 <!-- *************************** MAIN HTML BODY *************************** --> 
 
-
+<!-- This will get updated with a redirect -->
 <input id="current-board-info" type="hidden" name="notes" 
        value="{{ session.get('current_board') }}">
 
@@ -74,7 +74,8 @@
       {% if board.desc %}
       <p class="description">{{ board.desc }}</p>
       {% endif %}
-      <a "edit-this" href="http://i.dailymail.co.uk/i/pix/2017/05/05/08/3FF683F700000578-0-image-a-3_1493970441297.jpg"><p>Edit Board details</p></a>
+      <a "edit-this" 
+      href="http://i.dailymail.co.uk/i/pix/2017/05/05/08/3FF683F700000578-0-image-a-3_1493970441297.jpg"><p>Edit Board details</p></a>
     </div> <!-- Closes an individual board div -->
     {% endfor %}
   </div> <!-- Closes all-team-boards -->
@@ -102,7 +103,8 @@
         {% if project.phase_code == "idea" or project.phase_code == "item" %}
 
         <div class="project" data-project-id="{{ project.p_id }}">
-          <div class="project-content-{{ project.phase_code }}" data-project-id="{{ project.p_id }}">
+          <div class="project-content-{{ project.phase_code }}" 
+               data-project-id="{{ project.p_id }}">
                <!-- Div class is updated based on being a grandparent of the 
                     button that has the event, which determines styling & display -->
             <h5>{{ project.title }}</h5>
@@ -172,7 +174,8 @@
       {% for project in board.projects%}
         {% if project.user_id == session.get("user_id") %}
           <div class="project-in-dock">
-            <div class="project-content-in-dock" data-project-id="{{ project.p_id }}">
+            <div class="project-content-in-dock" 
+                 data-project-id="{{ project.p_id }}">
               <h5>{{ project.title }}</h5>
               <input type="hidden" name="notes" value="{{ project.notes }}">
               <h5>{{ project.user.displayname }}</h5>
@@ -202,7 +205,8 @@
 
     <!-- MODAL FORM -->
     <h3>Invite people to your SamePage team</h3>
-    <p> SamePage will send the invitation instructions with this message. Feel free to personalize it!</p>
+    <p> SamePage will send the invitation instructions with this message. 
+      Feel free to personalize it!</p>
     
     <form action="/invite-teammates/{{ team.t_id }}" method="POST" 
           id="team-invitations-form">
@@ -214,7 +218,10 @@
                name="email" placeholder="email address" id="email-address-default"
                form="team-invitations-form" required>
         <textarea form="team-invitations-form" name="email-message" 
-                  rows="3" cols="40" id="textarea-template-team-invites">{{ session.get("displayname") }} has invited you to join the team {{ team.name }} on SamePage. Accept to help complete projects for {{ team.name }}.</textarea>
+                  rows="3" cols="40" id="textarea-template-team-invites">
+                  {{ session.get("displayname") }} has invited you to join the 
+                  team {{ team.name }} on SamePage. Accept to help complete 
+                  projects for {{ team.name }}.</textarea>
       </div> <!-- Close email-input-area div -->
       <button id="add-email-invite-inputs-button" 
               data-team-id="{{ team.t_id }}">&#43;</button>
@@ -278,11 +285,13 @@
               <i>What type is it?</i></p>
           <input type="radio" id="project-radio-phase-item" 
                  name="project-phase" value="item" checked>
-            <span><strong>Action Item:</strong> It is a "to do" that someone should grab</span>
+            <span>
+              <strong>Action Item:</strong> It is a "to do" that someone should grab</span>
           <br>
           <input type="radio" id="project-radio-phase-idea" 
                  name="project-phase" value="idea">
-            <span><strong>Idea:</strong> A new suggestion that teammates can weigh in on</span>
+            <span>
+              <strong>Idea:</strong> A new suggestion that teammates can weigh in on</span>
           <br>
           <br>
           <div>

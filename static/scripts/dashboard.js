@@ -26,8 +26,9 @@ $('#trigger-make-team').on('click', function (evt) {
                 inputSubmit.attr({"type": "submit", "value": newTeamName});
             let descPara = $("<p>");
                 descPara.attr({"class": "desc"});
+            if (newTeamDesc !== "None") {
                 descPara.html(newTeamDesc);
-
+            }
             // Connecting our elements to each other and dashboard.html tree
             form.append(inputHidden);
             form.append(inputSubmit);
@@ -37,7 +38,7 @@ $('#trigger-make-team').on('click', function (evt) {
 
             $("#new-team-name").val('');
             $("#new-team-desc").val('');
-            
+
         }); // closes function & ajax
 
     $('#new-team').toggleClass('hidden');

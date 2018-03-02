@@ -87,6 +87,15 @@ a.edit-this {
   /* #C4DAD5 */
 }
 
+.project-in-dock {
+  display:inline-block;
+  vertical-align: top;
+  background-color: #ead98b;
+  width:250px;
+  height:250px;
+}
+
+
 .make-new-project {
   text-align:right; 
 }
