@@ -380,12 +380,31 @@ def save_updated_project_details(project_id):
 def invite_new_teammates(team_id):
     """ """
 
+    team_object = Team.query.filter_by(t_id=team_id).first()
+
     emails_lst = request.form.getlist("email")
     messages_list = request.form.getlist("email-message")
     sender = session.get("displayname")
-# {{ session.get("displayname") }} has invited you to join the team {{ team.name }} on SamePage. Accept to help complete projects for {{ team.name }}.
 
-    return "{}, {}...{}, {}".format(emails_lst, messages_list, team_id, sender)
+    default_message = """{sender} has invited you to join the team
+    {team_name} on SamePage. Accept to help complete projects for
+    {team_name}.""".format(sender=sender, team_name=team_object.name)
+
+    flash_message = "Emails sent to\n"
+    for i in xrange(len(emails_lst)):
+        if not messages_list[i]:
+            message = default_message
+        else:
+            message = messages_list[i]
+        flash_message = flash_message + emails_lst[i] + "\n"
+
+        h.send_team_invite(emails_lst[i],
+                           sender,
+                           message,
+                           team_object.name)
+
+    flash(flash_message)
+    return redirect("/view-team")
 
 
 ###########################################################################

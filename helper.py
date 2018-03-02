@@ -9,37 +9,51 @@ import requests
 import os
 
 
+# SENDING EMAILS (MAILGUN API) #############################################
+
 def send_team_invite(email_address, sender_name, message, team_name):
+    """Takes in four strings, sends invitation via mailGun."""
+
+    message_intro = "Here is your message from {}:\n".format(sender_name)
+
+    site_summary = """\n\nSamePage is a responsive web app that makes
+    getting things done a bit more fun, while still staying agile
+    and portable. """
+
+    text_content = message_intro + message + site_summary
+
+    html_content = """<html><body>Here is your message from {sender}:
+    <br><p>{message}</p><br><br><p>Accept the invitation by going to
+    <a href="http://localhost:5000/">SamePage</a> and logging in or creating
+    a new account.</p><br><p><i>SamePage is a responsive web app that makes
+    getting things done a bit more fun, while still staying agile
+    and portable.</i></p></body></html>""".format(sender=sender_name,
+                                                  message=message)
+
     origin_domain = os.environ['MAILGUN_API_SANDBOX_DOMAIN']
     api_key = os.environ['MAILGUN_API_KEY']
     postmaster = os.environ['MAILGUN_API_POSTMASTER_ADDRESS']
+
     return requests.post(
         origin_domain,
         auth=("api", api_key),
         data={"from": "SamePage Beta, via Mailgun " + postmaster,
               "to": "<" + email_address + ">",
               "subject": "SamePage Team Invite from " + sender_name + ": " + team_name,
-              "text": message})
+              "text": text_content,
+              "html": html_content})
 
 # You can see a record of this email in your logs: https://app.mailgun.com/app/logs .
-
 # You can send up to 300 emails/day from this sandbox server.
 # Next, you should add your own domain so you can send 10,000 emails/month for free.
 
 # You can change the to line in data to look like this:
   # "to": "Liz <someemailaddress@stuff.com>"
 
+# authorizing recipients: https://help.mailgun.com/hc/en-us/articles/217531258-Authorized-Recipients
+
+
 # LOGIN HELPERS ##########################################################
-
-# def is_logged_in():
-#     """Check session for login status"""
-#     if session.get("login") is True:
-#         return True
-#     else:
-#         return False
-
-#       ### is this even necessary???????????
-
 
 def get_login_attempts():
     """Creates or updates login count tracker in the session."""
