@@ -1,9 +1,7 @@
 "use strict"; /*jslint node: true */
 
 
-/////////////////////////////////////////////////////////////////////////////
-/// DRAG AND DROP FOR PROJECTS ///
-/////////////////////////////////////////////////////////////////////////////
+////// NOTES  ///
 /* To dos for drag and drop:
     - make projects draggable DONE
     - make the dock droppable
@@ -25,6 +23,13 @@
     --> need help with logic for this
 */
 
+/////////////////////////////////////////////////////////////////////////////
+/// FUNCTIONS ///
+/////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////
+/// FUNCTION THAT SETS DRAG AND DROP BEHAVIOR ///
+
 function updateInteractivity () {
     $('.project').draggable( {
         cursor: "move",
@@ -38,7 +43,6 @@ function updateInteractivity () {
             $(this).css("opacity", "1.0");
         }
     });
-
 
     $('.project-in-dock').draggable( {
         cursor: "move",
@@ -56,29 +60,36 @@ function updateInteractivity () {
             let projectClassDragged = ui.draggable.attr("class");
             let pClassLst = projectClassDragged.split(" ");
             // check to make sure it is not a dock-project...
+
             if (pClassLst[0] === "project") {
-                // Make sure that the class is updated for the project-content... div
-                let projectContentDiv = $('.project[data-project-id='+pIdDrag+']').children('div')[0];
-                console.log(projectContentDiv);
-                let grandClass = projectContentDiv.getAttribute("class");
 
-                let payload = {"projectId": pIdDrag, "grandClass": grandClass};
+                // check to see if the project is already claimed
+                $.get("/check-ownership", {"projectId": pIdDrag}, function (results) {
+                    if (results === "No") {
+                        let projectContentDiv = $('.project[data-project-id='+pIdDrag+']').children('div')[0];
+                        console.log(projectContentDiv);
+                        let grandClass = projectContentDiv.getAttribute("class");
 
-                $.post("/claim-project", payload, updateProjectOwnership);
+                        let payload = {"projectId": pIdDrag, "grandClass": grandClass};
+
+                        $.post("/claim-project", payload, updateProjectOwnership);
+                    } else {
+                        // interactivity for a project-doc item is tbd
+                        console.log("pending behavior");
+                    } // finishes if-else
+                }); // closes get request and function
             } else {
-                // interactivity for a project-doc item is tbd
-                console.log("pending behavior");
-            }
-        }
-
-        // over: function(evt, ui) {
-        //     $('.dock').css("background-color", "#00b3b3");
-        //}
-
+            
+                // snap back to grid
+                    
+            } // closes if-else (is project, else is dock project)...
+        } // closes drop: function...
     }); // closes $('.dock').droppable...
 } // closes updateInteractivity...
 
-
+// over: function(evt, ui) {
+//     $('.dock').css("background-color", "#00b3b3");
+//}
 
 // drop: function(event, ui) {     
 //       let draggedID = ui.draggable.attr("id");
@@ -94,17 +105,8 @@ function updateInteractivity () {
 //       });
 //     }
 
-
-
-
-
-
-updateInteractivity();
-
-
 /////////////////////////////////////////////////////////////////////////////
 /// FUNCTION TO HAVE MOST RECENT BOARD OPEN ///
-/////////////////////////////////////////////////////////////////////////////
 
 function showRecentBoard() {
     let currentBoard = $('#current-board-info').attr("value");
@@ -116,13 +118,10 @@ function showRecentBoard() {
         $("#show-projects-" + currentBoard).show();
         $("#make-new-project-" + currentBoard).show();
 }}
-showRecentBoard();
 
 
 /////////////////////////////////////////////////////////////////////////////
-/// CLAIM PROJECT BUTTON ///
-/////////////////////////////////////////////////////////////////////////////
-
+/// FUNCTION TO HANDLE RESULTS FROM CLAIM-PROJECT ROUTE, THEN UPDATE DOM ///
 
 function updateProjectOwnership(results) {
     // Results keys: 
@@ -182,6 +181,29 @@ function updateProjectOwnership(results) {
     fadeOut( 400 );
 }
 
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// PAGE LOAD FUNCTION CALLS ///
+/////////////////////////////////////////////////////////////////////////////
+
+updateInteractivity();
+
+showRecentBoard();
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// EVENT LISTENERS ///
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// LISTENER FOR PROJECT CLAIM BUTTON ///
+
 $('.accept-project-button').on('click', function (evt) {
     let projectId = $(this).data("projectId");
     let allParents = ($(this).parents());
@@ -193,65 +215,11 @@ $('.accept-project-button').on('click', function (evt) {
                    "grandClass": grandClass};
 
     $.post ("/claim-project", payload, updateProjectOwnership); 
-    // // Results keys: "displayname", "statusMessage", "projectTitle", "projectNotes"
-
-    //     // Print the string that was returned
-    //     console.log(results.statusMessage);
-    //     // Select, out of the class of accept-project-buttons, the one
-    //     // where the data attribute is exactly data-project-id=projectId
-    //     let claimButton = $(
-    //         '.accept-project-button[data-project-id='+projectId+']');
-    //     claimButton.hide();
-    //         // Claim button is now hidden until page refresh, 
-    //         // when it will not be generated
-
-    //     grandparent.className ='project-content-item';
-    //     let upvotesDiv = $('.upvotes[data-project-id='+projectId+']');
-    //     if (upvotesDiv) {
-    //         upvotesDiv.hide();
-    //     }
- 
-    //     // update the user's name to the claimed project in the board area
-    //     let appendDiv = $('.project-content-item[data-project-id='+projectId+']');
-    //     let nameHeading = $('<h5>');
-    //         nameHeading.html(results.displayname);
-    //     appendDiv.append(nameHeading);
-
-    //     // update the dock with the project
-    //     let dockDiv = $('<div>');
-    //         dockDiv.attr({"class": "project-in-dock",
-    //                       "data-project-id": ''+projectId+''});
-    //     let dockDivContent = $('<div>');
-    //         dockDivContent.attr({"class": "project-content-in-dock",
-    //                              "data-project-id": ''+projectId+''});
-    //     let projectHeading = $('<h5>');
-    //         projectHeading.html(results.projectTitle);
-    //     let hiddenNotesInput = $('<input>');
-    //         hiddenNotesInput.attr({"type": "hidden",
-    //                           "name": "notes",
-    //                           "value": ''+results.projectNotes+''});
-    //     let nameHeadingTwo = $('<h5>');
-    //         nameHeadingTwo.html(results.displayname);
-
-    //     dockDiv.append(dockDivContent);
-    //     dockDivContent.append(projectHeading);
-    //     dockDivContent.append(hiddenNotesInput);
-    //     dockDivContent.append(nameHeadingTwo);
-    //     $('#dock-projects-all').append(dockDiv);
-
-    //     updateInteractivity();
-    //     // Fade message to confirm success to user, from website:
-    //         // http://jsfiddle.net/sunnypmody/XDaEk/
-    //     $( "#success-claimed-project" ).fadeIn( 300 ).delay( 2000 ).
-    //     fadeOut( 400 );
-    // }); // closes function & ajax
-
-}); // closes event listener function
+});
 
 
 /////////////////////////////////////////////////////////////////////////////
-/// BOARD VIEW CODE ///
-/////////////////////////////////////////////////////////////////////////////
+/// LISTENER FOR BOARD BUTTONS AND TOGGLING BOARD DISPLAY ///
 
 // div with id all-board-projects starts with 'hidden' toggled on
 $('.board-button').on('click', function (evt) {
@@ -285,8 +253,8 @@ $('.board-button').on('click', function (evt) {
 
 
 /////////////////////////////////////////////////////////////////////////////
-/// INVITE TEAMMATES MODAL ///
-/////////////////////////////////////////////////////////////////////////////
+/// LISTENER FOR INVITE TEAM MEMBERS MODAL ///
+
 
 // CSS keeps modal hidden to start
 let teammateInviteModal = document.getElementById('invite-teammates-modal');
@@ -346,8 +314,7 @@ $(addEntry).on('click', function (evt) {
 
 
 /////////////////////////////////////////////////////////////////////////////
-/// NEW BOARD MODAL ///
-/////////////////////////////////////////////////////////////////////////////
+/// LISTENER FOR MAKE NEW BOARD MODAL ///
 
 // https://www.w3schools.com/howto/howto_css_modals.asp
 let boardModal = document.getElementById('new-board-modal');
@@ -371,8 +338,7 @@ window.addEventListener("click", function (evt) {
 
 
 /////////////////////////////////////////////////////////////////////////////
-/// NEW PROJECT MODAL ///
-/////////////////////////////////////////////////////////////////////////////
+/// LISTENER FOR MAKE NEW PROJECT MODAL ///
 
 // https://www.w3schools.com/howto/howto_css_modals.asp
 let newProjectModal = document.getElementById('new-project-modal');
@@ -400,10 +366,8 @@ window.addEventListener("click", function (evt) {
 });
 
 
-
 /////////////////////////////////////////////////////////////////////////////
-/// PROJECT DETAILS MODAL ///
-/////////////////////////////////////////////////////////////////////////////
+/// LISTENER FOR VIEW & UPDATE PROJECT DETAILS MODAL ///
 
 // When any project is double-clicked:
 $('div.project').on('dblclick', function (evt) {

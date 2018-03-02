@@ -332,14 +332,18 @@ def assign_user_to_project():
     return jsonify(results)
 
 
-# @app.route("/grab-project", methods=["POST"])
-# def assign_user_to_project_dragdrop():
-#     """Update database with user_id for the project, return data to js file.
-#     Project claimed, or grabbed, with drag and drop."""
+@app.route("/check-ownership", methods=["GET"])
+def get_user_assigned_to_item():
+    """Check database for a user_id associated with the project."""
 
-#     print request.form.get("projectId")
+    project_id = request.args.get("projectId")
+    project_object = db.session.query(Project).filter_by(p_id=project_id).first()
 
-#     return "these are the results"
+    if project_object.user_id:
+        results = "Yes"
+    else:
+        results = "No"
+    return results
 
 
 @app.route("/add-to-board", methods=["POST"])
