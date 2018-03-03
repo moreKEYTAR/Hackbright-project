@@ -174,8 +174,9 @@
       {% for board in team.boards %}
         {% if board.projects %}
           {% for project in board.projects%}
-            {% if (project.user_id == session.get("user_id")) and (project.phase_code != "done")%}
-
+            {% if ((project.user_id == session.get("user_id")) and 
+                   (project.phase_code != "done") and 
+                   (project.phase_code != "backlog")) %}
               <div class="project-in-dock" 
                    data-project-id="{{ project.p_id }}">
                 <div class="project-content-in-dock" 

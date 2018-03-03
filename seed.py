@@ -154,11 +154,15 @@ if __name__ == "__main__":
 
     from server import app
     connect_to_db(app)
+    print "Connected to DB."
     # db.drop_all()
-    db.create_all()
+    db.create_all()  # Create class models, which have been imported from model.py
     load_users()  # Runs set_user_id_value_after_seed() as well
     load_teams()
     load_userteams()
     load_boards()
     load_phases()
     load_projects()
+
+    print "DB re-seed successful."
+
