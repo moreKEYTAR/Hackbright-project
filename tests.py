@@ -3,7 +3,8 @@
 
 import unittest
 from server import app
-from model import db, connect_to_db, User, Team, UserTeam, Board
+from model import (db, connect_to_db,
+                   User, Team, UserTeam, Board, Project, Phase)
 import seed
 import query  # no tests yet
 import helper  # no tests yet
@@ -58,11 +59,8 @@ class DatabaseTests(unittest.TestCase):
         """Code to run before every test."""
 
         self.client = app.test_client()
-            # Use Balloonicorn Flask app lab; replaced "party" with "server"
         app.config['TESTING'] = True
 
-        # os.system('dropdb testdb')
-        # os.system('createdb testdb')
         connect_to_db(app, "postgresql:///testdb")
         db.create_all()
 
@@ -76,20 +74,32 @@ class DatabaseTests(unittest.TestCase):
         """Test making new user."""
 
         with self.client as c:  # required for using session
-            result = c.post("/users/new", data={"email": "testing@gmail.com",
-                                                "pw": "123abc"},
+            result = c.post("/users/new",
+                            data={"email": "testing@gmail.com", "pw": "123abc"},
                             follow_redirects=True)
 
             self.assertIn("Dashboard", result.data)
             self.assertEqual(session["new_user"], True)
             self.assertEqual(session["login"], True)
 
-    def query_for_created_user(self):
+# ----------------------------------------------------------------------
+# Traceback (most recent call last):
+#   File "tests.py", line 81, in test_make_new_user
+#     self.assertIn("Dashboard", result.data)
+# AssertionError: 'Dashboard' not found in '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server.  If you entered the URL manually please check your spelling and try again.</p>\n'
+
+
+    def test_query_for_created_user(self):
         """Test for finding user just created."""
 
         user_record = User.query.filter(User.email == "testing@gmail.com"
                                         ).first()
         self.assertEqual(user_record.password == "123abc")
+
+# Traceback (most recent call last):
+#   File "tests.py", line 90, in test_query_for_created_user
+#     self.assertEqual(user_record.password == "123abc")
+# AttributeError: 'NoneType' object has no attribute 'password'
 
 
 ###########################################################################
@@ -131,7 +141,6 @@ class DatabaseSeedTests(unittest.TestCase):
 
         db.session.close()
         db.drop_all()
-        # os.system('dropdb testdb')
 
     def test_login(self):
         """Test login route with testdb user data."""
@@ -141,6 +150,57 @@ class DatabaseSeedTests(unittest.TestCase):
                                         "pw": "wolfdreams"},
                                   follow_redirects=True)
         self.assertIn("Dashboard", result.data)
+
+# Traceback (most recent call last):
+#   File "tests.py", line 140, in test_login
+#     self.assertIn("Dashboard", result.data)
+# AssertionError: 'Dashboard' not found in '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server.  If you entered the URL manually please check your spelling and try again.</p>\n'
+
+###########################################################################
+# SEEDED DATABASE #########################################################
+
+class DatetimeTests(unittest.TestCase):
+    """Tests for the site routes loading, content in server.py."""
+
+    def setUp(self):
+        """Code to run before every test."""
+
+        self.client = app.test_client()
+        app.config['TESTING'] = True
+
+    def test_count_projects_fn(self):
+        """Does the fn return the correct list of integers?"""
+        import datetime
+        self.assertEqual(helper.count_projects_per_day(
+                            [datetime.datetime(2018, 2, 26, 22, 13, 42, 698510),
+                            datetime.datetime(2018, 2, 26, 22, 13, 42, 698510),
+                            datetime.datetime(2018, 2, 26, 22, 13, 42, 698510),
+                            datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),
+                            datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),
+                            datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),
+                            datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),
+                            datetime.datetime(2018, 2, 28, 22, 13, 42, 698510),
+                            datetime.datetime(2018, 2, 28, 22, 13, 42, 698510),
+                            datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),
+                            datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),
+                            datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),
+                            datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),
+                            datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),
+                            datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),
+                            datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),
+                            datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),
+                            datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),
+                            datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),
+                            datetime.datetime(2018, 3, 3, 22, 13, 42, 698510),
+                            datetime.datetime(2018, 3, 3, 22, 13, 42, 698510)],
+                        datetime.datetime(2018, 2, 26, 12, 13, 42, 698510),
+                        6),
+                        [2, 6, 4, 2, 4, 3])
+        # >>> start = (datetime.datetime(2018, 2, 26, 12, 13, 42, 698510))
+        # >>> total_days = 6
+        # >>> count_projects_per_day(lst, start, total_days)
+        # [2, 6, 4, 2, 4, 3]
+
 
 
 ###########################################################################

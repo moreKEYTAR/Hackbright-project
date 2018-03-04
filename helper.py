@@ -4,6 +4,7 @@ from flask import (Flask,  # Flask allows app object
                    request,  # request allows use of forms in html templates
                    jsonify)
 import datetime
+import doctest
 import requests
 import os
 
@@ -66,7 +67,11 @@ def get_login_attempts():
 
 
 def calc_attempts_remaining(login_count):
-    """Taking in an integer count, Returns number of remaining attempts."""
+    """Taking in an integer count, Returns number of remaining attempts.
+
+    >>> calc_attempts_remaining(2)
+    2
+    """
 
     max_attempts = 4
     remaining = max_attempts - login_count
@@ -151,7 +156,8 @@ def handle_bad_attempts(remaining):
 
 def get_dates_for_ChartA():
     """Uses current datetime to determine the datetime range for relevant
-    projects; returns them in a tuple. """
+    projects; returns them in a tuple.
+    """
     import datetime as dt
     # Weeks begin on Mondays
     # If it is saturday or sunday, then last week's data is for the most recent monday-today
@@ -214,26 +220,26 @@ def count_projects_per_day(lst, start, total_days):
 
 #### TESTING CONTENT FOR count_projects_per_day
 # old_lst = [
-# (datetime.datetime(2018, 2, 26, 22, 13, 42, 698510),), 
-# (datetime.datetime(2018, 2, 26, 22, 13, 42, 698510),), 
-# (datetime.datetime(2018, 2, 26, 22, 13, 42, 698510),), 
-# (datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),), 
-# (datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),), 
-# (datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),), 
-# (datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),), 
-# (datetime.datetime(2018, 2, 28, 22, 13, 42, 698510),), 
-# (datetime.datetime(2018, 2, 28, 22, 13, 42, 698510),), 
-# (datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),), 
-# (datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),), 
-# (datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),), 
-# (datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),), 
-# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),), 
-# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),), 
-# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),), 
-# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),), 
+# (datetime.datetime(2018, 2, 26, 22, 13, 42, 698510),),
+# (datetime.datetime(2018, 2, 26, 22, 13, 42, 698510),),
+# (datetime.datetime(2018, 2, 26, 22, 13, 42, 698510),),
+# (datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),),
+# (datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),),
+# (datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),),
+# (datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),),
+# (datetime.datetime(2018, 2, 28, 22, 13, 42, 698510),),
+# (datetime.datetime(2018, 2, 28, 22, 13, 42, 698510),),
+# (datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),),
+# (datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),),
+# (datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),),
+# (datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),),
 # (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),),
-# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),), 
-# (datetime.datetime(2018, 3, 3, 22, 13, 42, 698510),), 
+# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),),
+# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),),
+# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),),
+# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),),
+# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),),
+# (datetime.datetime(2018, 3, 3, 22, 13, 42, 698510),),
 # (datetime.datetime(2018, 3, 3, 22, 13, 42, 698510),)]
 
 # lst = [x[0] for x in old_lst]
