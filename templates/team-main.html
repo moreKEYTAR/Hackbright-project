@@ -1,25 +1,13 @@
 {% extends 'base.html' %}
 
 {% block title %}My SamePage Teams{% endblock %}
+{% block additionalheaders %}{% endblock %}
 
-{% block content %}
-
-  {% block navbarItems %}
-    
-      <li><a href="http://localhost:5000/dashboard">
-        <button type="button">Dashboard</button></a></li>
-  <!--     <li><a href="http://localhost:5000/action-board">
-        <button type="button">Actions Board</button></a></li> -->
-
-  {% endblock %}
-
-<!-- ********************************************************************* -->
 <!-- ************************** DATA FROM SERVER ************************** -->
   <!-- team    ..... an object
   Refer to model to see Team attributes and relationships-->
 
-<!-- ********************************************************************* -->
-<!-- *************************** MAIN HTML BODY *************************** --> 
+{% block content %}
 
 <!-- This will get updated with a redirect -->
 <input id="current-board-info" type="hidden" name="notes" 
