@@ -1,6 +1,7 @@
 from model import (db, connect_to_db,
                    User, Team, UserTeam, Board, Project, Phase)
 from sqlalchemy import func  # added to use func.max for fixing serial increment
+import datetime as dt
 # import pdb; pdb.set_trace()
 
 
@@ -120,7 +121,7 @@ def load_projects():
 
         updated = project_data[6]
         if not updated:
-            updated = datetime.utcnow()
+            updated = dt.datetime.utcnow()
         new_project = Project(board_id=board_id, user_id=user_id,
                               phase_code=phase_code, title=title,
                               notes=notes, upvotes=upvotes,
@@ -169,4 +170,3 @@ if __name__ == "__main__":
     load_projects()
 
     print "DB re-seed successful."
-

@@ -122,8 +122,9 @@ def get_projects_by_user(u_id):
     return projects
 
 
-def get_project_for_chart_A(t_id, start_dt, end_dt):
-    """Retrieves project objects for Chart A: Most Productive Weekday, by Team."""
+def get_projects_for_chart_A(t_id, start_dt, end_dt):
+    """Retrieves completed project datetimes for Chart A by team and within
+    datetime range."""
 
     all_chartable_projects = []
 
@@ -132,14 +133,15 @@ def get_project_for_chart_A(t_id, start_dt, end_dt):
     for board in board_objects:
         # b_id = board_tup[0]
         # projects = Board.query.get(b_id).projects
-        projects = Project.query.filter(Project.board_id == board.b_id)
+        projects = db.session.query(Project.updated).filter(
+                    Project.board_id == board.b_id)
         chartable_projects = projects.filter(
                                 (Project.updated >= start_dt) &
                                 (Project.updated < end_dt) &
                                 (Project.phase_code == "done"))
         all_chartable_projects.extend(chartable_projects.all())
 
-    # all_chartable_projects is a list of objects
+    # all_chartable_projects is a list of objects (all are unique)
     return all_chartable_projects
 
 # {"data": [200, 168, 456, 321, 109, 88, 149],

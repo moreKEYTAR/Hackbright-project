@@ -79,14 +79,26 @@ def productivity_data_chartA():
     #  etc. Not written as there is no seed data for this query. Pending: V2.0
     # UNTIL REWRITTEN TO DISPLAY CHARTS FOR ANY TEAM...
 
-    t_id = session.get("team_id")
-    dates_tuple = h.get_dates_for_ChartA()
-    team_projects = q.get_projects_for_chart_A(t_id=t_id,
-                                               start_dt=dates_tuple[0],
-                                               end_dt=dates_tuple[1])
-    counts_mon_to_sun = h.count_projects_by_weekday_for_ChartA(lst=team_projects,
-                                                               start_dt=dates_tuple[0],
-                                                               end_dt=dates_tuple[1])
+    # t_id = session.get("team_id")
+    t_id = 2
+    dt_tuple = h.get_dates_for_ChartA()
+    start, end, days_on_chart = dt_tuple
+    project_timestamp_tuples = q.get_projects_for_chart_A(t_id=t_id,
+                                                          start_dt=start,
+                                                          end_dt=end)
+    project_timestamps = [x[0] for x in project_timestamp_tuples]
+    project_timestamps.sort()
+        # puts in chronological order
+        # worked even when data was in tuples. cool!
+
+    ## NOTE: weekly_stats are in reverse chron. order...
+    weekly_stats = h.count_projects_per_day(lst=project_timestamps,
+                                            start=start,
+                                            total_days=days_on_chart)
+    weekly_stats.reverse()
+    if len(weekly_stats) < 7:  # will only ever be 6 or 7
+        weekly_stats.append(0)
+    print weekly_stats
 
     # MAKE DATA FOR CHART A
     data_dict = {"labels": ["Monday",
@@ -96,7 +108,7 @@ def productivity_data_chartA():
                             "Friday",
                             "Saturday",
                             "Sunday"],
-                 "datasets": [{"data": [200, 168, 456, 321, 109, 88, 149],
+                 "datasets": [{"data": weekly_stats,
                                "backgroundColor": ["yellow",
                                                    "blue",
                                                    "lightgreen",

@@ -3,7 +3,7 @@ from flask import (Flask,  # Flask allows app object
                    render_template, redirect,  # render_template allows html render functionality
                    request,  # request allows use of forms in html templates
                    jsonify)
-import datetime as dt
+import datetime
 import requests
 import os
 
@@ -152,7 +152,7 @@ def handle_bad_attempts(remaining):
 def get_dates_for_ChartA():
     """Uses current datetime to determine the datetime range for relevant
     projects; returns them in a tuple. """
-
+    import datetime as dt
     # Weeks begin on Mondays
     # If it is saturday or sunday, then last week's data is for the most recent monday-today
     # If it is monday-friday, then last week's data is for the previous week, monday-sunday
@@ -167,21 +167,75 @@ def get_dates_for_ChartA():
         monday = right_now - dt.timedelta(days=todays_code)
         data_week_start = dt.datetime(monday.year, monday.month, monday.day)
         data_week_end = right_now
+        days_on_chart = todays_code + 1
     else:
         monday = right_now - dt.timedelta(days=(todays_code + 7))
         data_week_start = dt.datetime(monday.year, monday.month, monday.day)
         end_monday = right_now - dt.timedelta(days=(todays_code))
         data_week_end = dt.datetime(end_monday.year, end_monday.month,
                                     end_monday.day)
+        days_on_chart = 7
 
-    return (data_week_start, data_week_end)
+    return (data_week_start, data_week_end, days_on_chart)
 
 
-def count_projects_by_weekday_for_ChartA(lst, start_dt, end_dt):
-    """Takes in list of project objects, returns a dictionary of completed
-    project totals per day, with days of the week as keys."""
+def count_projects_per_day(lst, start, total_days):
+    """Takes in list of sorted datetime objects, one datetime object as the
+    starting date, and an integer for days in the chart;
+    returns a list of completed project totals per day, in reverse
+    chronological order (Monday is last)."""
 
-    # project.updated 
-    # print
-    pass
+    if total_days == 0:
+        return []
 
+    else:
+        end = start + datetime.timedelta(days=1)
+        daily_count = 0
+        while True:
+            for i, item in enumerate(lst):
+                if (start <= item < end):
+                    daily_count += 1
+                    # print daily_count, "is daily count. found one:", item
+
+                elif item >= end:
+                    lst = lst[i:]
+
+                    break
+            break  # if running out of items, for last day
+        total_days -= 1
+
+        weekly_stats = count_projects_per_day(lst, end, total_days)
+        weekly_stats.append(daily_count)
+    return weekly_stats
+
+#### Goal outcome for testing count_projects_per_day:
+# monday: 3, tuesday: 4, wednesday: 2, thursday: 4, friday: 6, saturday: 2...
+# so result should be: [2, 6, 4, 2, 4, 3]
+
+#### TESTING CONTENT FOR count_projects_per_day
+# old_lst = [
+# (datetime.datetime(2018, 2, 26, 22, 13, 42, 698510),), 
+# (datetime.datetime(2018, 2, 26, 22, 13, 42, 698510),), 
+# (datetime.datetime(2018, 2, 26, 22, 13, 42, 698510),), 
+# (datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),), 
+# (datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),), 
+# (datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),), 
+# (datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),), 
+# (datetime.datetime(2018, 2, 28, 22, 13, 42, 698510),), 
+# (datetime.datetime(2018, 2, 28, 22, 13, 42, 698510),), 
+# (datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),), 
+# (datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),), 
+# (datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),), 
+# (datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),), 
+# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),), 
+# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),), 
+# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),), 
+# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),), 
+# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),),
+# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),), 
+# (datetime.datetime(2018, 3, 3, 22, 13, 42, 698510),), 
+# (datetime.datetime(2018, 3, 3, 22, 13, 42, 698510),)]
+
+# lst = [x[0] for x in old_lst]
+# start = (datetime.datetime(2018, 2, 26, 12, 13, 42, 698510))
+# total_days = 6
