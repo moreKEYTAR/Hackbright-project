@@ -65,9 +65,30 @@ def index():
 
 
 @app.route('/productivity-stats.json')
-def weekly_productivity_data():
+def productivity_data_chartA():
     """Return data about productivity for donut chart."""
 
+    # Chart rules synopsis:
+
+    # Is this a setting? that charts are enabled for the team???
+        # Let's pretend it is, and charts are only enabled for team 2 (Save Westeros)
+        # we need to account for when charts "start" and what displays until they are create-able
+
+    # user_id = session.get("user_id")
+    # teams = q.get_all_teams
+    #  etc. Not written as there is no seed data for this query. Pending: V2.0
+    # UNTIL REWRITTEN TO DISPLAY CHARTS FOR ANY TEAM...
+
+    t_id = session.get("team_id")
+    dates_tuple = h.get_dates_for_ChartA()
+    team_projects = q.get_projects_for_chart_A(t_id=t_id,
+                                               start_dt=dates_tuple[0],
+                                               end_dt=dates_tuple[1])
+    counts_mon_to_sun = h.count_projects_by_weekday_for_ChartA(lst=team_projects,
+                                                               start_dt=dates_tuple[0],
+                                                               end_dt=dates_tuple[1])
+
+    # MAKE DATA FOR CHART A
     data_dict = {"labels": ["Monday",
                             "Tuesday",
                             "Wednesday",

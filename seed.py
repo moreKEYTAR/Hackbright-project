@@ -118,9 +118,13 @@ def load_projects():
         if not upvotes:
             upvotes = None
 
+        updated = project_data[6]
+        if not updated:
+            updated = datetime.utcnow()
         new_project = Project(board_id=board_id, user_id=user_id,
                               phase_code=phase_code, title=title,
-                              notes=notes, upvotes=upvotes)
+                              notes=notes, upvotes=upvotes,
+                              updated=updated)
 
         db.session.add(new_project)
         db.session.commit()

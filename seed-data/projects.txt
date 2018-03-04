@@ -9,49 +9,49 @@
 11|5|item|Ask Cersei for assurances she will not march northward|Contact her through Jaime?||
 11||idea|Have Varys teleport to Essos & make alliance with the Iron Bank|Do they support Cersei still? Can Varys teleport with items, like a wight?|1|
 12|3|item|Speak to Sam Tarly about findings from the Restricted Section|Did the Citadel have information about the Long Night?||
-12|6|done|placeholder|||
-12|6|done|placeholder|||
-12|6|done|placeholder|||
-12|6|done|placeholder|||
-12|6|done|placeholder|||
-12|6|done|placeholder|||
-12|6|done|placeholder|||
-12|6|done|placeholder|||
-12|5|done|placeholder|||
-12|5|done|placeholder|||
-12|2|done|placeholder|||
-12|5|done|placeholder|||
-12|2|done|placeholder|||
-12|2|done|placeholder|||
-12|4|done|placeholder|||
-12|4|done|placeholder|||
-12|4|done|placeholder|||
-11|5|done|placeholder|||
-11|3|done|placeholder|||
-11|7|done|placeholder|||
-11|7|done|placeholder|||
-11|5|done|placeholder|||
-11|9|done|placeholder|||
-11|9|done|placeholder|||
-11|9|done|placeholder|||
-11|9|done|placeholder|||
-11|3|done|placeholder|||
-11|5|done|placeholder|||
-4|1|done|placeholder|||
-4|1|done|placeholder|||
-4|1|done|placeholder|||
-4|1|done|placeholder|||
-4|1|done|placeholder|||
-4|1|done|placeholder|||
-4|3|done|placeholder|||
-4|3|done|placeholder|||
-4|3|done|placeholder|||
-4|3|done|placeholder|||
-4|7|done|placeholder|||
-4|8|done|placeholder|||
-4|8|done|placeholder|||
-4|8|done|placeholder|||
-4|5|done|placeholder|||
-4|5|done|placeholder|||
-4|5|done|placeholder|||
-4|2|done|placeholder|||
+12|6|done|placeholder|||2018-02-28 22:13:42.698510
+12|6|done|placeholder|||2018-02-26 22:13:42.698510
+12|6|done|placeholder|||2018-02-26 22:13:42.698510
+12|6|done|placeholder|||2018-02-27 08:13:42.698510
+12|6|done|placeholder|||2018-02-27 12:13:42.698510
+12|6|done|placeholder|||2018-02-28 22:13:42.698510
+12|6|done|placeholder|||2018-03-01 09:13:42.698510
+12|6|done|placeholder|||2018-03-02 17:13:42.698510
+12|5|done|placeholder|||2018-03-01 11:13:42.698510
+12|5|done|placeholder|||2018-03-02 11:13:42.698510
+12|2|done|placeholder|||2018-02-26 22:13:42.698510
+12|5|done|placeholder|||2018-02-28 22:13:42.698510
+12|2|done|placeholder|||2018-02-27 08:13:42.698510
+12|2|done|placeholder|||2018-03-01 09:13:42.698510
+12|4|done|placeholder|||2018-03-01 09:13:42.698510
+12|4|done|placeholder|||2018-02-27 08:13:42.698510
+12|4|done|placeholder|||2018-03-02 17:13:42.698510
+11|5|done|placeholder|||2018-02-27 08:13:42.698510
+11|3|done|placeholder|||2018-03-03 12:13:42.698510
+11|7|done|placeholder|||2018-03-01 09:13:42.698510
+11|7|done|placeholder|||2018-02-26 22:13:42.698510
+11|5|done|placeholder|||2018-03-05 17:13:42.698510
+11|9|done|placeholder|||2018-02-27 08:13:42.698510
+11|9|done|placeholder|||2018-03-05 17:13:42.698510
+11|9|done|placeholder|||2018-02-27 08:13:42.698510
+11|9|done|placeholder|||2018-03-04 17:13:42.698510
+11|3|done|placeholder|||2018-03-01 09:13:42.698510
+11|5|done|placeholder|||2018-03-01 09:13:42.698510
+4|1|done|placeholder|||2018-03-04 17:13:42.698510
+4|1|done|placeholder|||2018-02-28 22:13:42.698510
+4|1|done|placeholder|||2018-02-26 22:13:42.698510
+4|1|done|placeholder|||2018-03-01 09:13:42.698510
+4|1|done|placeholder|||2018-03-02 17:13:42.698510
+4|1|done|placeholder|||2018-02-27 08:13:42.698510
+4|3|done|placeholder|||2018-03-03 09:13:42.698510
+4|3|done|placeholder|||2018-02-26 22:13:42.698510
+4|3|done|placeholder|||2018-03-02 17:13:42.698510
+4|3|done|placeholder|||2018-02-27 08:13:42.698510
+4|7|done|placeholder|||2018-02-25 22:13:42.698510
+4|8|done|placeholder|||2018-02-26 22:13:42.698510
+4|8|done|placeholder|||2018-03-02 17:13:42.698510
+4|8|done|placeholder|||2018-02-27 08:13:42.698510
+4|5|done|placeholder|||2018-03-05 17:13:42.698510
+4|3|done|placeholder|||2018-02-25 22:13:42.698510
+4|5|done|placeholder|||2018-03-02 17:13:42.698510
+4|3|done|placeholder|||2018-03-02 17:13:42.698510

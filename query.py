@@ -1,6 +1,5 @@
+"""Queries to database and updates to database, as abstracted from server.py """
 
-from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
 from model import (db, connect_to_db,
                    User, Team, UserTeam, Board, Project, Phase)
 
@@ -121,3 +120,41 @@ def get_projects_by_user(u_id):
     projects = Project.query.filter(Project.user_id == u_id).all()
 
     return projects
+
+
+def get_project_for_chart_A(t_id, start_dt, end_dt):
+    """Retrieves project objects for Chart A: Most Productive Weekday, by Team."""
+
+    all_chartable_projects = []
+
+    board_objects = db.session.query(Board.b_id).filter(Board.team_id == t_id)
+
+    for board in board_objects:
+        # b_id = board_tup[0]
+        # projects = Board.query.get(b_id).projects
+        projects = Project.query.filter(Project.board_id == board.b_id)
+        chartable_projects = projects.filter(
+                                (Project.updated >= start_dt) &
+                                (Project.updated < end_dt) &
+                                (Project.phase_code == "done"))
+        all_chartable_projects.extend(chartable_projects.all())
+
+    # all_chartable_projects is a list of objects
+    return all_chartable_projects
+
+# {"data": [200, 168, 456, 321, 109, 88, 149],
+
+# import pdb; pdb.set_trace()
+
+
+
+######################################################################
+######################################################################
+
+if __name__ == "__main__":
+
+    from server import app
+    # As a convenience, if we run this module interactively, it will leave
+        # you in a state of being able to work with the database directly.
+    connect_to_db(app)
+    print "Connected to DB."

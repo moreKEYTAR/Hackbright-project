@@ -3,8 +3,7 @@ from flask import (Flask,  # Flask allows app object
                    render_template, redirect,  # render_template allows html render functionality
                    request,  # request allows use of forms in html templates
                    jsonify)
-from flask_debugtoolbar import DebugToolbarExtension
-import query
+import datetime as dt
 import requests
 import os
 
@@ -121,7 +120,7 @@ def handle_bad_attempts(remaining):
     return template
 
 
-# AUTHORIZED FOR VIEW BY URL #############################################
+# VALIDATION #############################################
 
 # def is_valid_url(url_user_id, url_team_id=None):
 #     """Checks for a valid url:
@@ -145,5 +144,44 @@ def handle_bad_attempts(remaining):
 #             userteam = query.get_userteam_object(u_id, url_team_id)
 #             if userteam:
 #                 return True
-
 #     return False
+
+
+# CHART DATA HELPERS #############################################
+
+def get_dates_for_ChartA():
+    """Uses current datetime to determine the datetime range for relevant
+    projects; returns them in a tuple. """
+
+    # Weeks begin on Mondays
+    # If it is saturday or sunday, then last week's data is for the most recent monday-today
+    # If it is monday-friday, then last week's data is for the previous week, monday-sunday
+    # Start time on Monday is 00:00:00, and end time is Monday at 00:00:00, excluded (unless it is current time)
+    right_now = dt.datetime.utcnow()
+    todays_code = right_now.weekday()
+
+    # todays_code --> integer from 0 to 6, with 0 being the code for Monday
+    # current_dt and data_week_... --> datetime objects, in postgres-friendly notation
+
+    if (todays_code == 5) or (todays_code == 6):
+        monday = right_now - dt.timedelta(days=todays_code)
+        data_week_start = dt.datetime(monday.year, monday.month, monday.day)
+        data_week_end = right_now
+    else:
+        monday = right_now - dt.timedelta(days=(todays_code + 7))
+        data_week_start = dt.datetime(monday.year, monday.month, monday.day)
+        end_monday = right_now - dt.timedelta(days=(todays_code))
+        data_week_end = dt.datetime(end_monday.year, end_monday.month,
+                                    end_monday.day)
+
+    return (data_week_start, data_week_end)
+
+
+def count_projects_by_weekday_for_ChartA(lst, start_dt, end_dt):
+    """Takes in list of project objects, returns a dictionary of completed
+    project totals per day, with days of the week as keys."""
+
+    # project.updated 
+    # print
+    pass
+
