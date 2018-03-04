@@ -1,7 +1,7 @@
 4||idea|Reassemble Riverlands armies||2|
 12||idea|Consult Melisandre re Lord of Light||1|
 4||idea|Direwolf pack - Bran contact? Arya?||2|
-4||item|Train Northern smallfolk for batttle|||
+4||item|Train Northern smallfolk for battle|||
 12||item|Lead for scouting Lannister movement||3|
 4||item|Prepare the Gift for warfare against wights|||
 4|1|item|Armor or train Drogon and Rhaegal||2|

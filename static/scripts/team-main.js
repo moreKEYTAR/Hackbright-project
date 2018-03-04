@@ -178,24 +178,12 @@ function updateProjectOwnership(results) {
 
     // update the draggable & droppable properties for these items, as needed
     updateInteractivity();
-
+    refreshEventListeners();
     // Fade message to confirm success to user, from website:
         // http://jsfiddle.net/sunnypmody/XDaEk/
     $( "#success-claimed-project" ).fadeIn( 300 ).delay( 2000 ).
     fadeOut( 400 );
 }
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-/// PAGE LOAD FUNCTION CALLS ///
-/////////////////////////////////////////////////////////////////////////////
-
-updateInteractivity();
-
-showRecentBoard();
-
-
 
 
 
@@ -419,13 +407,13 @@ function showProjectDetailsModal(evt) {
                 // Update the form submission action
                 $('#project-details-owner-form'
                   ).attr({"action": "/save-update/"+projectId});
-
+ 
                 // Update the notes content
                 $('#pd-notes-textarea-is-owner').html(results.pNotes);
 
                 // Show the correct div
                 $('#project-details-owner-div').show();
-            
+
             // The owner is NOT the current user...
             } else if (results.pOwnerId, 
                        results.pOwnerId !== results.userId){
@@ -447,17 +435,20 @@ function showProjectDetailsModal(evt) {
 
 
 ///////////// PROJECT DETAILS EVENT LISTENERS ///////////////
-// When any project is double-clicked:
-$('div.project').on('dblclick', showProjectDetailsModal);
-$('div.project-in-dock').on('dblclick', showProjectDetailsModal);
 
-// Close modal via the x span
-$('#project-details-modal-close').on('click', function (evt) {
-        // Makes sure it hides so it will only show if the logic is met, when triggered
-    $('#project-details-modal').css("display", "none"); 
-        //changes css display value from none
-});
+function refreshEventListeners() {
+    // When any project is double-clicked:
+    $('div.project').on('dblclick', showProjectDetailsModal);
 
+    $('div.project-in-dock').on('dblclick', showProjectDetailsModal);
+
+    // Close modal via the x span
+    $('#project-details-modal-close').on('click', function (evt) {
+            // Makes sure it hides so it will only show if the logic is met, when triggered
+        $('#project-details-modal').css("display", "none"); 
+            //changes css display value from none
+    });
+}
 // Close modal via clicking outside the modal content, into the modal background
 let projectDetailsModal = document.getElementById('project-details-modal');
 window.addEventListener("click", function (evt) {
@@ -466,5 +457,17 @@ window.addEventListener("click", function (evt) {
         projectDetailsModal.style.display = "none";
     }
 });
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// PAGE LOAD FUNCTION CALLS ///
+/////////////////////////////////////////////////////////////////////////////
+
+updateInteractivity();
+
+showRecentBoard();
+
+refreshEventListeners();
 
 
