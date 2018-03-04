@@ -371,10 +371,11 @@ window.addEventListener("click", function (evt) {
 
 
 /////////////////////////////////////////////////////////////////////////////
-/// LISTENER FOR VIEW & UPDATE PROJECT DETAILS MODAL ///
+/// LISTENER FOR DBL CLICK PROJECT (VIEW & UPDATE PROJECT DETAILS MODAL) ///
 
-// When any project is double-clicked:
-$('div.project').on('dblclick', function (evt) {
+
+function showProjectDetailsModal(evt) {
+
     let projectId = $(this).data("projectId");
 
     // Modal content is based on showing / hiding the correct div (currently)
@@ -441,8 +442,14 @@ $('div.project').on('dblclick', function (evt) {
         // Everything is "loaded" before display is set to block (showing modal)
         $('#project-details-modal').css("display", "block");
 
-    }); // closes function & ajax
-}); // closes event listener function
+    }); // closes in line fn & ajax
+} // closes function showProjectDetailsModal
+
+
+///////////// PROJECT DETAILS EVENT LISTENERS ///////////////
+// When any project is double-clicked:
+$('div.project').on('dblclick', showProjectDetailsModal);
+$('div.project-in-dock').on('dblclick', showProjectDetailsModal);
 
 // Close modal via the x span
 $('#project-details-modal-close').on('click', function (evt) {
