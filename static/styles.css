@@ -1,5 +1,32 @@
 
+body {
+  height:96%;     /* 100% * (pageContainer*2) */
+  margin: 0 !important;
+  padding: 0 !important;
+}
+div.container {
+  margin: 0 !important;
+  padding: 0 !important
+}
+/*#pageContainer {
+    position:relative;
+    width:96%;                  
+    height:96%;                        
+    margin:2% auto 0% auto;
+    padding:0%;
+}*/
+
+
+
 /*  CSS FOR TEAM-MAIN.HTML  */
+#project-details-title {
+  display: inline-block;
+}
+.editing-glyph {
+  display: inline-block;
+  margin-left: 10px;
+}
+
 
 /* TEMP COLORS FOR PROGRAMMING */
 

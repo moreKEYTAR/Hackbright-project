@@ -2,10 +2,6 @@
 
 <title>{% block title %}SamePage Dash{% endblock %}</title>
 
-{% block navbarItems %}
-<!--     <li><a href="http://localhost:5000/actions-board">
-      <button type="button">Actions Board</button></a></li> -->
-{% endblock %}
 
 <!-- Server info passed:
      - teams_list
@@ -14,6 +10,11 @@
  -->
 
 {% block content %}
+
+  {% block navbarItems %}
+  <!--     <li><a href="http://localhost:5000/actions-board">
+        <button type="button">Actions Board</button></a></li> -->
+  {% endblock %}
 
 <!-- how do we validate for login before the page loads? how do we make the 
   url change to display the unique user, not users/login...
@@ -38,7 +39,7 @@
         <form action="/view-team" method="POST">
           <input type="hidden" name="team" value="{{ team.team_id }}">
           <input type="submit" value="{{ team.name }}">
-          <a href="#"><span class="glyphicon glyphicon-edit"></span></a>
+          <a class="editing-glyph" href="#"><span class="glyphicon glyphicon-edit"></span></a>
 <!--           <a href="#"><span class="glyphicon glyphicon-trash"></span></a> -->
           {% if team.desc %}
           <p class="desc">{{ team.desc }}</p>

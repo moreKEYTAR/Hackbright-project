@@ -3,9 +3,36 @@
 {% block title %}SamePage Login{% endblock %}
 
 {% block content %}
+
+<!-- poster="screenshot.jpg"  -->
+<video autoplay loop muted id="background">
+  <source src="static/assets/motion/v1-Office-156.mp4" type="video/mp4">
+</video>
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Login</h1>
+      <div class="col-md-4">
+        <form action='/login' method='POST' id='enter-site-form'>
+          <input type='text' name='email' placeholder='email address' 
+                 id='email-form-entry' required>
+          <input type='password' name='pw' placeholder='password' 
+                 id='pw-form-entry' required>
+          <div id='submit-input'>
+          <input type='submit' id='form-submission' value='Log In'>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <h4>Log In to SamePage</h4>
 
-<div>
+<!-- <div>
 <form action='/login' method='POST' id='enter-site-form'>
   <input type='text' name='email' placeholder='email address' 
          id='email-form-entry' required>
@@ -16,7 +43,7 @@
   </div>
 </form>
 
-</div>
+</div> -->
 <h6><a href="/login/password-recovery">Forgot your password?</a></h6>
 
 

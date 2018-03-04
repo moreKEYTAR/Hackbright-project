@@ -13,7 +13,11 @@ $.get("/productivity-stats.json", function (data) {
                                            });
     $('#weekly-chart-legend').html(myDonutChart.generateLegend());
 });
-
+$('#carousel-lifestyle').carousel({
+  interval: 3000,
+  pause: null
+  // or put pause: "hover"
+});
 
 // <div class="weekly-chart">
 //     <canvas id="donut-chart"></canvas>

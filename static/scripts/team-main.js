@@ -176,7 +176,9 @@ function showProjectDetailsModal(evt) {
             // $('#pd-idea-textarea').html(results.pNotes);
 
             // Show the correct div
+            $('.editing-glyph').show();
             $('#pd-idea-div').show();
+            
         }
         
         // If the project is an item (which is the only other kind of 
@@ -185,13 +187,14 @@ function showProjectDetailsModal(evt) {
 
             // There is no owner...
             if (!results.pOwnerId) {
+                $('.editing-glyph').show();
                 $("#project-details-unclaimed-div").show();
-            
+                
             
             // If the project is claimed, and it is by the current user...
             } else if (results.pOwnerId, 
                      results.pOwnerId === results.userId) {
-
+                $('.editing-glyph').show();
                 // Update the form submission action
                 $('#project-details-owner-form'
                   ).attr({"action": "/save-update/"+projectId});
@@ -207,7 +210,7 @@ function showProjectDetailsModal(evt) {
                        results.pOwnerId !== results.userId){
                 $('#owner-info-not-user'
                   ).html(results.pOwnerName+" is working on this item.");
-
+                $('.editing-glyph').hide();
                 // Show the correct div
                 $('#project-details-not-owner-div').show();
 

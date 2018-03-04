@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
 
@@ -7,57 +7,54 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.js"></script>
   <link rel="stylesheet"
-        href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.css"/>
+        href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
   <link rel="stylesheet" type="text/css" href="static/styles.css">
   <title>{% block title %}{% endblock %}</title>
 
 </head>
 
 <body>
-<div class="navbar">
+  <div class="navbar">
     <ul class="navbar">
-    {% if session.get('user_id') %} <!-- If logged in -->
-        <li><li><a href="/"><img src="/static/img-assets/ph-g-66.png"></a></li>
+      <li><a href="/"><img src="/static/assets/icons/ph-d-128.png"></a></li>
+      <li><form action="/search-my-history" method="GET">
+        <input type="search" placeholder="search your team items by keyword" style="width:256px">
+        <li><input type="submit" name="search-submit" value="Search"></li>
+      </form></li>
 
-        {% block navbarItems %}{% endblock %}
-        <form action="/search-my-history" method="GET">
-          <li><input type="search" placeholder="search your team items by keyword" style="width:256px"></li>
-          <li><input type="submit" name="search-submit" value="Search"></li>
-        </form>
-        <li><div>
-          <form action="/logout" method="POST">
-              <input type='submit' id='logout-submission' value='Log Out'>
-          </form></div></li>
-    {% else %} <!-- If not logged in -->
-
-    {% endif %}
-
+      <li><div>
+        <form action="/logout" method="POST">
+            <input type='submit' id='logout-submission' value='Log Out'>
+        </form></div></li>
 
 <!--         <li><a href="http://localhost:5000/my-action-board">
             <button type="button"> /////////'s Action Board</button></a></li> -->
 <!--         <li><a href="http://localhost:5000/logout">
             <button type="button">Logout</button></a></li>    --> 
-    <ul>
-
-</div>
-
+    </ul>
+  </div>
 
 <div class="container">
-    <div>{{ session }}</div> <!-- TEMPORARY!!!! -->
+  <div>{{ session }}</div> <!-- TEMPORARY!!!! -->
 
-    {% with messages = get_flashed_messages() %}
-        {% for message in messages %}
-          <!-- Bootstrap classes to format flash message -->
-          <div class="alert alert-warning">{{ message }}</div>
-        {% endfor %}
-    {% endwith %}
+  {% with messages = get_flashed_messages() %}
+      {% for message in messages %}
+        <!-- Bootstrap classes to format flash message -->
+        <div class="alert alert-warning">{{ message }}</div>
+      {% endfor %}
+  {% endwith %}
 
+  {% block content %}
 
-    {% block content %}
+  <!-- MAIN
+        CONTENT
+          ON 
+            HTML 
+              PAGE
+                GOES
+                  HERE-->
 
-    <!-- MAIN CONTENT ON HTML PAGE -->
-
-    {% endblock %}
+  {% endblock %}
 
 </div> <!-- Close div container -->
 

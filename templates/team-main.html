@@ -2,17 +2,16 @@
 
 {% block title %}My SamePage Teams{% endblock %}
 
-{% block navbarItems %}
-  
-    <li><a href="http://localhost:5000/dashboard">
-      <button type="button">Dashboard</button></a></li>
-<!--     <li><a href="http://localhost:5000/action-board">
-      <button type="button">Actions Board</button></a></li> -->
-
-{% endblock %}
-
-
 {% block content %}
+
+  {% block navbarItems %}
+    
+      <li><a href="http://localhost:5000/dashboard">
+        <button type="button">Dashboard</button></a></li>
+  <!--     <li><a href="http://localhost:5000/action-board">
+        <button type="button">Actions Board</button></a></li> -->
+
+  {% endblock %}
 
 <!-- ********************************************************************* -->
 <!-- ************************** DATA FROM SERVER ************************** -->
@@ -29,7 +28,7 @@
 <p>{{ team.t_id }}</p>
 
 <h1>Team home: {{ team.name }}</h1>
-<a href="#"><span class="glyphicon glyphicon-edit"></span></a>
+<a class="editing-glyph" href="#"><span class="glyphicon glyphicon-edit"></span></a>
 {% if team.desc %}
 <h5>{{ team.desc }}</h5>
 {% endif %}
@@ -71,7 +70,7 @@
       <button type="button" class="board-button" 
               data-board-id="{{ board.b_id }}">
               {{ board.name }}</button>
-        <a href="#"><span class="glyphicon glyphicon-edit"></span></a>
+        <a class="editing-glyph" href="#"><span class="glyphicon glyphicon-edit"></span></a>
         <!-- <a href="#"><span class="glyphicon glyphicon-trash"></span></a> -->
       {% if board.desc %}
       <p class="description">{{ board.desc }}</p>
@@ -336,12 +335,11 @@
       <span id="project-details-modal-close">&times;</span>
       <!-- &times; makes a perfectly angled x. search "HTML entities" -->
       <h3 id="project-details-title"></h3>
+      <a class="editing-glyph" href="#"><span class="glyphicon glyphicon-edit"></span></a>
       <!-- This is currently nonessential...may need to put inside the divs -->
 
       <!-- ************* IDEA DIV, HIDDEN ************* -->
       <div class="project-details-div" id="pd-idea-div" hidden>
-        <a href="https://d.ibtimes.co.uk/en/full/1424780/edit-meme.jpg">
-       Update Title</a>
 
         <!-- IDEA UPVOTE FORM -->
         <form action="" method="POST" id="pd-idea-div-form-upvotes"> 
@@ -356,8 +354,7 @@
       <!-- ************* ITEM DIV, USER IS OWNER ************* -->
 
       <div class="project-details-div" id="project-details-owner-div" hidden>
-      <a href="https://d.ibtimes.co.uk/en/full/1424780/edit-meme.jpg">
-        Edit Title</a>
+
         <!-- USER IS OWNER FORM -->
         <form action="" method="POST" id="project-details-owner-form"> 
             <!-- action updated in js file -->
@@ -401,8 +398,6 @@
 
       <!-- ************* ITEM DIV, NOT OWNED ************* -->
       <div class="project-details-div" id="project-details-unclaimed-div" hidden>
-        <a href="https://d.ibtimes.co.uk/en/full/1424780/edit-meme.jpg">
-       Update Title</a>
         
           <p> This action item is for grabs! </p>
 
