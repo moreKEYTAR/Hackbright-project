@@ -48,8 +48,8 @@ body {
   padding: 0;
   font-family: 'Bariol-Regular', Helvetica, Arial, sans-serif;
   color: #0D242B;
-  background: url(/static/assets/img/c1-rawpixel-com-284723.jpg) no-repeat center center;
-  background-size: cover;
+/*  background: url(/static/assets/img/c1-rawpixel-com-284723.jpg) no-repeat center center;
+  background-size: cover;*/
 }
 /*.container {
   margin: 0;
