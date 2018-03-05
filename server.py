@@ -153,12 +153,16 @@ def make_new_user():
         session["new_user"] = True  # Pending: Tutorial
         flash("Account created!")
         return redirect("/dashboard")
+
     elif user_record.is_registered is False:  # user is only in db due to invite(s)
         user_record.displayname = displayname
         user_record.password = pw
         user_record.is_registered = True
         db.session.commit()
-        h.update_session_for_good_login(user.u_id, user.displayname)
+        h.update_session_for_good_login(user_record.u_id, displayname)
+        session["new_user"] = True
+        flash("Account created!")
+        return redirect("/dashboard")
 
     else:
         flash("That email address has already been registered. Please try another or check your password.")
@@ -193,7 +197,7 @@ def log_in_returning_user():
     user_record = q.get_user_by_email(email)
 
     if user_record is None:
-        flash("No account found with that email. Would you like to register?")
+        flash("Credentials match not found. Please-attempt login, recover password, or register below. Several unsuccessful attempts will lock the account.")
         return redirect("/sign-in")
 
     else:  # the email is valid
@@ -508,7 +512,7 @@ def invite_new_teammates(team_id):
             message = default_message
         else:
             message = messages_list[i]
-        flash_message = flash_message + emails_lst[i] + "... "
+        flash_message = flash_message + emails_lst[i] + "     "
 
         h.send_team_invite(emails_lst[i],
                            sender,

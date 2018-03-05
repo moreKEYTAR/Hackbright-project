@@ -99,27 +99,27 @@ def handle_bad_attempts(remaining):
 
     if remaining <= 0:   # handling for negative numbers... still
                          # testing to see if this is possible to create.
-        flash("""PASSWORD SECURITY FEATURE PENDING.
-             Login attempts not linked to IP address or a specific email.
-              Does cache matter? This is complicated.""")
+        # flash("""PASSWORD SECURITY FEATURE PENDING.
+        #      Login attempts not linked to IP address or a specific email.
+        #       Does cache matter? This is complicated.""")
         template = "password-recovery.html"
 
     elif remaining == 1:
-        stringy_remaining = str(remaining)
-        flash("You have " + stringy_remaining +
-              " attempt remaining before account is locked.")
-        flash("""PASSWORD SECURITY FEATURE PENDING.
-             Login attempts not linked to IP address or a specific email.
-              Does cach matter? This is complicated.""")
+        flash("Credentials match not found. Please-attempt login, recover password, or register below. Several unsuccessful attempts will lock the account.")
+        # stringy_remaining = str(remaining)
+        # flash("You have " + stringy_remaining +
+        #       " attempt remaining before account is locked.")
+        # flash("""PASSWORD SECURITY FEATURE PENDING.
+        #      Login attempts not linked to IP address or a specific email.
+        #       Does cach matter? This is complicated.""")
         template = "sign-in.html"
 
     else:  # separate path to make sure user flash feedback is plural
         stringy_remaining = str(remaining)
-        flash("You have " + stringy_remaining +
-              " attempts remaining before account is locked.")
-        flash("""PASSWORD SECURITY FEATURE PENDING.
-             Login attempts not linked to IP address or a specific email.
-              Does cach matter? This is complicated.""")
+        flash("Credentials match not found. Please-attempt login, recover password, or register below. Several unsuccessful attempts will lock the account.")
+        # flash("""PASSWORD SECURITY FEATURE PENDING.
+        #      Login attempts not linked to IP address or a specific email.
+        #       Does cach matter? This is complicated.""")
         template = "sign-in.html"
 
     return template

@@ -6,11 +6,13 @@
 {% block content %}
 <!-- u_choice passes in route; either "log-in" or "sign-up" -->
 <!-- poster="screenshot.jpg"  -->
-{{ u_choice }}
+
 <div id="hidden-u-choice" data-choice="{{ u_choice }}" hidden></div>
 <div class="container">
-    <div class="row">
-      <div class="col-md-4">
+  <!-- <img src="static/assets/img/c1-rawpixel-com-284723.jpg" alt=""> -->
+    <div class="row" id="sign-in-modal-row">
+      <!-- <div class="col-xs-0 col-md-6 col-lg-8" role="left-div"></div> -->
+      <div class="col-xs-12 col-md-6 col-lg-offset-8 col-lg-4 ">
 
         <div class="floating-modal"> 
             
@@ -44,7 +46,7 @@
 
               <div id="log-in-form">
                 <h1>Login</h1>
-                <div class="col-md-4">
+                <div>
                   <form action='/login' method='POST' id='login-form'>
                     <input type='text' name='email' placeholder='email address' required>
                     <input type='password' name='pw' placeholder='password' required>
@@ -64,8 +66,8 @@
           </div> <!-- Close "modal-content" -->
         </div> <!-- Close "new-board-modal" -->
       </div><!-- class="col-md-4" -->
-    </div>
-</div> <!-- closes container div -->
+<!--     </div> -->
+</div><!-- closes container div -->
 
 
 

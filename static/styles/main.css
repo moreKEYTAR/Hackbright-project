@@ -9,7 +9,7 @@
   midnight: #0D242B*/
 
 html {
-  color: #0D242B;
+  /*color: #0D242B;*/
 }
 
 @font-face {
@@ -44,16 +44,20 @@ html {
 
 body {
   height:96%;     /* 100% * (pageContainer*2) */
-  margin: 0 !important;
-  padding: 0 !important;
-  margin-right:0 !important;
+  margin: 0;
+  padding: 0;
   font-family: 'Bariol-Regular', Helvetica, Arial, sans-serif;
-  color: ;
+  color: #0D242B;
+  background: url(/static/assets/img/c1-rawpixel-com-284723.jpg) no-repeat center center;
+  background-size: cover;
 }
-.container {
-  margin: 0 !important;
-  padding: 0 !important
-}
+/*.container {
+  margin: 0;
+  padding: 0;
+}*/
+/*.row {
+  width:100%;
+  }*/
 /*#pageContainer {
     position:relative;
     width:96%;                  
@@ -183,6 +187,7 @@ a.edit-this {
   text-align:right; 
 }
 
+
 .dock {
   /* styling update pending */
   background-color:#C5D1D6;
@@ -214,16 +219,26 @@ a.edit-this {
     /* http://www.css3.info/introduction-opacity-rgba/ */
 }
 
-/*.floating-modal { */
+.floating-modal {
+/*    width: auto;  */
+    /* Input text in the project modal is 300px wide...min-width?? */
+ /*   height:auto;*/
+/*    display: table; 
+    overflow-y: auto;    
+    overflow-x: auto;
+    position:relative;*/
+    height:auto;
+    width:auto;
+  }
     
 .floating-modal-content { /* Borrowed from W3Schools 'how to css modals'*/
     /*position:absolute;*/
     background-color: #fefefe;
-    margin: 20% auto; /* 20% from the top and centered */
+    margin: 10% auto; /* 20% from the top and centered */
     padding: 20px;
     border: 1px solid #999999;
-    width: auto;  /* Input text in the project modal is 300px wide...min-width?? */
-    height:auto;
+    width:100%; /* Input text in the project modal is 300px wide...min-width?? */
+    height:100%;
 }
 #team-invitations-form textarea {
   resize: none;
