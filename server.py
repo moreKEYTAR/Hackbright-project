@@ -128,37 +128,6 @@ def productivity_data_chartA():
 
     return jsonify(data_dict)
 
-# @app.route('/productivity-stats.json')
-# def weekly_productivity_data():
-#     """Return data about productivity for donut chart."""
-
-#     data_dict = {"labels": ["Monday",
-#                             "Tuesday",
-#                             "Wednesday",
-#                             "Thursday",
-#                             "Friday",
-#                             "Saturday",
-#                             "Sunday"],
-#                  "datasets": [{"data": [200, 168, 456, 321, 109, 88, 149],
-#                                "backgroundColor": ["yellow",
-#                                                    "blue",
-#                                                    "lightgreen",
-#                                                    "purple",
-#                                                    "pink",
-#                                                    "orange",
-#                                                    "lightblue"],
-#                                "hoverBackgroundColor": ["#FF6384",
-#                                                         "#36A2EB",
-#                                                         "#FFCE56",
-#                                                         "#FF6384",
-#                                                         "#36A2EB",
-#                                                         "#FFCE56",
-#                                                         "#FF6384"]
-#                                }]
-#                  }
-
-#     return jsonify(data_dict)
-
 
 ###########################################################################
 # REGISTRATION ############################################################
@@ -193,11 +162,11 @@ def make_new_user():
 ###########################################################################
 # LOG IN ##################################################################
 
-@app.route("/login", methods=["GET"])
+@app.route("/sign-in", methods=["GET"])
 def display_login():
     """Load login form."""
 
-    return render_template("login.html")
+    return render_template("sign-in.html")
 
 
 @app.route("/login", methods=["POST"])
@@ -216,7 +185,7 @@ def log_in_returning_user():
 
     if user_record is None:
         flash("No account found with that email. Would you like to register?")
-        return redirect("/login")
+        return redirect("/sign-in")
 
     else:  # the email is valid
 
@@ -235,7 +204,7 @@ def log_in_returning_user():
 
  # LOGIN: PASSWORD HANDLING ##############################################
 
-@app.route("/login/password-recovery")
+@app.route("/sign-in/password-recovery")
 def password_recovery():
     """Displays form to send email to user for password recovery"""
 
