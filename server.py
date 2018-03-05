@@ -153,9 +153,15 @@ def make_new_user():
         session["new_user"] = True  # Pending: Tutorial
         flash("Account created!")
         return redirect("/dashboard")
+    elif user_record.is_registered is False:  # user is only in db due to invite(s)
+        user_record.displayname = displayname
+        user_record.password = pw
+        user_record.is_registered = True
+        db.session.commit()
+        h.update_session_for_good_login(user.u_id, user.displayname)
 
     else:
-        flash("That email address has already been registered")
+        flash("That email address has already been registered. Please try another or check your password.")
         return redirect("/")
 
 
@@ -496,13 +502,13 @@ def invite_new_teammates(team_id):
     {team_name} on SamePage. Accept to help complete projects for
     {team_name}.""".format(sender=sender, team_name=team_object.name)
 
-    flash_message = "Emails sent to\n"
+    flash_message = "Email sent to "
     for i in xrange(len(emails_lst)):
         if not messages_list[i]:
             message = default_message
         else:
             message = messages_list[i]
-        flash_message = flash_message + emails_lst[i] + "\n"
+        flash_message = flash_message + emails_lst[i] + "... "
 
         h.send_team_invite(emails_lst[i],
                            sender,

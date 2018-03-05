@@ -27,7 +27,9 @@
 <h3 class="inline-heading">Your Teammates</h3>
 <ul class="team-members">
   {% for userteam in team.userteams %}
+    {% if userteam.is_member == true %}
     <li class="one-team-member"><span>{{ userteam.user.displayname }}          </span></li>
+    {% endif %}
   {% endfor %}
 </ul>
 
