@@ -6,10 +6,11 @@ from model import (db, connect_to_db,
 
 # MAKE NEW OBJECT #######################################################
 
-def make_user(email, password, displayname):
+def make_user(email, password, displayname, is_registered=True):
     """Takes in registration form strings, makes a User object, returns it."""
 
-    new_user = User(email=email, password=password, displayname=displayname)
+    new_user = User(email=email, password=password, displayname=displayname,
+                    is_registered=is_registered)
     return new_user
 
 

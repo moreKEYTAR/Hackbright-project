@@ -18,11 +18,12 @@ class User(db.Model):
     u_id = db.Column(db.Integer, primary_key=True, autoincrement=True,
                      nullable=False, unique=True)
     email = db.Column(db.String(254), nullable=False, unique=True)
-    password = db.Column(db.String(30), nullable=False, unique=False)
-    # password_salt = db.Column(db.String(50), nullable=False)
-    # password_hash_algorithm = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(30), nullable=True, unique=False)
+        # Nullable for when a user has not registered. Required at user registration, however.
+        # password_salt = db.Column(db.String(50), nullable=False)
+        # password_hash_algorithm = db.Column(db.String(50), nullable=False)
     displayname = db.Column(db.String(30), nullable=False, unique=False)
-    is_registered = db.Column(db.Boolean, nullable=True)
+    is_registered = db.Column(db.Boolean, nullable=False, default=True)
 
     # SEE UserTeam FOR RELATIONSHIP
     # SEE Project FOR RELATIONSHIP

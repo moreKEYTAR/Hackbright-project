@@ -511,9 +511,35 @@ def invite_new_teammates(team_id):
 
     flash(flash_message)
 
+
+    #  Update database to track pending invite
     for email in emails_lst:
+        already_relationshp = None
         user_object = q.get_user_by_email(email)
-        
+        if user_object: # user is a member
+            # if the user is registered or not, the relationship begins as null
+            # check for userteam relationship
+
+            if len(user_object.userteams) > 0:  # more explicit than previous while loop
+                while user_object.userteams:
+                    current = user_object.userteams.pop()
+                    if current.team_id == team_id:
+                        already_relationshp = True
+                        break  # relationship exists, regardless of status
+                if already_relationshp is None:
+                    new_userteam = UserTeam(user_id=user_object.u_id, team_id=team_id, is_member=None)
+                    q.add_to_db(new_userteam)
+            else:
+                new_userteam = UserTeam(user_id=user_object.u_id, team_id=team_id, is_member=None)
+                q.add_to_db(new_userteam)
+
+            # else there are no userteams...so the person is a member but no
+        else:
+            new_user = q.make_user(email=email, password=None, 
+                                   displayname=None, is_registered=False)
+            q.add_to_db(new_user)
+            new_userteam = UserTeam(user_id=new_user.u_id, team_id=team_id, is_member=None)
+            q.add_to_db(new_userteam)
 
     return redirect("/view-team")
 
