@@ -195,7 +195,7 @@ def log_in_returning_user():
         # validate password, handle accordingly
         if user_record.password != pw:
             template = h.handle_bad_attempts(remaining)
-            return render_template(template)
+            return render_template(template, u_choice="log-in")
 
         # is valid password, handle accordingly
         else:
@@ -511,12 +511,11 @@ def invite_new_teammates(team_id):
 
     flash(flash_message)
 
-
     #  Update database to track pending invite
     for email in emails_lst:
         already_relationshp = None
         user_object = q.get_user_by_email(email)
-        if user_object: # user is a member
+        if user_object:  # user is a member
             # if the user is registered or not, the relationship begins as null
             # check for userteam relationship
 

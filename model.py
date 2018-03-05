@@ -22,7 +22,7 @@ class User(db.Model):
         # Nullable for when a user has not registered. Required at user registration, however.
         # password_salt = db.Column(db.String(50), nullable=False)
         # password_hash_algorithm = db.Column(db.String(50), nullable=False)
-    displayname = db.Column(db.String(30), nullable=False, unique=False)
+    displayname = db.Column(db.String(30), nullable=True, unique=False)
     is_registered = db.Column(db.Boolean, nullable=False, default=True)
 
     # SEE UserTeam FOR RELATIONSHIP

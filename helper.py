@@ -111,7 +111,7 @@ def handle_bad_attempts(remaining):
         flash("""PASSWORD SECURITY FEATURE PENDING.
              Login attempts not linked to IP address or a specific email.
               Does cach matter? This is complicated.""")
-        template = "login.html"
+        template = "sign-in.html"
 
     else:  # separate path to make sure user flash feedback is plural
         stringy_remaining = str(remaining)
@@ -120,7 +120,7 @@ def handle_bad_attempts(remaining):
         flash("""PASSWORD SECURITY FEATURE PENDING.
              Login attempts not linked to IP address or a specific email.
               Does cach matter? This is complicated.""")
-        template = "login.html"
+        template = "sign-in.html"
 
     return template
 
