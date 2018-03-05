@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}My SamePage Teams{% endblock %}
+
+{% block navbarItems %}
+    <li><a href="http://localhost:5000/dashboard">
+    <button type="button">Dashboard</button></a></li>
+
+{% endblock %}
+{% block content %}
+
+<!-- <h1>Team home:</h1> -->
+{% if projects %}
+  {% for project in projects %}
+    {{ project.board.team_id }}
+  {% endfor %} 
+
+{% else %} <!-- If there are no projects yet -->
+
+
+{% endif %} 
+
+
+
+{% endblock %}
