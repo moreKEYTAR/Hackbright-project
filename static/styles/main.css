@@ -66,6 +66,14 @@ body {
     padding:0%;
 }*/
 
+/* from https://www.sitepoint.com/full-screen-bootstrap-carousel-random-initial-image/*/
+.full-screen {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Bariol-Regular-Italic', Helvetica, Arial, sans-serif;
 }
