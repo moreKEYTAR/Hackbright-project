@@ -17,16 +17,19 @@
   <div class="nav navbar">
     <ul class="navbar">
       <li><a href="/"><img src="/static/assets/icons/ph-d-128.png"></a></li>
-      <li><a href="http://localhost:5000/dashboard">
-          <button type="button">Dashboard</button></a></li>
-      <li><form action="/search-my-history" method="GET">
-        <input type="search" placeholder="search your team items by keyword" style="width:256px">
+      {% if session.get("is_logged_in") %}
+        <li><a href="http://localhost:5000/dashboard">
+            <button type="button">Dashboard</button></a></li>
+
+        <li><form action="/search-my-history" method="GET">
+          <input type="search" placeholder="search your team items by keyword" style="width:256px">
         <li><input type="submit" name="search-submit" value="Search"></li>
           </form></li>
-      <li><div>
-        <form action="/logout" method="POST">
-            <input type='submit' id='logout-submission' value='Log Out'>
-        </form></div></li>
+        <li><div>
+          <form action="/logout" method="POST">
+              <input type='submit' id='logout-submission' value='Log Out'>
+          </form></div></li>
+      {% endif %}
     </ul>
   </div>
 
