@@ -214,34 +214,4 @@ def count_projects_per_day(lst, start, total_days):
         weekly_stats.append(daily_count)
     return weekly_stats
 
-#### Goal outcome for testing count_projects_per_day:
-# monday: 3, tuesday: 4, wednesday: 2, thursday: 4, friday: 6, saturday: 2...
-# so result should be: [2, 6, 4, 2, 4, 3]
 
-#### TESTING CONTENT FOR count_projects_per_day
-# old_lst = [
-# (datetime.datetime(2018, 2, 26, 22, 13, 42, 698510),),
-# (datetime.datetime(2018, 2, 26, 22, 13, 42, 698510),),
-# (datetime.datetime(2018, 2, 26, 22, 13, 42, 698510),),
-# (datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),),
-# (datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),),
-# (datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),),
-# (datetime.datetime(2018, 2, 27, 14, 13, 42, 698510),),
-# (datetime.datetime(2018, 2, 28, 22, 13, 42, 698510),),
-# (datetime.datetime(2018, 2, 28, 22, 13, 42, 698510),),
-# (datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),),
-# (datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),),
-# (datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),),
-# (datetime.datetime(2018, 3, 1, 22, 13, 42, 698510),),
-# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),),
-# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),),
-# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),),
-# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),),
-# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),),
-# (datetime.datetime(2018, 3, 2, 17, 13, 42, 698510),),
-# (datetime.datetime(2018, 3, 3, 22, 13, 42, 698510),),
-# (datetime.datetime(2018, 3, 3, 22, 13, 42, 698510),)]
-
-# lst = [x[0] for x in old_lst]
-# start = (datetime.datetime(2018, 2, 26, 12, 13, 42, 698510))
-# total_days = 6

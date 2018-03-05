@@ -287,12 +287,12 @@ def update_team_membership():
     """Update UserTeam membership field's value to true;
     update Dashboard with a redirect."""
 
-    # This route is currently in contrast to the style of making a new team,
-        # which is an ajax request.
+    # This route is currently not an ajax request, unlike making a new team.
+
     user_id = session["user_id"]
     team_id = request.form.get("team")
     user_choice = request.form.get("is_joining")
-        # in dashboard.html hidden value; True or False
+        # in dashboard.html hidden value; string True or False
 
     # Cleanse data from html as soon as possible
     if user_choice == "True":
@@ -510,6 +510,11 @@ def invite_new_teammates(team_id):
                            team_object.name)
 
     flash(flash_message)
+
+    for email in emails_lst:
+        user_object = q.get_user_by_email(email)
+        
+
     return redirect("/view-team")
 
 

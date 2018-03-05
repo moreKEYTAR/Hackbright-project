@@ -22,6 +22,7 @@ class User(db.Model):
     # password_salt = db.Column(db.String(50), nullable=False)
     # password_hash_algorithm = db.Column(db.String(50), nullable=False)
     displayname = db.Column(db.String(30), nullable=False, unique=False)
+    is_registered = db.Column(db.Boolean, nullable=True)
 
     # SEE UserTeam FOR RELATIONSHIP
     # SEE Project FOR RELATIONSHIP
@@ -62,8 +63,9 @@ class UserTeam(db.Model):
     team_id = db.Column(db.Integer, db.ForeignKey('team_accounts.t_id'),
                         nullable=False)
     is_member = db.Column(db.Boolean, nullable=True)
-        # need to check to make sure this doesn't break my seed.py
-        # whether the user has accepted to be on a team
+        # True if accepted member (started team, etc)
+        # False if declined invitation
+        # Null if invited and no decision yet
 
     user = db.relationship("User", backref="userteams")
     team = db.relationship("Team", backref="userteams")
