@@ -4,59 +4,84 @@
 {% block additionalheaders %}{% endblock %}
 
 {% block content %}
-
+<!-- u_choice passes in route; either "log-in" or "sign-in" -->
 <!-- poster="screenshot.jpg"  -->
+{{ u_choice }}
+<div id="hidden-u-choice" data-choice="{{ u_choice }}" hidden></div>
 <div class="container">
+    <div class="row">
+      <div class="col-md-4">
 
-  <div id="home-registration-form">
-  <h4>Want to join SamePage?</h4>
+        <div class="floating-modal"> 
+            
+            <!-- MODAL WINDOW CONTENT -->
+            <div class="floating-modal-content" id="sign-in-page-modal"> <!-- form appends to modal window content -->
 
-    <form action='/register' method='POST' id='enter-site-form'>
-      <p class="reg-page">Sign up with email and password</p>
-      <input type='text' name='email' placeholder='email address' 
-             id='email-form-entry' size="50" style="display:block" required>
-      <input type='password' name='pw' placeholder='password' 
-             id='pw-form-entry' size="30" style="display:block" required>
-      <p class="reg-page">Type a display name</p>
-      <input type='text' name='displayname' placeholder='your name' 
-        size="30" maxlength="30" style="display:block" required>
-      <div id='submit-input'>
-        <input type='submit' id='form-submission' value='Sign Up!'>
-        <p>It would be nice to validate the email or re-enter it, and 
-            same with password. <br>But we can't have nice things.</p>
-      </div>
-    </form>
-  </div>
-<!--   <h4 class="reg-page">Already have an account? 
-      <a href="/sign-in" method='GET'>Log In</a></h4> -->
+              <div id="register-new-user-form">
+                <h1>Register</h1>
+                <div>
+                  <form action='/register' method='POST' id='register-form'>
+                    <p class="reg-page">Sign up with email and password</p>
+                    <input type='text' name='email' placeholder='email address' 
+                           size="50" style="display:block" required>
+                    <input type='password' name='pw' placeholder='password' size="30" style="display:block" required>
+                    <p class="reg-page">Type a display name</p>
+                    <input type='text' name='displayname' placeholder='your name' 
+                      size="30" maxlength="30" style="display:block" required>
+                    <div id='submit-register'>
+                      <input type='submit' id='register-submission' value='Sign Up!'>
+                      <p>It would be nice to validate the email or re-enter it, and 
+                          same with password. <br>But we can't have nice things.</p>
+                    </div>
+                  </form>
+                </div>
+                  <form action="/sign-in" method='GET'>
+                    <h4>Already have an account? </h4>
+                      <input type="hidden" name="button-click-choice" value="log-in">
+                      <input type="submit" class="btn btn-lg btn-primary-outline" value="Log In"></form>
+              </div>
 
+
+              <div id="log-in-form">
+                <h1>Login</h1>
+                <div class="col-md-4">
+                  <form action='/login' method='POST' id='login-form'>
+                    <input type='text' name='email' placeholder='email address' required>
+                    <input type='password' name='pw' placeholder='password' required>
+                    <div id='submit-login'>
+                      <input type='submit' id='login-submission' value='Log In'>
+                    </div>
+                  </form>
+                  <form action="/sign-in" method='GET'>
+                    <h4>Need to register? </h4>
+                    <input type="hidden" name="button-click-choice" value="sign-up">
+                    <input type="submit" class="btn btn-lg btn-primary-outline" value="Sign Up"></form>
+
+                </div>
+              <h6><a href="/sign-in/password-recovery">Forgot your password?</a></h6>
+            </div>
+          
+          </div> <!-- Close "modal-content" -->
+        </div> <!-- Close "new-board-modal" -->
+      </div><!-- class="col-md-4" -->
+    </div>
 </div> <!-- closes container div -->
 
-<div class="container">
-
-  <div class="row">
-    <div class="col-md-12">
-      <h1>Login</h1>
-      <div class="col-md-4">
-        <form action='/login' method='POST' id='enter-site-form'>
-          <input type='text' name='email' placeholder='email address' 
-                 id='email-form-entry' required>
-          <input type='password' name='pw' placeholder='password' 
-                 id='pw-form-entry' required>
-          <div id='submit-input'>
-          <input type='submit' id='form-submission' value='Log In'>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 
 
-<h4>Log In to SamePage</h4>
 
 
-<h6><a href="/sign-in/password-recovery">Forgot your password?</a></h6>
+    
 
+
+
+
+
+
+
+
+<!-- **************************** SCRIPTS **************************** --> 
+
+<script src="/static/scripts/sign-in.js"></script>
 
 {% endblock %}

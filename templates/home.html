@@ -19,16 +19,20 @@
   <div class="landing-welcome"
     <h1 class="giant-h">Welcome to SamePage</h1>
     <p>Intuitive,lightweight project management for teams.</p>
-    <p>
-      <a class="btn btn-lg btn-primary" id="sign-up-home-button" href="/sign-in" method='GET' role="button">Sign up</a>
-      <a class="btn btn-lg btn-primary" id="log-in-home-button" href="/sign-in" method='GET' role="button">Log In</a>
-    </p>
+      <div>
+      <form action="/sign-in" method='GET'>
+        <input type="hidden" name="button-click-choice" value="sign-up">
+        <input type="submit" class="btn btn-lg btn-primary-outline" value="Sign Up"></form></div>
+      <div><form action="/sign-in" method='GET'>
+        <input type="hidden" name="button-click-choice" value="log-in">
+        <input type="submit" class="btn btn-lg btn-primary-outline" value="Log In"></form></div>
+
   </div>
 </div>
 <div class="container" id="scrolling-content">
   <div class="row">
     <div class="col-md-4 landing-page">
-      <img class="landing-image" src="../static/assets/img/f1-patrick-perkins-350622" alt="">
+      <img class="landing-image" src="static/assets/img/f1-patrick-perkins-350622.jpg" alt="">
     </div>
     <div class="col-md-4 landing-page">
       <h2>content1</h2>
@@ -41,12 +45,12 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div>
     <div class="col-md-8 landing-page">
-      <img class="landing-image" src="../static/assets/img/f2-linkedin-sales-navigator-406826" alt="">
+      <img class="landing-image" src="static/assets/img/f2-linkedin-sales-navigator-406826.jpg" alt="">
     </div>
   </div> <!-- closes row div -->
   <div class="row">
     <div class="col-md-4 landing-page">
-      <img class="landing-image" src="../static/assets/img/f3-vadim-sherbakov-277610" alt="">
+      <img class="landing-image" src="static/assets/img/f3-vadim-sherbakov-277610.jpg" alt="">
     </div>
     <div class="col-md-4 landing-page">
       <h2>content3</h2>

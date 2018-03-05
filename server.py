@@ -166,7 +166,10 @@ def make_new_user():
 def display_login():
     """Load login form."""
 
-    return render_template("sign-in.html")
+    user_button_click = request.args.get("button-click-choice")
+    if not user_button_click:
+        user_button_click = "log-in"
+    return render_template("sign-in.html", u_choice=user_button_click)
 
 
 @app.route("/login", methods=["POST"])
