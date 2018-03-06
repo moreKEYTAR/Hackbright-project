@@ -8,11 +8,14 @@
 
 
 {% block content %}
-
+<!-- <h1 class="giant-h">Welcome to SamePage</h1>
+              <h1>Intuitive,lightweight project management for teams.</h1>
+              <a class="btn btn-lg btn-primary" href="/sign-in" method='GET' role="button">Sign up</a>
+              <a class="btn btn-lg btn-primary" href="/sign-in" method='GET' role="button">Log In</a> -->
 
 {% if not session.get("user_id") %}
 <!-- Tutorial: https://bootstrapious.com/p/bootstrap-carousel -->
-<div class="container">
+
 <video autoplay loop muted id="background">
   <source src="static/assets/motion/v1-Office-156.mp4" type="video/mp4">
 </video>
@@ -92,7 +95,7 @@
         </div>
       </div> <!-- close weekly-chart div -->
   </div>
-</div> <!-- Close container div -->
+
 
 {% endif %}
 

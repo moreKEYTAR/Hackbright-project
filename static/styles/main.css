@@ -1,7 +1,7 @@
 /* STYLING GUIDE */
 /* colors: 
   green: #087058
-  off-white: #F5F9EE
+  off-white: #FCFDFA
   lt-gray: #C5D1D6
   lt-pink: #F5D9E0
   lt-aqua: #A5CBCC
@@ -55,6 +55,25 @@ body {
   margin: 0;
   padding: 0;
 }*/
+
+.carousel-caption {
+    /*position: absolute;*/
+    /*top: 50%;*/
+    transform: translateX(-20%);
+}
+.carousel-caption h1 {
+    /*position: absolute;*/
+    /*top: 50%;*/
+    font-size: 100px;
+    color: #FCFDFA;
+}
+
+#sign-in-mini-window {
+  position: absolute;
+  top: 75%;
+
+
+}
 /*.row {
   width:100%;
   }*/
@@ -79,7 +98,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .giant-h {
   font-size: 100px;
-  color: #FEFEFE;
+  color: #0D242B;
 }
 .btn-primary {
   background-color: #087058;

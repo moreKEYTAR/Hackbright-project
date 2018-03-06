@@ -611,5 +611,5 @@ if __name__ == "__main__":
     app.jinja_env.auto_reload = app.debug
 
     connect_to_db(app)  # model file houses all ORM
-    DebugToolbarExtension(app)  # Use the DebugToolbar
+    # DebugToolbarExtension(app)  # Use the DebugToolbar
     app.run(host='0.0.0.0')  # DO NOT FORGET TO CHANGE THIS FOR RELEASE

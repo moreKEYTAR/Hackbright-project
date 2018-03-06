@@ -13,10 +13,12 @@ $.get("/productivity-stats.json", function (data) {
                                            });
     $('#weekly-chart-legend').html(myDonutChart.generateLegend());
 });
-$('#carousel-lifestyle').carousel({
-  interval: 3000,
-  pause: null
-  // or put pause: "hover"
+let 
+let $wdwHeight = $(window).height();
+$(window).on('resize', function () {
+    $wdwHeight = $(window).height(); // update window height to new size
+    $item.height($wdwHeight);  
+        // note it resizes the item div, to keep with the window's height not width
 });
 
 // <div class="weekly-chart">

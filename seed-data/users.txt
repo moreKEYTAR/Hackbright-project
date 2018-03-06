@@ -1,9 +1,9 @@
-1|dragonvengeance@gmail.com|Dragonz4life|Dany
-2|catofthecanals@yahoo.com|morghulis|A girl has no name
-3|nedstarksbastard@me.com|Ghost|Jon
-4|summerchild@gmail.com|wolfdreams|Bran
-5|t.lannister@gmail.com|exhand|Tyrion
-6|theornithologist@hotmail.com|fortherealm|Varys
-7|sansa@me.com|lemoncakes|Sansa
+1|dragonvengeance@queen.com|Dragonz4life|Dany
+2|catofthecanals@braavos.com|morghulis|A girl has no name
+3|nedstarksbastard@stark.com|Ghost|Jon
+4|summerchild@stark.com|wolfdreams|Bran
+5|t.lannister@casterly.com|exhand|Tyrion
+6|theornithologist@thecrown.com|fortherealm|Varys
+7|misssansa@stark.com|lemoncakes|Sansa
 8|bearlover@hotmail.com|giantsbane|Tormund GB
-9|davos@yahoo.com|davos123|Davos
+9|davos@gmail.com|davos123|Davos
