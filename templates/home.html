@@ -16,30 +16,36 @@
 {% if not session.get("user_id") %}
 <!-- Tutorial: https://bootstrapious.com/p/bootstrap-carousel -->
 
-<video autoplay loop muted id="background">
-  <source src="static/assets/motion/v1-Office-156.mp4" type="video/mp4">
-</video>
-  <div class="landing-welcome"
-    <h1 class="giant-h">Welcome to SamePage</h1>
-    <p>Intuitive,lightweight project management for teams.</p>
-      <div>
-      <form action="/sign-in" method='GET'>
-        <input type="hidden" name="button-click-choice" value="sign-up">
-        <input type="submit" class="btn btn-lg btn-primary-outline" value="Sign Up"></form></div>
-      <div><form action="/sign-in" method='GET'>
-        <input type="hidden" name="button-click-choice" value="log-in">
-        <input type="submit" class="btn btn-lg btn-primary-outline" value="Log In"></form></div>
+<div id="landing-top-div">
+  <video autoplay loop muted id="blurry-work-vid">
+    <source src="static/assets/motion/v1-Office-156.mp4" type="video/mp4">
+  </video>
 
+  <div class="col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-8 col-lg-offset-4 col-lg-4" id="landing-intro-text">
+    <h1 class="giant-h">Welcome to SamePage</h1>
+    <h3>Intuitive, lightweight project management for teams.</h3>
+      <div class="landing-button">
+        <form action="/sign-in" method='GET'>
+          <input type="hidden" name="button-click-choice" value="sign-up">
+          <input type="submit" class="btn btn-lg btn-primary" value="Sign Up">
+        </form></div>
+      <div class="landing-button">
+        <form action="/sign-in" method='GET'>
+          <input type="hidden" name="button-click-choice" value="log-in">
+          <input type="submit" class="btn btn-lg btn-primary" value="Log In">
+        </form></div>
   </div>
 </div>
-<div class="container" id="scrolling-content">
+</div>
+
+<div id="scrolling-content">
   <div class="row">
-    <div class="col-md-4 landing-page">
-      <img class="landing-image" src="static/assets/img/f1-patrick-perkins-350622.jpg" alt="">
-    </div>
-    <div class="col-md-4 landing-page">
+    <div class="col-xs-offset-1 col-xs-3 col-md-offset-1 col-md-3 landing-page">
       <h2>content1</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+    <div class="col-xs-7 landing-page">
+      <img class="landing-image img-responsive" src="static/assets/img/f1-patrick-perkins-350622.jpg" alt="">
     </div>
   </div> <!-- closes row div -->
   <div class="row">
@@ -63,39 +69,43 @@
 
 
 
-</div>
-
-
 {% else %}
 
 <!-- ///////////////////////////////////////////////////////////// -->
-
+<br><br><br><br><br><br><br>
 <div class="container">
-  <div id="home-inspo-widget">
 
+  <div id="home-inspo-widget">
     <p class="quote"> In 2010, Harvard psychologists Matthew Killingsworth and 
       Daniel Gilbert discovered that 47% of our waking hours are spent thinking 
       about something totally unrelated to what’s currently right in front of us.
     https://alifeofproductivity.com/do-one-thing-at-a-time/ </p>
-
+  </div>
+  <div id="home-tips-widget">
     <p class="quote"> On average, people can work with and remember 7 things. 
       Does your board have more than 7 things? It might be time to clean things 
       up and let some items move to the backlog.</p>
   </div>
-  <div id="home-features">
+
+
+  <div id="home-insights-widget">
+    <h2>Team Insights</h2>
+    <h4>You had a productive week! Take a look at which days your Team got the most items completed.</h4>
+
+    <div class="weekly-chart">
+      <canvas id="donut-chart-canvas"></canvas>
+      <div id="weekly-chart-legend" class="chart-legend">
+      </div>
+    </div> <!-- close weekly-chart div -->
+
+  </div> <!-- close insights div -->
+
+  <div id="home-coming-features">
     <h4>What is SamePage working on?</h4>
     <p> lorem ipsum lorem ipsum.lorem ipsum.lorem ipsum.lorem ipsum.</p>
   </div>
-    <div id="home-insights">
-    <h2>Team Insights</h2>
-      <h4>You had a productive week! Take a look at which days your Team got the most items completed.</h4>
-      <div class="weekly-chart">
-        <canvas id="donut-chart-canvas"></canvas>
-        <div id="weekly-chart-legend" class="chart-legend">
-        </div>
-      </div> <!-- close weekly-chart div -->
-  </div>
 
+</div>  <!-- closes container div -->
 
 {% endif %}
 
@@ -103,6 +113,17 @@
 <!-- **************************** SCRIPTS **************************** --> 
 
 <!-- jQuery inherited from base.html -->
+<script>
+  {% if session.get("user_id") %}
+    let userIsLoggedIn = true;
+
+  {% else %}
+    let userIsLoggedIn = false;
+
+  {% endif %}
+
+</script>
+<!-- the script below has access to the variables defined in the script tag above -->
 <script src="/static/scripts/home.js"></script>
 
 {% endblock %}

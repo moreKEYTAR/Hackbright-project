@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}SamePage Dash{% endblock %}
-{% block additionalheaders %}{% endblock %}
+
 
 <!-- Server info passed:
      - teams_list
@@ -10,11 +10,9 @@
  -->
 
 {% block content %}
+<div class="container">
+<br><br><br><br><br><br><br><br>
 
-  {% block navbarItems %}
-  <!--     <li><a href="http://localhost:5000/actions-board">
-        <button type="button">Actions Board</button></a></li> -->
-  {% endblock %}
 
 <!-- validation pending; on to do list-->
 <h1>{{ displayname }}'s Dashboard</h1>
@@ -109,7 +107,7 @@
   </div>
 </div>
 
-
+</div> <!-- closes container -->
 
 <!-- link to js below here -->
 <script src="/static/scripts/dashboard.js"></script>

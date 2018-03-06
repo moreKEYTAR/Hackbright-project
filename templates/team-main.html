@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block title %}My SamePage Teams{% endblock %}
-{% block additionalheaders %}{% endblock %}
+
 
 <!-- ************************** DATA FROM SERVER ************************** -->
   <!-- team    ..... an object
   Refer to model to see Team attributes and relationships-->
 
 {% block content %}
-
+<br><br><br><br><br><br><br>
 <!-- This will get updated with a redirect -->
 <input id="current-board-info" type="hidden" name="notes" 
        value="{{ session.get('current_board') }}">

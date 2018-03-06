@@ -1,7 +1,7 @@
 /* STYLING GUIDE */
 /* colors: 
   green: #087058
-  off-white: #FCFDFA
+  off-white: #FCFDFA 
   lt-gray: #C5D1D6
   lt-pink: #F5D9E0
   lt-aqua: #A5CBCC
@@ -56,24 +56,102 @@ body {
   padding: 0;
 }*/
 
+/*@media (min-width: 400px) {
+  #landing-top-div {
+    min-height:400;
+    }
+  #landing-intro-text {
+    max-height: 300;
+    }
+  }
+
+@media (min-width: 768px) {
+  #landing-top-div {
+    min-height:800px;
+/*    }
+  #landing-intro-text {
+    max-height: 300;
+    }*/
+ /* }}
+*//*
+@media (min-width: 992px) {
+  #landing-top-div {
+    min-height:400;
+    }
+  #landing-intro-text {
+    max-height: 300;
+    }
+  }
+
+  @media (min-width: 1200px) {
+  #landing-top-div {
+    min-height:400;
+    }
+  #landing-intro-text {
+    max-height: 300;
+    }
+  }*/
+/**/
+
+
+
+
+
+#landing-top-div {
+
+}
+
+
+#blurry-work-vid {
+  width:100%;
+
+/*  min-height: 100px;
+  max-height: 900px;*/
+}
+#landing-intro-text {
+  position:absolute;
+  top:35%;
+  left:0;
+
+  background-color: #FCFDFA;
+  opacity: 0.7;
+  padding: 40px;
+  max-width: 600px;
+  z-index: 100;
+  text-align: center;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+/*  color: #FCFDFA*/
+}
+
+.landing-button {
+  display: inline-block;
+}
 .carousel-caption {
     /*position: absolute;*/
     /*top: 50%;*/
-    transform: translateX(-20%);
+    /*transform: translateX(-20%);*/
+    position: relative;
+    top: 75%;
+    left: -20%;
 }
 .carousel-caption h1 {
     /*position: absolute;*/
     /*top: 50%;*/
-    font-size: 100px;
-    color: #FCFDFA;
+    font-size: 6vw;
+    color: #FCFDFA; 
+
+    /*font-border: .5em solid #087058;*/
 }
+
+
 
 #sign-in-mini-window {
   position: absolute;
-  top: 75%;
-
-
+  top: 45%;
 }
+
 /*.row {
   width:100%;
   }*/
@@ -96,12 +174,12 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Bariol-Regular-Italic', Helvetica, Arial, sans-serif;
 }
-.giant-h {
-  font-size: 100px;
+/*.giant-h {
+  font-size: 10em;
   color: #0D242B;
-}
+}*/
 .btn-primary {
-  background-color: #087058;
+
 }
 /*  CSS FOR TEAM-MAIN.HTML  */
 #project-details-title {
@@ -111,13 +189,15 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
   margin-left: 10px;
 }
-
+.large-para-text {
+  font-size: 2em;
+}
 
 /* TEMP COLORS FOR PROGRAMMING */
 
-ul.navbar {
+/*ul.navbar {
   list-style-type:none;
-}
+}*/
 
 ul.team-members {
   list-style-type:none;
@@ -258,6 +338,7 @@ a.edit-this {
     width:auto;
     opacity: 0.8;
     filter: alpha(opacity=80);
+    margin: 10px;
   }
     
 .floating-modal-content { /* Borrowed from W3Schools 'how to css modals'*/
@@ -265,7 +346,7 @@ a.edit-this {
     background-color: #fefefe;
     margin: 10% auto; /* 20% from the top and centered */
     padding: 20px;
-    border: 1px solid #999999;
+    border: 0;
     width:100%; /* Input text in the project modal is 300px wide...min-width?? */
     height:100%;
 }
