@@ -11,7 +11,8 @@
 
 {% block content %}
 <div class="container">
-<br><br><br><br>
+<br><br><br>
+
 
 
 <!-- validation pending; on to do list-->
@@ -59,18 +60,17 @@
       
       {% for invite in invites_list %}
         
-        <div
-        style="display:inline-block;width:200px;height:200px;vertical-align:top"> 
+        <div class="invitation-on-dash"> 
 
           <h5>{{ invite.name }}</h5>
           <p class="desc">{{ invite.desc }}</p>
-          <form action="/team-invitation" method="POST">
+          <form action="/team-invitation" class="team-invite-form" method="POST">
             <input type='hidden' name="team" value="{{ invite.team_id }}">
             <input type='hidden' name="is_joining" value="True">
             <input type='submit' id='join-team' value='Accept Team Invite'>
           </form>
           
-          <form action="/team-invitation" method="POST">
+          <form action="/team-invitation" class="team-invite-form" method="POST">
             <input type='hidden' name="team" value="{{ invite.team_id }}">
             <input type='hidden' name="is_joining" value="False">
             <input type='submit' id='ignore-team' value='Ignore Invite'>
@@ -82,7 +82,7 @@
     {% endif %}
 
 </div>
-<br><br><br><br><br>
+<br><br>
 <div>
   <h4>Make a new team</h4>
   <p>Let's make a new team. You can have different boards in your team, 

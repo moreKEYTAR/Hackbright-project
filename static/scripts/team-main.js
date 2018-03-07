@@ -277,6 +277,8 @@ $('.accept-project-button').on('click', function (evt) {
 // div with id all-board-projects starts with 'hidden' toggled on
 $('.board-button').on('click', function (evt) {
     let boardId = $(this).data("boardId");
+    let $everyBoard = $('.board');
+    $everyBoard.addClass("sleepy");
 
     if ($("#show-projects-" + boardId).is(':visible')) {
     // checks only the first div; if visible, toggles both off for the board
@@ -288,8 +290,10 @@ $('.board-button').on('click', function (evt) {
     } else {
     // handles clicking another board, which is not yet visible (regardless if
         // any are visible)
+        
         $(".show-projects").hide();
         $(".make-new-project").hide();
+        $('#'+boardId+'').removeClass("sleepy");
         $("#show-projects-" + boardId).show();
         $("#make-new-project-" + boardId).show();
     }
@@ -300,7 +304,6 @@ $('.board-button').on('click', function (evt) {
         $('#current-board-info').attr({"value": boardId});
     });     
 });
-
 
 /////////////////////////////////////////////////////////////////////////////
 /// LISTENER FOR INVITE TEAM MEMBERS MODAL ///
@@ -353,7 +356,7 @@ $(addEntry).on('click', function (evt) {
                           "rows": "3",
                           "cols": "40"});
 
-    $("#email-input-area").append(div);
+    $("#inner-invite-container").append(div);
     div.append(plusSpan);
     div.append(wordsSpan);
     div.append(newInput);

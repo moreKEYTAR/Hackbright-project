@@ -83,7 +83,7 @@
       <!--This div is no longer required; will remove when code is refactored
           for jquery agreement too, but currently has hiding & width settings requiring it to be kept -->
     {% if board.desc %}
-      <h4 class="description">{{ board.desc }}</h4>
+      <h5 class="description">{{ board.desc }}</h5>
     {% endif %}
     <!-- optional div, board.projects -->
     {% if board.projects %}
@@ -205,17 +205,19 @@
     
     <form action="/invite-teammates/{{ team.t_id }}" method="POST" 
           id="team-invitations-form">
-
-      <div id="email-input-area">
-        <!-- IMPORTANT: Any changes to the attributes of these div items need to also be updated in the js file -->
-        <span>&#43;</span><span> Teammate's email address:</span>
-        <input type="text" maxlength="254" style="width:200px;" 
-               name="email" placeholder="email address" id="email-address-default"
-               form="team-invitations-form" required>
-        <textarea form="team-invitations-form" name="email-message" 
-                  id="textarea-template-team-invites" rows="3" 
-                  cols="40">{{ session.get("displayname") }} has invited you to join the team {{ team.name }} on SamePage. Accept to help complete projects for {{ team.name }}.</textarea>
-      </div> <!-- Close email-input-area div -->
+      <div id="inner-invite-container">
+        <div id="email-input-area">
+          <!-- IMPORTANT: Any changes to the attributes of these div items need to also be updated in the js file -->
+          <span>&#43;</span><span> Teammate's email address:</span>
+          <input type="text" maxlength="254" style="width:200px;" 
+                 name="email" placeholder="email address" id="email-address-default"
+                 form="team-invitations-form" required>
+          <textarea form="team-invitations-form" name="email-message" 
+                    id="textarea-template-team-invites" rows="3" 
+                    cols="40">{{ session.get("displayname") }} has invited you to join the team {{ team.name }} on SamePage. Accept to help complete projects for {{ team.name }}.</textarea>
+        </div> <!-- Close email-input-area div -->
+      <br>
+      </div>
       <button id="add-email-invite-inputs-button" 
               data-team-id="{{ team.t_id }}">&#43;</button>
 

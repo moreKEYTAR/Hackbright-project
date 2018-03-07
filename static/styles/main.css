@@ -34,7 +34,12 @@
   opacity: .7;
 }
 
-
+.invitation-on-dash {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  vertical-align: top;
+}
 
 
 @font-face {
@@ -66,14 +71,22 @@
     font-style: normal;
 }
 
+
+
 body {
   height:96%;     /* 100% * (pageContainer*2) */
   margin: 0;
-  padding: 0;
+  padding-top: 40px;
   font-family: 'Bariol-Regular', Helvetica, Arial, sans-serif;
   color: #0D242B;
 /*  background: url(/static/assets.....jpg) no-repeat center center;
   background-size: cover;*/
+}
+
+@media (max-width: 979px) {
+  body {
+    padding-top: 0px;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -111,6 +124,26 @@ button {
   color: #A5CBCC;
 }
 
+#ignore-team, #join-team, #show-make-team {
+  
+  margin: 2px;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  border: 2px solid #A5CBCC;
+  padding: 5px;
+  color: #A5CBCC;
+}
+
+#team-invite-form {
+  display: inline-block;
+}
+#ignore-team:hover, #join-team:hover, #show-make-team:hover {
+  border: 2px solid #0D242B;
+  color: #0D242B;
+}
+
+
 .my-nav-button {
   background-color: transparent;
   border-radius: 0;
@@ -126,6 +159,7 @@ button:hover {
   border: 0;
   border-radius: 0;
   color: #0D242B;
+  font-size: 18px;
 }
 
 .input-button {
@@ -171,7 +205,15 @@ input.input-btn-sign-in {
   width: 120px;
 
 }
-
+#login-submission {
+  border:0;
+  border-radius: 1;
+  background-color: transparent;
+  border: 1px solid #5E4E40;
+  color: #5E4E40;
+  padding: 10px;
+  width: 120px;
+}
 
 #register-form input {
   margin: 8px;
@@ -183,6 +225,24 @@ input.input-btn-sign-in {
   margin: 8px;
   padding: 2px;
 }
+
+.if-unclaimed-project {
+/*  text-align: center;*/
+}
+
+.accept-project-button {
+  color: #0D242B;
+  border: 1px solid #0D242B;
+  padding: 3px;
+  margin-left: 5px
+}
+
+
+.accept-project-button:hover {
+  color: #F4F6F7;
+  border: 1px solid #F4F6F7;
+}
+
 /*.glyphicon.glyphicon-one-fine-dot:before {
     content: "\25cf";
     font-size: 1.5em;
@@ -363,6 +423,10 @@ h2 {
   margin:0;
   padding:0;
 }
+
+#user-dock {
+  padding: 15px;
+}
 /*
 #home-row-1 {
 
@@ -437,8 +501,11 @@ a.edit-this {
   /* I had to add the float to get them to be inline at all*/
   vertical-align: top;
   background-color:#F4F6F7;
-  width:25%;
+  min-width: 25%;
+  max-width:30%;
   margin-right: 8px;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 1px;
 }
 
 .sleepy {
@@ -450,12 +517,16 @@ a.edit-this {
 
 }
 
-
+.encouragement {
+  color: #F5D9E0;
+  font-style: italic;
+}
 
 .show-projects {
   width:100%;
   min-height: 250px;
   background-color:#F4F6F7;
+  padding: 15px;
 }
 
 .make-new-project {
@@ -498,6 +569,13 @@ a.edit-this {
   background-color: #F5D9E0;
   width:200px;
   height:200px;
+  margin: 5px;
+  padding:5px;
+
+}
+project-content-in-dock {
+  margin: 3px;
+  padding: 3px;
 }
 .if-unclaimed-project {
   display: inline-block;
@@ -514,8 +592,11 @@ a.edit-this {
   padding: 6px;
 }
 
-#team-invitations-form textarea {
-  resize: none;
+
+
+#add-email-invite-inputs-button {
+  padding: 2px;
+  width:28px;
 }
 
 .dock {
@@ -533,6 +614,18 @@ a.edit-this {
 /* .dock:hover, .dock:focus { 
   background-color:#00b3b3;
 }*/
+
+#email-input-area {
+  height: 20px;
+  display: flex;
+  align-items: top;
+}
+#email-input-area.textarea {
+  height: 40px;
+  display: flex;
+  align-items: top;
+}
+
 
 h4.description {
   margin: 0;
