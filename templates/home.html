@@ -19,7 +19,7 @@
 <div id="landing-top-div">
   <div id="vid-overlay">
   <video autoplay loop muted id="blurry-work-vid">
-    <source src="static/assets/motion/v1-Office-156.mp4" type="video/mp4">
+    <source src="/static/assets/motion/v1-Office-156.mp4" type="video/mp4">
   </video>
   <div>
 
@@ -52,7 +52,7 @@
       src="static/assets/img/f1-patrick-perkins-350622.jpg" alt="">
     </div>
     <div class="col-xs-offset-1">
-      <h2>No subtasks, no alerts, no assignments</h2>
+      <h2 class="home-lead">No subtasks, no alerts, no assignments</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div>
 <!--     <div class="col-xs-offset-1 col-xs-7 landing-page">
@@ -65,7 +65,7 @@
       src="static/assets/img/f2-linkedin-sales-navigator-406826.jpg" alt="">
     </div>
     <div class="col-xs-offset-1">
-      <h2>Make teams and boards for work, with friends, or just you</h2>
+      <h2 class="home-lead">Make teams and boards for work, with friends, or just you</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div></div>
     <div class="row scrolling-home-row">
@@ -74,7 +74,7 @@
       src="static/assets/img/f3-vadim-sherbakov-277610.jpg" alt="">
     </div>
     <div class="col-xs-offset-1">
-      <h2>Grab items off the board to get started</h2>
+      <h2 class="home-lead">Grab items off the board to get started</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div>
   </div>
@@ -83,16 +83,19 @@
 {% else %}
 
 <!-- ///////////////////////////////////////////////////////////// -->
-<br><br><br><br><br><br><br>
+<br><br><br><br>
 <div class="container">
-
+  <div id="insights-header">
+    <h1> Your SamePage Insights </h1>
+  </div>
+  <br>
   <h2>Team Insights</h2>
   <div id="home-insights-widget">
     <h4>You had a productive week! Take a look at which days your Team got the most items completed.</h4>
 
     <div class="weekly-chart">
       <canvas id="donut-chart-canvas"></canvas>
-<!--       <div id="weekly-chart-legend" class="chart-legend">
+  <!--       <div id="weekly-chart-legend" class="chart-legend">
       </div> -->
     </div> <!-- close weekly-chart div -->
 
@@ -125,11 +128,12 @@
     <!-- https://abcnews.go.com/Technology/brain-memory-magic-number/story?id=9189664 -->
   </div>
 
-  <br>
-  <div id="home-coming-features">
-    <h2>Coming features on SamePage</h2>
-    <p> lorem ipsum lorem ipsum.lorem ipsum.lorem ipsum.lorem ipsum.</p>
-  </div>
+    <br>
+    <div id="home-coming-features">
+      <h2>Coming features on SamePage</h2>
+      <br>
+      <p> lorem ipsum lorem ipsum.lorem ipsum.lorem ipsum.lorem ipsum.</p>
+    </div>
 
 </div>  <!-- closes container div -->
 

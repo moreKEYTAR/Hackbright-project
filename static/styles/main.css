@@ -135,13 +135,11 @@ button {
   color: #A5CBCC;
 }
 
-#team-invite-form {
-  display: inline-block;
-}
 #ignore-team:hover, #join-team:hover, #show-make-team:hover {
   border: 2px solid #0D242B;
   color: #0D242B;
 }
+
 
 
 .my-nav-button {
@@ -258,6 +256,7 @@ input.input-btn-sign-in {
 
 #pd-notes-textarea-is-owner {
   width: 100%;
+  padding: 4px;
 }
 
 
@@ -265,6 +264,23 @@ input.input-btn-sign-in {
     background-color: #FCFDFA;
     color: #0D242B;
 
+}
+#insights-header {
+  text-align: center;
+
+  height:50px;
+}
+#insights-header h1 {
+  font-size: 45px;
+}
+  
+#home-inspo-widget h4 {
+  color: #087058;
+
+}
+
+#home-tips-widget h4 {
+  color: #087058;
 }
 
 #dashboard-link {
@@ -291,7 +307,7 @@ div.landing-form-inputs {
 
 #landing-top-div {
   background: url(
-    "static/assets/motion/v1-Office-156.mp4");
+    "/static/assets/motion/v1-Office-156.mp4");
 }
 @media (min-width: 800px) {
   #landing-intro-text {
@@ -300,7 +316,7 @@ div.landing-form-inputs {
   }
 #landing-intro-text {
   position:absolute;
-  top:220px;
+  top:228px;
   left:0;
   border: 1px solid #FCFDFA;
   background-color: transparent;
@@ -424,6 +440,11 @@ h2 {
   padding:0;
 }
 
+h2.home-lead {
+  margin-top: 2px;
+  margin-bottom: 15px;
+}
+
 #user-dock {
   padding: 15px;
 }
@@ -472,6 +493,7 @@ div.attribution {
 
 ul.team-members {
   list-style-type:none;
+  color: #0D242B;
 }
 
 ul li.one-team-member {
@@ -480,6 +502,9 @@ ul li.one-team-member {
     padding-left:0;
 }
 
+#teammate-name-list-item {
+  color: #0D242B;
+}
 
 
 a.edit-this {
@@ -493,7 +518,9 @@ a.edit-this {
   display: none;
 }
 
-
+#flashed-messages-generator {
+  margin-top: 50px
+}
 
 .board {
   display:inline-block;
@@ -616,16 +643,24 @@ project-content-in-dock {
 }*/
 
 #email-input-area {
-  height: 20px;
+  /*height: 20px;*/
   display: flex;
   align-items: top;
 }
-#email-input-area.textarea {
-  height: 40px;
-  display: flex;
+#email-input-area.textarea, .add-email-invite-div  {
+  height: 60px;
+  /*display: flex;*/
   align-items: top;
+  margin:2px;
 }
 
+.add-email-invite-div {
+
+}
+#email-address-default {
+  margin: 2px;
+  height: 30px;
+}
 
 h4.description {
   margin: 0;

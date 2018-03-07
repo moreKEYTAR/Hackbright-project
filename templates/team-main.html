@@ -9,7 +9,7 @@
 
 {% block content %}
 <div class="container">
-<br><br><br><br><br><br><br>
+<br><br>
 <!-- This will get updated with a redirect -->
 <input id="current-board-info" type="hidden" name="notes" 
        value="{{ session.get('current_board') }}">
@@ -28,7 +28,7 @@
 <ul class="team-members">
   {% for userteam in team.userteams %}
     {% if userteam.is_member == true %}
-    <li class="one-team-member"><span>{{ userteam.user.displayname }}          </span></li>
+    <li class="one-team-member"><span>&#9648;</span><span id="teammate-name-list-item">  {{ userteam.user.displayname }}         </span></li>
     {% endif %}
   {% endfor %}
 </ul>
@@ -40,12 +40,9 @@
 <div id="success-claimed-project">Awesome! You own the project. 
   It will also now be accessible on your Action Board.
 </div>
-
+<br>
 <!-- MAKE A NEW BOARD FOR THE TEAM: DIV & BUTTON -->
-<div id="make-new-board">
-  <button type="button" id="new-board-button" 
-          data-team-id="{{ team.t_id }}">Add a new board</button>
-</div><br>
+
 
 <!-- A note on the show/hide behavior: 
      Board button above is always visible; projects are visible based on clicking that board button. Then all other show projects divs hid, and this one shows for the event.target / project button that was clicked. -->
@@ -70,6 +67,7 @@
 {% else %} <!-- If there are no boards yet -->
   <p class="encouragement">No boards yet. Click below to make one!</p>
 {% endif %}   
+
 
 
 <!-- ******************** MAKE HIDDEN PROJECTS AREA ******************** -->
@@ -152,8 +150,12 @@
 
 {% endif %} <!-- ends the if team.boards check -->
 <br>
-<br>
 
+<div id="make-new-board">
+  <button type="button" id="new-board-button" 
+          data-team-id="{{ team.t_id }}">Add a new board</button>
+</div><br>
+<br>
 <!-- ****************************** DOCK ******************************* -->
 <h3>Your In Progress Dock</h3>
 <div class="dock" id="user-dock" data-user-id="{{ session['user_id'] }}">

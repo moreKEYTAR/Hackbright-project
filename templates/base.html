@@ -77,7 +77,7 @@
 
       <form action="/sign-in" method='GET' class="navbar-form navbar-right">
         <input type="hidden" name="button-click-choice" value="sign-up">
-        <input type="submit" class="btn" value="Sign Up">
+        <input type="submit" class="btn my-nav-button" value="Sign Up">
       </form>
         <!-- former button classes: class="btn btn-lg btn-primary-outline"  -->
     </div>
@@ -87,14 +87,16 @@
 
 </nav>
 
-<div id="flashed-messages-generator">
 {% with messages = get_flashed_messages() %}
-    {% for message in messages %}
-      <!-- Bootstrap classes to format flash message -->
-      <div class="alert alert-warning">{{ message }}</div>
-    {% endfor %}
+  {% if messages %}
+    <div id="flashed-messages-generator">
+      {% for message in messages %}
+        <!-- Bootstrap classes to format flash message -->
+        <div class="alert alert-warning">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
 {% endwith %}
-</div>
 
 {% block content %}
 
