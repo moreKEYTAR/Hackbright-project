@@ -29,12 +29,11 @@
     <h3>Your Teams</h3>
     <div id="joined-teams">
     {% for team in teams_list %}
-      <div 
-      style="display:inline-block;width:200px;height:100px;vertical-align:top"> 
+      <div class="team-div"> 
       <!-- Fix later: put in CSS file -->
         <form action="/view-team" method="POST">
           <input type="hidden" name="team" value="{{ team.team_id }}">
-          <input type="submit" value="{{ team.name }}">
+          <input class="btn btn-default" type="submit" value="{{ team.name }}">
           <a class="editing-glyph" href="#"><span class="glyphicon glyphicon-edit"></span></a>
 <!--           <a href="#"><span class="glyphicon glyphicon-trash"></span></a> -->
           {% if team.desc %}
@@ -81,23 +80,16 @@
     {% endif %}
 
 </div>
-
+<br><br><br><br><br>
 <div>
   <h4>Make a new team</h4>
-  <p>make helper info like a mouseover or flash to encourage people to do 
-    this and explain it is how they make boardsssssssssssssss</p>
-      <p>PENDING: THIS FORM SHOULD BE HIDDEN UNTIL A BUTTON IS PUSHED, THEN 
-        THE FORM SHOULD BE IN A FLOATING POP UP, AND NOT SUBMIT UNTIL AT 
-        LEAST THE NAME IS TYPED</p>
-        <p>Let's make a new team. You can have different boards in your team, 
-          so don't worry about those yet. Just pick a team name based on 
-          whether this is for your work, or perhaps for your own "home team." </p>
+  <p>Let's make a new team. You can have different boards in your team, 
+    so don't worry about those yet. Just pick a team name based on 
+    whether this is for your work, or perhaps for your own "home team." </p>
   <div id="show-new-team">
-    <input id="show-make-team" type='button' value='Make a new team'>
+    <input id="show-make-team" class="btn btn-default" type='button' value='Make a new team'>
   </div>
-
   <br>
-
   <div id="new-team" class="hidden">
     New team name: <input id="new-team-name" type="text" 
                     placeholder='type name here'>

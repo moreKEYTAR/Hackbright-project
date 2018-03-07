@@ -1,7 +1,9 @@
 "use strict"; /*jslint node: true */
 
-
-
+function styleButtons () {
+    let $buttons = $('button');
+    $buttons.addClass('btn btn-default');
+}
 
 // div with id new-team starts with 'hidden' toggled on
 $('#show-make-team').on('click', function (evt) {
@@ -24,7 +26,7 @@ $('#trigger-make-team').on('click', function (evt) {
                 inputHidden.attr({"type": "hidden", "name": "team", 
                                   "value": results.teamId});
             let inputSubmit = $("<input>");
-                inputSubmit.attr({"type": "submit", "value": newTeamName});
+                inputSubmit.attr({"type": "submit", "value": newTeamName, "class": "btn btn-default"});
             let aPencil = $('<a>');
                 aPencil.attr({"href": "#"});
             let pencilSpan = $('<span>');
@@ -52,4 +54,12 @@ $('#trigger-make-team').on('click', function (evt) {
 
     $('#new-team').toggleClass('hidden');
 
+    styleButtons();
+
     }); // close function & event listener
+
+// FUNCTION CALLS ////////////////////////////////////////////////////
+
+styleButtons();
+
+

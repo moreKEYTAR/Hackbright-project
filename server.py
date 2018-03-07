@@ -109,20 +109,20 @@ def productivity_data_chartA():
                             "Saturday",
                             "Sunday"],
                  "datasets": [{"data": weekly_stats,
-                               "backgroundColor": ["yellow",
-                                                   "blue",
-                                                   "lightgreen",
-                                                   "purple",
-                                                   "pink",
-                                                   "orange",
-                                                   "lightblue"],
-                               "hoverBackgroundColor": ["#FF6384",
-                                                        "#36A2EB",
-                                                        "#FFCE56",
-                                                        "#FF6384",
-                                                        "#36A2EB",
-                                                        "#FFCE56",
-                                                        "#FF6384"]
+                               "backgroundColor": ["#FF6384",
+                                                   "#A5CBCC",
+                                                   "#FF7E6B",
+                                                   "#70AE6E",
+                                                   "#FFB8C7",
+                                                   "#434371",
+                                                   "#F4D461"],
+                               "hoverBackgroundColor": ["#E68C94",
+                                                        "#C9DFE0",
+                                                        "#FFB2A6",
+                                                        "#9FC89D",
+                                                        "#FACCE1",
+                                                        "#767697",
+                                                        "#F8E39A"]
                                }]
                  }
 
@@ -524,7 +524,10 @@ def invite_new_teammates(team_id):
     #  Update database to track pending invite
     for email in emails_lst:
         already_relationshp = None
+        # import pdb; pdb.set_trace()
         user_object = q.get_user_by_email(email)
+            # <lantz.ek@gmail.com  U_ID: 10  Displayname: Liz>s
+
         if user_object:  # user is a member
             # if the user is registered or not, the relationship begins as null
             # check for userteam relationship
@@ -537,6 +540,7 @@ def invite_new_teammates(team_id):
                         break  # relationship exists, regardless of status
                 if already_relationshp is None:
                     new_userteam = UserTeam(user_id=user_object.u_id, team_id=team_id, is_member=None)
+                    #<UT_ID: None  User: 10  Team: 8>
                     q.add_to_db(new_userteam)
             else:
                 new_userteam = UserTeam(user_id=user_object.u_id, team_id=team_id, is_member=None)

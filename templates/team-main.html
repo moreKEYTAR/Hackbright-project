@@ -8,14 +8,14 @@
   Refer to model to see Team attributes and relationships-->
 
 {% block content %}
+<div class="container">
 <br><br><br><br><br><br><br>
 <!-- This will get updated with a redirect -->
 <input id="current-board-info" type="hidden" name="notes" 
        value="{{ session.get('current_board') }}">
 
-<p>{{ team.t_id }}</p>
 
-<h1>Team home: {{ team.name }}</h1>
+<h1 class="inline-header">Team home: {{ team.name }}</h1>
 <a class="editing-glyph" href="#"><span class="glyphicon glyphicon-edit"></span></a>
 {% if team.desc %}
 <h5>{{ team.desc }}</h5>
@@ -62,9 +62,7 @@
               {{ board.name }}</button>
         <a class="editing-glyph" href="#"><span class="glyphicon glyphicon-edit"></span></a>
         <!-- <a href="#"><span class="glyphicon glyphicon-trash"></span></a> -->
-      {% if board.desc %}
-      <p class="description">{{ board.desc }}</p>
-      {% endif %}
+      
 
     </div> <!-- Closes an individual board div -->
     {% endfor %}
@@ -84,7 +82,9 @@
        id="show-projects-{{ board.b_id }}" hidden>
       <!--This div is no longer required; will remove when code is refactored
           for jquery agreement too, but currently has hiding & width settings requiring it to be kept -->
-
+    {% if board.desc %}
+      <h4 class="description">{{ board.desc }}</h4>
+    {% endif %}
     <!-- optional div, board.projects -->
     {% if board.projects %}
     <div class="if-board-has-projects">  
@@ -363,7 +363,7 @@
             <p>Notes: <i>(max 3000 char)</i></p>
             <textarea id="pd-notes-textarea-is-owner" 
                       form="project-details-owner-form" 
-                      name="notes" rows="12" cols="50"></textarea>
+                      name="notes"></textarea>
           </div>
           <br>
           <input type="submit" value="Save Changes" 
@@ -398,7 +398,7 @@
     </div>  <!-- ///////// CLOSE MODAL WINDOW CONTENT /////// -->
 </div>  <!-- Close "new-board-modal" -->
 <br>  <!-- end of page break spacing -->
-
+</div> <!-- Close container div -->
 
 <!-- ***************************************************************** -->
 <!-- **************************** SCRIPTS **************************** --> 

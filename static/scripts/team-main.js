@@ -74,12 +74,20 @@ function updateInteractivity () {
 /// FUNCTION TO HAVE MOST RECENT BOARD OPEN ///
 
 function showRecentBoard() {
+
+    let $everyBoard = $('.board');
+    $everyBoard.addClass("sleepy");
     let currentBoard = $('#current-board-info').attr("value");
+
     if (currentBoard === "None") {
         console.log("Boards all closed.");
+
     } else {
         $(".show-projects").hide();
         $(".make-new-project").hide();
+
+        let $myBoard = $('#'+currentBoard+'');
+        $myBoard.removeClass("sleepy");
         $("#show-projects-" + currentBoard).show();
         $("#make-new-project-" + currentBoard).show();
 }}

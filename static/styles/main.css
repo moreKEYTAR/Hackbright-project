@@ -6,11 +6,10 @@
   lt-pink: #F5D9E0
   lt-aqua: #A5CBCC
   rich brown: #5E4E40
-  midnight: #0D242B*/
+  board color (light llight gray): #F4F6F7;
+  midnight: #0D242B */
 
-html {
-  /*color: #0D242B;*/
-}
+
 
 @font-face {
     font-family: 'Bariol-Regular';
@@ -93,14 +92,54 @@ body {
   }*/
 /**/
 
-
-
-
-
-#landing-top-div {
+  /*#A5CBCC;*/
+  /*  #FCFDFA;*/
+button {
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  border: 3px solid #A5CBCC;
+  padding: 10px;
+  color: #A5CBCC;
+ 
 
 }
 
+button:hover {
+  color: yellow;
+
+}
+
+.board > button {
+  border: 0;
+  border-radius: 0;
+  color: #0D242B;
+}
+
+/*.glyphicon.glyphicon-one-fine-dot:before {
+    content: "\25cf";
+    font-size: 1.5em;
+}
+*/
+.team-div {
+  margin-top: 25px;
+  display:inline-block;
+  width:30%;
+  height:100px;
+  vertical-align: top;
+}
+
+#pd-notes-textarea-is-owner {
+  width: 100%;
+}
+
+#dashboard-link {
+ margin-top: 15px;
+}
+
+.navbar-form {
+  margin-top: 20px;
+}
 
 #blurry-work-vid {
   width:100%;
@@ -170,6 +209,14 @@ body {
   background-repeat: no-repeat;
 }
 
+.circle {
+  width: 100px;
+  height: 100px;
+  background: red;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+}
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Bariol-Regular-Italic', Helvetica, Arial, sans-serif;
@@ -178,6 +225,10 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 10em;
   color: #0D242B;
 }*/
+
+.inline-header {
+  display: inline-block;
+}
 .btn-primary {
 
 }
@@ -192,6 +243,19 @@ h1, h2, h3, h4, h5, h6 {
 /* used in navbar for Dashboard */
 .large-para-text {
   font-size: 2em;
+}
+h2 {
+  margin:0;
+  padding:0;
+}
+
+#home-row-1 {
+
+  background: url("/static/assets/img/f1-patrick-perkins-350622.jpg");
+  background-size: 100%;
+  height:400px;
+  text-align: center;
+  padding:60px;
 }
 
 span.attribution {
@@ -224,9 +288,7 @@ ul li.one-team-member {
     padding-left:0;
 }
 
-/*h3.inline-heading {
-  display:inline;
-}*/
+
 
 a.edit-this {
   font-style: italic;
@@ -239,39 +301,40 @@ a.edit-this {
   display: none;
 }
 
-.board > button {
-  background-color:#087058;
-}
+
 
 .board {
   display:inline-block;
   /*float:left; */
   /* I had to add the float to get them to be inline at all*/
   vertical-align: top;
-  background-color:#F5F9EE;
-  width:20%;
+  background-color:#F4F6F7;
+  width:25%;
+  margin-right: 8px;
+}
+
+.sleepy {
+  background-color:#E4EAEC;
 }
 
 #all-team-boards {
-  width:90%;
-  background-color: rgb(71, 71, 107);
-  /* what do i do about height??*/
+  width:100%;
+
 }
 
-.add-project-to-board-button {
-  background-color:#99ffbb;
-}
+
 
 .show-projects {
-  width:90%;
+  width:100%;
   min-height: 250px;
-  background-color:#C5D1D6;
+  background-color:#F4F6F7;
 }
 
 .make-new-project {
-  background-color:#E4E4E4;
-  width:90%;
+  background-color:#F4F6F7;
+  width:100%;
   text-align: bottom;
+  padding: 10px;
 }
 
 .make-new-project {
@@ -281,12 +344,15 @@ a.edit-this {
 .project {
   display:inline-block;
   vertical-align: top;
+
+
 }
 
 .project-content-idea {
   background-color: #A5CBCC;
   width:128px;
   height:128px;
+  padding: 6px;
   /* #C4DAD5 */
 }
 
@@ -294,6 +360,7 @@ a.edit-this {
   background-color: #F5D9E0;
   width:128px;
   height:128px;
+  padding: 6px;
   /* #C4DAD5 */
 }
 
@@ -304,18 +371,29 @@ a.edit-this {
   width:200px;
   height:200px;
 }
+.if-unclaimed-project {
+  display: inline-block;
+}
 
+.upvotes {
+  display: inline-block;
+}
 .make-new-project {
   text-align:right; 
 }
+
+.if-board-has-projects {
+  padding: 6px;
+}
+
 #team-invitations-form textarea {
   resize: none;
 }
 
 .dock {
   /* styling update pending */
-  background-color:#C5D1D6;
-  width:90%; 
+  background-color:#F4F6F7;
+  width:100%; 
   /* same width as #all-team-boards...may be a good idea to make this a joint styling*/
   height:400px;
   /*temporary height*/
@@ -328,7 +406,10 @@ a.edit-this {
   background-color:#00b3b3;
 }*/
 
-
+h4.description {
+  margin: 0;
+  padding: 0;
+}
 /* MODAL STYLING */
 .modal {
   display:none; /* Starts hidden, using CSS */
