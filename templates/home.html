@@ -17,58 +17,67 @@
 <!-- Tutorial: https://bootstrapious.com/p/bootstrap-carousel -->
 
 <div id="landing-top-div">
+  <div id="vid-overlay">
   <video autoplay loop muted id="blurry-work-vid">
     <source src="static/assets/motion/v1-Office-156.mp4" type="video/mp4">
   </video>
+  <div>
 
-  <div class="col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-8 col-lg-offset-4 col-lg-4" id="landing-intro-text">
-    <h1 class="giant-h">Welcome to SamePage</h1>
-    <h3>Intuitive, lightweight project management</h3>
-      <div class="landing-button">
+  <div class="col-xs-offset-1 col-xs-10 col-md-offset-3 col-md-6 col-lg-offset-4 col-lg-4" 
+  id="landing-intro-text">
+    <div class="landing-intro-content">
+      <h1 class="brand-name">SamePage</h1>
+      <h3 id="tagline">Intuitive, lightweight<br>project management</h3>
+      <div class="landing-form-inputs">
         <form action="/sign-in" method='GET'>
           <input type="hidden" name="button-click-choice" value="sign-up">
-          <input type="submit" class="btn btn-lg btn-primary" value="Sign Up">
+          <input type="submit" class="input-button" value="Sign Up">
         </form></div>
-      <div class="landing-button">
+      <div class="landing-form-inputs">
         <form action="/sign-in" method='GET'>
           <input type="hidden" name="button-click-choice" value="log-in">
-          <input type="submit" class="btn btn-lg btn-primary" value="Log In">
+          <input type="submit" class="input-button" value="Log In">
         </form></div>
+    </div> <!-- closes landing intro content -->
   </div>
+
 </div>
-</div>
+
 <!-- class="col-xs-offset-1 col-xs-3 col-md-offset-1 col-md-3 landing-page" -->
 
-<div id="scrolling-content">
-  <div class="row">
-    <div id="home-row-1">
+<div class="container" id="scrolling-content">
+  <div class="row scrolling-home-row">
+    <div>
+      <img class="landing-image img-responsive" 
+      src="static/assets/img/f1-patrick-perkins-350622.jpg" alt="">
+    </div>
+    <div class="col-xs-offset-1">
       <h2>No subtasks, no alerts, no assignments</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div>
 <!--     <div class="col-xs-offset-1 col-xs-7 landing-page">
       <img class="landing-image img-responsive" 
-      src="static/assets/img/f1-patrick-perkins-350622.jpg" alt="">
-    </div> -->
+      src="static/assets/img/f1-patrick-perkins-350622.jpg" alt="">-->
   </div> <!-- closes row div -->
-  <div class="row">
-    <div class="col-md-4 landing-page">
-      <h2>content2</h2>
+    <div class="row scrolling-home-row">
+    <div>
+      <img class="landing-image img-responsive" 
+      src="static/assets/img/f2-linkedin-sales-navigator-406826.jpg" alt="">
+    </div>
+    <div class="col-xs-offset-1">
+      <h2>Theme teams and boards to organize your to dos and ideas</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div></div>
+    <div class="row scrolling-home-row">
+    <div>
+      <img class="landing-image img-responsive" 
+      src="static/assets/img/f3-vadim-sherbakov-277610.jpg" alt="">
+    </div>
+    <div class="col-xs-offset-1">
+      <h2>Grab items off the board to get started</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div>
-    <div class="col-md-8 landing-page">
-      <img class="landing-image" src="static/assets/img/f2-linkedin-sales-navigator-406826.jpg" alt="">
-    </div>
-  </div> <!-- closes row div -->
-  <div class="row">
-    <div class="col-md-4 landing-page">
-      <img class="landing-image" src="static/assets/img/f3-vadim-sherbakov-277610.jpg" alt="">
-    </div>
-    <div class="col-md-4 landing-page">
-      <h2>content3</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    </div>
-  </div> <!-- closes row div -->
-
+  </div>
 
 
 {% else %}

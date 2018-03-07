@@ -50,15 +50,29 @@ $(window).on('resize', function () {
 });
 
 
+let $numberofSlides = $('.carousel-item').length;
+let $currentSlide = Math.floor((Math.random() * $numberofSlides));
+
+$('.carousel-indicators li').each(function(){
+  let $slideValue = $(this).attr('data-slide-to');
+  if($currentSlide == $slideValue) {
+    $(this).addClass('active');
+    $item.eq($slideValue).addClass('active');
+  } else {
+    $(this).removeClass('active');
+    $item.eq($slideValue).removeClass('active');
+  }
+});
+
 // https://www.w3schools.com/jquery/traversing_eq.asp
 //  again grabbing all item divs, indexed (cool!), apply this method to that nth thing:
-$item.eq(0).addClass('active');
+// $item.eq(0).addClass('active');
     // From website:
         // This allows us to prevent a small toggle that is possible to occur 
             // between the two different heights (before and after the changes 
                 // we made) of the first slide.
 
 $('.carousel').carousel({
-  interval: 4800,
+  interval: 4100,
   pause: "false"
 });

@@ -11,7 +11,7 @@
 
 {% block content %}
 <div class="container">
-<br><br><br><br><br><br><br><br>
+<br><br><br><br>
 
 
 <!-- validation pending; on to do list-->
@@ -29,18 +29,20 @@
     <h3>Your Teams</h3>
     <div id="joined-teams">
     {% for team in teams_list %}
-      <div class="team-div"> 
+      <div class="team-div" id="parallelogram"> 
       <!-- Fix later: put in CSS file -->
+      <div class="content-per-team" id="no-parallelogram">
         <form action="/view-team" method="POST">
           <input type="hidden" name="team" value="{{ team.team_id }}">
-          <input class="btn btn-default" type="submit" value="{{ team.name }}">
-          <a class="editing-glyph" href="#"><span class="glyphicon glyphicon-edit"></span></a>
+          <input class="nav-to-team" type="submit" value="{{ team.name }}">
+          <div><a class="editing-glyph" href="#"><span class="team-edit-glyph glyphicon glyphicon-edit"></span></a></div>
 <!--           <a href="#"><span class="glyphicon glyphicon-trash"></span></a> -->
           {% if team.desc %}
-          <p class="desc">{{ team.desc }}</p>
+          <h5 class="desc">{{ team.desc }}</h5>
           {% endif %}
         </form>
-      </div>   
+      </div> 
+    </div>  
     {% endfor %}
     </div> <!-- closes joined-teams -->
 

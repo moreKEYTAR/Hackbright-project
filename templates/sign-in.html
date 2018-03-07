@@ -13,7 +13,7 @@
 <div id="carousel-landing" class="carousel slide" data-ride="carousel">
   
   <ol class="carousel-indicators">
-    <li data-target="#carousel-landing" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-landing" data-slide-to="0"></li>
     <li data-target="#carousel-landing" data-slide-to="1"></li>
     <li data-target="#carousel-landing" data-slide-to="2"></li>
     <li data-target="#carousel-landing" data-slide-to="3"></li>
@@ -26,14 +26,14 @@
     <li data-target="#carousel-landing" data-slide-to="10"></li>
 
   </ol>
-
+<!--  REMOVED ACTIVE CLASS FROM THE FIRST item div AND indicators -->
   <!-- Div section: Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
 
-      <div class="carousel-item item active">
+      <div class="carousel-item item">
         <!-- img class below sets display as block, width as 100% -->
         <img class="d-block w-100" alt="" data-color="green"
-             src="static/assets/img/c1-rawpixel-com-284723.jpg">
+             src="static/assets/img/c1-new-people-coffee-tea-meeting.jpg">
 
           <div class="carousel-caption" d-none d-md-block>
               <h1 giant-h>Work together</h1>
@@ -141,35 +141,34 @@
 
 
   
-<div id="sign-in-mini-window" class="col-xs-12 col-md-offset-3 col-md-6 col-lg-offset-8 col-lg-4">
+<div id="sign-in-floating-modal" 
+     class="col-xs-offset-2 col-xs-8 col-md-offset-7 col-md-5 col-lg-offset-8 col-lg-4">
 
-  <div class="floating-modal"> 
+  <div class="floating-modal-frame"> 
       
       <!-- MODAL WINDOW CONTENT -->
-      <div class="floating-modal-content" id="sign-in-page-modal"> <!-- form appends to modal window content -->
+      <div class="floating-modal-content"> <!-- form appends to modal window content -->
 
         <div id="register-new-user-form">
           <h1>Register</h1>
           <div>
             <form action='/register' method='POST' id='register-form'>
-              <p class="reg-page">Sign up with email and password</p>
+              <h5 class="reg-page">Sign up with email and password</h5>
               <input type='text' name='email' placeholder='email address' 
-                     size="50" style="display:block" required>
-              <input type='password' name='pw' placeholder='password' size="30" style="display:block" required>
-              <p class="reg-page">Type a display name</p>
+                     size="40" style="display:block" required>
+              <input type='password' name='pw' placeholder='password' size="40" style="display:block" required>
+              <h5 class="reg-page">Choose a display name</h5>
               <input type='text' name='displayname' placeholder='your name' 
                 size="30" maxlength="30" style="display:block" required>
               <div id='submit-register'>
-                <input type='submit' id='register-submission' value='Sign Up!'>
-                <p>It would be nice to validate the email or re-enter it, and 
-                    same with password. <br>But we can't have nice things.</p>
+                <input type='submit' class=class='input-btn-sign-in' id='register-submission' value='Sign Up'>
               </div>
             </form>
           </div>
-            <form action="/sign-in" method='GET'>
-              <h4>Already have an account? </h4>
+<!--             <form action="/sign-in" method='GET'>
+              <h5>Already have an account? </h5>
                 <input type="hidden" name="button-click-choice" value="log-in">
-                <input type="submit" class="btn btn-lg btn-primary-outline" value="Log In"></form>
+                <input type="submit" class="input-button" value="Log In"></form> -->
         </div>
 
 
@@ -177,16 +176,16 @@
           <h1>Login</h1>
           <div>
             <form action='/login' method='POST' id='login-form'>
-              <input type='text' name='email' placeholder='email address' required>
-              <input type='password' name='pw' placeholder='password' required>
+              <input type='text' name='email' size="40" placeholder='email address' required>
+              <input type='password' name='pw' size="40" placeholder='password' required>
               <div id='submit-login'>
-                <input type='submit' id='login-submission' value='Log In'>
+                <input type='submit' class='input-btn-sign-in' id='login-submission' value='Log In'>
               </div>
             </form>
-            <form action="/sign-in" method='GET'>
+<!--         <form action="/sign-in" method='GET'>
               <h4>Need to register? </h4>
               <input type="hidden" name="button-click-choice" value="sign-up">
-              <input type="submit" class="btn btn-lg btn-primary-outline" value="Sign Up"></form>
+              <input type="submit" class="btn btn-lg btn-primary-outline" value="Sign Up"></form> -->
 
           </div>
         <h6><a href="/sign-in/password-recovery">Forgot your password?</a></h6>
