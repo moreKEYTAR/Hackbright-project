@@ -8,7 +8,7 @@ if (userIsLoggedIn) {
 
     // Make Donut Chart of percent of different types
     let ctx_donut = $("#donut-chart-canvas").get(0).getContext("2d");
-
+    ctx_donut.canvas.height = 175;
     $.get("/productivity-stats.json", function (data) {
         let myDonutChart = new Chart(ctx_donut, {
                                                type: 'doughnut',

@@ -189,9 +189,24 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
   margin-left: 10px;
 }
+/* used in navbar for Dashboard */
 .large-para-text {
   font-size: 2em;
 }
+
+span.attribution {
+  font-size: 10px;
+}
+div.attribution {
+  text-align: right;
+}
+
+#weekly-chart {
+  height: 600px;
+}
+/*#weekly-chart-legend {
+  display: inline-block;
+}*/
 
 /* TEMP COLORS FOR PROGRAMMING */
 
@@ -293,7 +308,9 @@ a.edit-this {
 .make-new-project {
   text-align:right; 
 }
-
+#team-invitations-form textarea {
+  resize: none;
+}
 
 .dock {
   /* styling update pending */
@@ -350,9 +367,7 @@ a.edit-this {
     width:100%; /* Input text in the project modal is 300px wide...min-width?? */
     height:100%;
 }
-#team-invitations-form textarea {
-  resize: none;
-}
+
 
 .modal-content { /* Borrowed from W3Schools 'how to css modals'*/
     /*position:absolute;*/
@@ -392,16 +407,7 @@ a.edit-this {
 #donut-chart-canvas {
   width: 500px;
   height: auto;
-}
-/*body {
-    padding-top: 50px;
-    font-family: 'Raleway', sans-serif;
-}
 
-h2 {
-    text-align: center;
-    margin-bottom: 2em;
-}*/
-
+}
 
 
