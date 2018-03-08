@@ -74,13 +74,13 @@ class DatabaseTests(unittest.TestCase):
         """Test making new user."""
 
         with self.client as c:  # required for using session
-            result = c.post("/users/new",
+            result = c.post("/register",
                             data={"email": "testing@gmail.com", "pw": "123abc"},
                             follow_redirects=True)
 
             self.assertIn("Dashboard", result.data)
             self.assertEqual(session["new_user"], True)
-            self.assertEqual(session["login"], True)
+            self.assertEqual(session["is_logged_in"], True)
 
 # ----------------------------------------------------------------------
 # Traceback (most recent call last):

@@ -316,7 +316,7 @@ div.landing-form-inputs {
   }
 #landing-intro-text {
   position:absolute;
-  top:228px;
+  top:40%;
   left:0;
   border: 1px solid #FCFDFA;
   background-color: transparent;
