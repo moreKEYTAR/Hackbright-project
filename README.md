@@ -7,7 +7,7 @@ SamePage provides lightweight kanban project management through simple, virtual 
 
 Email API integration allows users to invite new contributors, and data visualizations provide user and team data insights. Using drag and drop kinetics, the app is intuitive and easy to use for personal projects, planning events with friends, or keeping a professional team on the same page.
 
-![SamePage landing screen](/static/assets/icons/homepage-screenshot.png)
+![SamePage landing screen](/static/assets/demo/homepage-screenshot.png)
 
 ### Technologies
 
@@ -59,7 +59,7 @@ Python   //   PostgresQL  //  SQLAlchemy  //  Flask  //  Jinja  //  Javascript (
 - Task "aging" through visual feedback, when left in group grabbable pot
 - Max volume settings to encourage re-prioritization to backlog or back to the group pool
 
-![Insights page](/static/assets/icons/insights-screenshot.png)
+![Insights page](/static/assets/demo/insights-screenshot.png)
 *Insites page with productivity information and data visualization with Chart.js*
 
 ### Installation
