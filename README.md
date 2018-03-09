@@ -1,6 +1,6 @@
 SamePage
 ========
-![alt text](https://github.com/moreKEYTAR/Hackbright-project/static/assets/icons/logo-88.png "SamePage logo icon")
+![SamePage logo icon](/static/assets/icons/logo-88.png)
 
 ### Summary
 SamePage provides lightweight kanban project management through simple, virtual pinboards. A user can be a member of several teams, navigating between team boards to “opt in” and claim action items, or post new ideas for teammates to upvote. Teammates see all pending tasks at a glance, as well as click into any of their pending action items to update notes or mark as completed.
@@ -66,5 +66,3 @@ See helper.py in section SENDING EMAILS (MAILGUN API).
 SamePage was created as an exercise for confirmation learning about end-to-end web development in a 4 week sprint. Therefore, code will continue to be refactored and improved for modularity, clarity, and runtime considerations. 
 
 Samepage's design choices reflect the author's view that some project management tools are not intuitive for non-technical teams, and allow too many discouraging "deadline" metrics that can be set by another teammate. Ideally in Samepage, everyone knows what everyone is working on, and can support each other in meeting team goals.
-
-
