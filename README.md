@@ -7,11 +7,14 @@ SamePage provides lightweight kanban project management through simple, virtual 
 
 Email API integration allows users to invite new contributors, and data visualizations provide user and team data insights. Using drag and drop kinetics, the app is intuitive and easy to use for personal projects, planning events with friends, or keeping a professional team on the same page.
 
+![SamePage landing screen](/static/assets/icons/homepage-screenshot.png)
+
 ### Technologies
 
 Python   //   PostgresQL  //  SQLAlchemy  //  Flask  //  Jinja  //  Javascript (AJAX, JSON)  //  JQuery  //  JQuery UI  //  HTML  //  CSS  //  Bootstrap (JS and CSS) // MailGun API  //  Chart.js  //  Coverage.py
 
 ![Navigating Boards and Claiming an Idea or Action Item](/static/assets/demo/nav-boards-claim-item.gif)
+*Navigating Boards and Claiming an Idea or Action*
 
 ### Features
   - Create teams (such as Work or Home)
@@ -24,6 +27,9 @@ Python   //   PostgresQL  //  SQLAlchemy  //  Flask  //  Jinja  //  Javascript (
   - Store notes in items
   - Mark items as completed with a double click into a claimed item
   - View team data insights after login
+ 
+![Completing an item, viewing permissions Item](/static/assets/demo/completing-items-permissions.gif)
+*Completing an item, viewing an item's permissions*
 
 ### 2.0 Under Development
   - Delete or edit items and ideas without completion
@@ -40,6 +46,9 @@ Python   //   PostgresQL  //  SQLAlchemy  //  Flask  //  Jinja  //  Javascript (
   - Expand email API permissions package to support all user email invitations (non-registered endpoints)
   - Addition of About page
   - Increased user feedback through animation/page updates, and auto-navigation on team creation
+ 
+![Email invitations and registration](/static/assets/demo/register-accept-email-invite.gif)
+*Email invitations and registration*
 
 ### Plans Beyond 2.0
 - Integration with Slack API for team login, team chat, item comment threads, and file sharing
@@ -49,6 +58,9 @@ Python   //   PostgresQL  //  SQLAlchemy  //  Flask  //  Jinja  //  Javascript (
 - Team board templates
 - Task "aging" through visual feedback, when left in group grabbable pot
 - Max volume settings to encourage re-prioritization to backlog or back to the group pool
+
+![Insights page](/static/assets/icons/insights-screenshot.png)
+*Insites page with productivity information and data visualization with Chart.js*
 
 ### Installation
 
