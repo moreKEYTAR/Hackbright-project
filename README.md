@@ -45,6 +45,7 @@ Python   //   PostgresQL  //  SQLAlchemy  //  Flask  //  Jinja  //  Javascript (
   - Search past and current items/ideas for keywords for project milestones viewing
   - Expand email API permissions package to support all user email invitations (non-registered endpoints)
   - Addition of About page
+  - Accessibility modifications 
   - Increased user feedback through animation/page updates, and auto-navigation on team creation
  
 ![Email invitations and registration](/static/assets/demo/register-accept-email-invite.gif)
